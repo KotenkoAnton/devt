@@ -1,0 +1,164 @@
+.title-text {
+  float: left;
+  margin-left: 100px;
+}
+
+/* add button */
+#add_button {
+  background-color: #43b05c;
+  border-radius: 8px;
+  float: right;
+  width: 140px;
+  height: 40px;
+  margin-right: 20px;
+}
+
+#add_button:hover {
+  cursor: pointer;
+  box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+#add_button #plus_icon {
+  margin-top: 5px;
+  float: left;
+}
+#add_button #text {
+  margin-top: 10px;
+  color: #d9eede;
+}
+
+/* ruler button */
+#ruler_button {
+  float: right;
+  margin-right: 30px;
+}
+
+#ruler_button:hover {
+  cursor: pointer;
+}
+
+/*                 */
+
+/* info box */
+
+#info_box {
+  position: absolute;
+  width: 300px;
+  height: 400px;
+  background-color: white;
+  box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+#info_box:after {
+  content: " ";
+  position: absolute;
+  left: -13px;
+  top: 60px;
+  border-top: 8px solid transparent;
+  border-right: 13px solid white;
+  border-left: none;
+  border-bottom: 8px solid transparent;
+}
+
+.item-name {
+  margin-left: 20px;
+  margin-top: 12px;
+}
+
+.info-box-delimiter {
+  margin-top: 5px;
+}
+
+.info-label {
+  float: left;
+  margin-left: 20px;
+  color: #808080;
+  font-size: 14px;
+}
+
+.info-text {
+  float: right;
+  margin-right: 25px;
+  color: #808080;
+  font-size: 14px;
+}
+
+.green-status {
+  color: green;
+}
+
+.item-actions {
+  margin-top: 20px;
+  height: 60px;
+}
+.open-button {
+  position: absolute;
+  border-radius: 8px;
+  width: 100px;
+  height: 35px;
+  left: 20px;
+  bottom: 12px;
+  background-color: #43b05c;
+  color: #d9eede;
+  text-align: center;
+}
+
+.open-button-text {
+  margin-top: 4px;
+}
+
+.open-button:hover {
+  cursor: pointer;
+  box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.unlink-button {
+  position: absolute;
+  bottom: 10px;
+  right: 120px;
+}
+
+.unlink-button:hover {
+  cursor: pointer;
+}
+
+.copy-button {
+  position: absolute;
+  bottom: 10px;
+  right: 70px;
+}
+
+.copy-button:hover {
+  cursor: pointer;
+}
+
+.delete-button {
+  position: absolute;
+  bottom: 10px;
+  right: 20px;
+}
+
+.delete-button:hover {
+  cursor: pointer;
+}
+/*                */
+
+#canvas_wrapper {
+  position: relative;
+}
+
+canvas {
+  width: 1200px;
+  height: 800px;
+}
+
+#action_wrapper {
+  height: 40px;
+  margin-top: 20px;
+  width: inherit;
+}
+
+#wrapper {
+  // border:1px solid black;
+  width: 1200px;
+}
