@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_10_12_120036) do
+ActiveRecord::Schema.define(version: 2018_10_20_091646) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -62,6 +62,12 @@ ActiveRecord::Schema.define(version: 2018_10_12_120036) do
     t.integer "position_y"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "width"
+    t.integer "height"
+    t.integer "radius"
+    t.integer "rays_amount"
+    t.integer "outside_diameter"
+    t.integer "inside_diameter"
   end
 
 end

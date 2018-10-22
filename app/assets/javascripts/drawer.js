@@ -5,12 +5,27 @@ class Drawer {
     this.item_paths = [];
     this.connections = [];
     this.connection_paths = [];
+    this.shapes = [];
   }
 
   draw_connections(connections) {
     this.connections = connections;
     for (let connection of connections) {
       this._draw_connection(connection);
+    }
+  }
+
+  draw_shapes(shapes) {
+    for (let shape of shapes) {
+      if (shape.shape == "rectangle") {
+        let rectangle = new paper.Path.Rectangle(
+          new paper.Point(shape.position_x, shape.position_y),
+          new paper.Size(shape.width, shape.height)
+        );
+        rectangle.strokeColor = "black";
+        rectangle._id = shape.id;
+        this.shapes.push(rectangle);
+      }
     }
   }
 
@@ -70,49 +85,43 @@ class Drawer {
     });
   }
 
+  _find_shape_by_id(shape_id) {
+    return this.shapes.find(shape => {
+      return shape._id == shape_id;
+    });
+  }
+
   _draw_connection(connection) {
+    let first_object_type = connection.first_object_type;
+    let second_object_type = connection.second_object_type;
     let first_object =
-      connection.first_object_type == "Item"
+      first_object_type == "Item"
         ? this._find_item_by_id(connection.first_object_id)
-        : null; // replace it with shape logic
+        : this._find_shape_by_id(connection.first_object_id);
     let second_object =
-      connection.second_object_type == "Item"
+      second_object_type == "Item"
         ? this._find_item_by_id(connection.second_object_id)
-        : null; // replace it with shape logic
+        : this._find_shape_by_id(connection.second_object_id);
     let first_bounds = first_object.bounds;
     let second_bounds = second_object.bounds;
-    let x_differece = Math.abs(first_bounds.x - second_bounds.x);
+    let x_difference = Math.abs(first_bounds.x - second_bounds.x);
     let y_difference = Math.abs(first_bounds.y - second_bounds.y);
     let first_point, second_point;
-    if (x_differece >= y_difference) {
-      let left, right;
-      [right, left] =
-        first_bounds.x > second_bounds.x
-          ? [first_bounds, second_bounds]
-          : [second_bounds, first_bounds];
-      first_point = new paper.Point(
-        left.x + left.width,
-        left.y + Math.floor(left.height / 2)
-      );
-      second_point = new paper.Point(
-        right.x,
-        right.y + Math.floor(right.height / 2)
-      );
-    } else {
-      let up, down;
-      [up, down] =
-        first_bounds.y < second_bounds.y
-          ? [first_bounds, second_bounds]
-          : [second_bounds, first_bounds];
-      first_point = new paper.Point(
-        up.x + Math.floor(up.width / 2),
-        up.y + up.height + 25
-      ); // plus 25 to height for text right below item
-      second_point = new paper.Point(
-        down.x + Math.floor(down.width / 2),
-        down.y
-      );
-    }
+    let direction_line, first_border, second_border;
+    [direction_line, first_border, second_border] =
+      x_difference >= y_difference
+        ? ["x", "right", "left"]
+        : ["y", "down", "up"];
+    [first_point, second_point] =
+      first_bounds[direction_line] > second_bounds[direction_line]
+        ? [
+            this._point_for(first_object_type, first_bounds, first_border),
+            this._point_for(second_object_type, second_bounds, second_border)
+          ]
+        : [
+            this._point_for(first_object_type, first_bounds, second_border),
+            this._point_for(second_object_type, second_bounds, first_border)
+          ];
     let path = new paper.Path({ strokeColor: "black" });
     path.moveTo(first_point);
     path.lineTo(second_point);
@@ -120,6 +129,38 @@ class Drawer {
     path._first_object_id = first_object._id;
     path._second_object_id = second_object._id;
     this.connection_paths.push(path);
+  }
+
+  _point_for(object_type, object_bounds, position) {
+    if (object_type == "Item" || object_type == "Shape") {
+      switch (position) {
+        case "right": {
+          return new paper.Point(
+            object_bounds.x,
+            object_bounds.y + Math.floor(object_bounds.height / 2)
+          );
+        }
+        case "left": {
+          return new paper.Point(
+            object_bounds.x + object_bounds.width,
+            object_bounds.y + Math.floor(object_bounds.height / 2)
+          );
+        }
+        case "up": {
+          let height_plus = object_type == "Item" ? 25 : 0;
+          return new paper.Point(
+            object_bounds.x + Math.floor(object_bounds.width / 2),
+            object_bounds.y + object_bounds.height + height_plus // plus 25 to height for text right below item
+          );
+        }
+        case "down": {
+          return new paper.Point(
+            object_bounds.x + Math.floor(object_bounds.width / 2),
+            object_bounds.y
+          );
+        }
+      }
+    }
   }
 
   _point_for_text(item, content) {

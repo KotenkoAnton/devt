@@ -2,7 +2,7 @@ module Api
   class MapsController < ApplicationController
     def fetch_map
       map = Map.find_by(name: params[:map])
-      render json: { items: load_items(map), connections: load_connections(map) }
+      render json: { items: load_items(map), connections: load_connections(map), shapes: load_shapes(map) }
     end
 
     def change_item_position
@@ -28,6 +28,10 @@ module Api
 
     def load_connections(map)
       Connection.where(map: map).as_json(except: %i[created_at updated_at])
+    end
+
+    def load_shapes(map)
+      Shape.where(map: map).as_json(except: %i[created_at updated_at])
     end
   end
 end

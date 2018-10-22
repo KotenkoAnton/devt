@@ -12,6 +12,7 @@ class WhatsUp {
   load_map(map_name) {
     this.api_communicator.fetch_map(map_name, data => {
       this.drawer.place_items(data["items"]);
+      this.drawer.draw_shapes(data["shapes"]);
       this.drawer.draw_connections(data["connections"]);
     });
   }
