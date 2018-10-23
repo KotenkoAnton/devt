@@ -5,6 +5,7 @@ class WhatsUp {
     this.api_communicator = new ApiCommunicator();
     this.drawer = new Drawer(); // pass "this" to store items in whats_up
     this.mouse_event_handler = new MouseEventHandler(this, new paper.Tool());
+    this.mouse_event_handler.switch_to("draggable");
     this.dom_elements_handler = new DomElementsHandler();
     paper.setup(canvas_id); // initialize paper
   }

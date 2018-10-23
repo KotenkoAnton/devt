@@ -47,6 +47,9 @@ class MouseEventHandler {
       let x_shift = this.moving_target.position.x - event.point.x;
       let y_shift = this.moving_target.position.y - event.point.y;
       this.moving_target.position = event.point;
+      if (!this.moving_target.text) {
+        return;
+      }
       this.moving_target.text.position.x =
         this.moving_target.text.position.x - x_shift;
       this.moving_target.text.position.y =
@@ -58,10 +61,21 @@ class MouseEventHandler {
         return;
       }
       this.whats_up.drawer.draw_item_connections(this.moving_target._id);
-      this.whats_up.api_communicator.change_item_position(
-        this.moving_target._id,
-        event.point
-      );
+      if (this.moving_target._type == "device") {
+        this.whats_up.api_communicator.change_item_position(
+          this.moving_target._id,
+          event.point
+        );
+      }
+      if (this.moving_target._type == "shape") {
+        this.whats_up.api_communicator.change_shape_position(
+          this.moving_target._id,
+          {
+            x: Math.floor(this.moving_target.bounds.x),
+            y: Math.floor(this.moving_target.bounds.y)
+          }
+        );
+      }
       this.moving = false;
       this.moving_target = null;
     };
@@ -104,15 +118,27 @@ class MouseEventHandler {
 
     let target_item = event_point => {
       for (let item of this.whats_up.drawer.get_items()) {
-        if (
-          event_point.x > item.bounds.x &&
-          event_point.x < item.bounds.x + item.bounds.width &&
-          event_point.y > item.bounds.y &&
-          event_point.y < item.bounds.y + item.bounds.height
-        ) {
+        if (is_target(item, event_point)) {
+          item._type = "device";
           return item;
         }
       }
+
+      for (let shape of this.whats_up.drawer.get_shapes()) {
+        if (is_target(shape, event_point)) {
+          shape._type = "shape";
+          return shape;
+        }
+      }
+    };
+
+    let is_target = (item, event_point) => {
+      return (
+        event_point.x > item.bounds.x &&
+        event_point.x < item.bounds.x + item.bounds.width &&
+        event_point.y > item.bounds.y &&
+        event_point.y < item.bounds.y + item.bounds.height
+      );
     };
 
     let choose_mode = (clickable_function, draggable_function, event) => {

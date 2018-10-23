@@ -15,6 +15,13 @@ module Api
       item.save
     end
 
+    def change_shape_position
+      shape = Shape.find(params[:shape_id])
+      shape.position_x = params[:position_x]
+      shape.position_y = params[:position_y]
+      shape.save
+    end
+
     private
 
     def load_items(map)

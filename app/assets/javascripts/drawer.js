@@ -53,6 +53,10 @@ class Drawer {
     return this.item_paths;
   }
 
+  get_shapes() {
+    return this.shapes;
+  }
+
   delete_item_connections(item_id) {
     for (let index = this.connection_paths.length - 1; index >= 0; index--) {
       let connection = this.connection_paths[index];
