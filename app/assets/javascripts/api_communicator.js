@@ -24,4 +24,17 @@ class ApiCommunicator {
       }
     });
   }
+
+  change_shape_size(shape_id, size, position) {
+    $.post({
+      url: `${location.origin}/api/maps/change_shape_size`,
+      data: {
+        shape_id: shape_id,
+        width: size.width,
+        height: size.height,
+        position_x: position.x,
+        position_y: position.y
+      }
+    });
+  }
 }

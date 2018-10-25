@@ -22,6 +22,15 @@ module Api
       shape.save
     end
 
+    def change_shape_size
+      shape = Shape.find(params[:shape_id])
+      shape.position_x = params[:position_x]
+      shape.position_y = params[:position_y]
+      shape.width = params[:width]
+      shape.height = params[:height]
+      shape.save
+    end
+
     private
 
     def load_items(map)

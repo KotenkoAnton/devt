@@ -18,15 +18,25 @@ class Drawer {
   draw_shapes(shapes) {
     for (let shape of shapes) {
       if (shape.shape == "rectangle") {
-        let rectangle = new paper.Path.Rectangle(
+        let rectangle = this.draw_rectangle(
           new paper.Point(shape.position_x, shape.position_y),
           new paper.Size(shape.width, shape.height)
         );
-        rectangle.strokeColor = "black";
         rectangle._id = shape.id;
+        rectangle._type = "shape";
         this.shapes.push(rectangle);
       }
     }
+  }
+
+  draw_rectangle(point, size) {
+    let rectangle = new paper.Path.Rectangle(point, size);
+    rectangle.strokeColor = "black";
+    return rectangle;
+  }
+
+  add_rectangle(rectangle) {
+    this.shapes.push(rectangle);
   }
 
   place_items(items) {
@@ -57,12 +67,14 @@ class Drawer {
     return this.shapes;
   }
 
-  delete_item_connections(item_id) {
+  delete_item_connections(item_id, type) {
     for (let index = this.connection_paths.length - 1; index >= 0; index--) {
       let connection = this.connection_paths[index];
       if (
-        connection._first_object_id == item_id ||
-        connection._second_object_id == item_id
+        (connection._first_object_id == item_id &&
+          connection._first_object_type == type) ||
+        (connection._second_object_id == item_id &&
+          connection._second_object_type == type)
       ) {
         connection.remove();
         this.connection_paths.splice(index, 1);
@@ -70,11 +82,22 @@ class Drawer {
     }
   }
 
-  draw_item_connections(item_id) {
+  delete_rectangle(id) {
+    for (let i = this.shapes.length - 1; i >= 0; i--) {
+      if (this.shapes[i]._id == id) {
+        this.shapes[i].remove();
+        this.shapes.splice(i, 1);
+      }
+    }
+  }
+
+  draw_item_connections(item_id, type) {
     for (let connection of this.connections) {
       if (
-        connection.first_object_id == item_id ||
-        connection.second_object_id == item_id
+        (connection.first_object_id == item_id &&
+          connection.first_object_type == type) ||
+        (connection.second_object_id == item_id &&
+          connection.second_object_type == type)
       ) {
         this._draw_connection(connection);
       }
@@ -131,7 +154,9 @@ class Drawer {
     path.lineTo(second_point);
     path._id = connection.id;
     path._first_object_id = first_object._id;
+    path._first_object_type = first_object_type;
     path._second_object_id = second_object._id;
+    path._second_object_type = second_object_type;
     this.connection_paths.push(path);
   }
 

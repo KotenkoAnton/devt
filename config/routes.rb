@@ -7,6 +7,7 @@ Rails.application.routes.draw do
         get :fetch_map
         post :change_item_position
         post :change_shape_position
+        post :change_shape_size
       end
     end
   end
