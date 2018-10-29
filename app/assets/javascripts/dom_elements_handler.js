@@ -1,5 +1,5 @@
 class DomElementsHandler {
-  open_box(item) {
+  open_item_box(item) {
     let info_box_html = `
       <div id='info_box' class='container'>
         <div class='item-name'>Bolshoy_Dipol_RM5</div>
@@ -41,7 +41,28 @@ class DomElementsHandler {
     });
   }
 
-  close_box() {
+  close_item_box() {
     $("#info_box").remove();
+  }
+
+  open_action_box(title) {
+    $("#action_box").remove();
+    let action_box_html = `
+      <div id='action_box' class='action_box'>
+        <div class='container'>
+          <div class='title'>
+            ${title}
+          </div>
+          <div id='close_button' class='close-button'>
+            <img src='assets/close_button.svg'>
+          </div>
+        </div>
+      </div>
+    `;
+
+    $("#canvas").after(action_box_html);
+    $("#close_button").click(() => {
+      $("#action_box").remove();
+    });
   }
 }

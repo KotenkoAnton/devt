@@ -280,14 +280,14 @@ class MouseEventHandler {
     let on_mouse_click = event => {
       if (this.box_opened) {
         this.box_opened = false;
-        this.whats_up.dom_elements_handler.close_box();
+        this.whats_up.dom_elements_handler.close_item_box();
         return;
       } else {
         let item = target_item(event.point);
         if (!item) {
           return;
         }
-        this.whats_up.dom_elements_handler.open_box(item);
+        this.whats_up.dom_elements_handler.open_item_box(item);
         this.box_opened = true;
       }
     };

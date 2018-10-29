@@ -143,6 +143,39 @@
 }
 /*                */
 
+/* action box */
+.action_box {
+  position: absolute;
+  bottom: 150px;
+  right: 150px;
+  width: 850px;
+  height: 550px;
+  border: 1px solid #ccc;
+  background-color: white;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+}
+
+.title {
+  float: left;
+  margin-top: 15px;
+  margin-left: 10px;
+  color: #808080;
+}
+
+.close-button {
+  width: 15px;
+  height: 15px;
+  float: right;
+  margin-top: 15px;
+  margin-right: 10px;
+}
+
+.close-button:hover {
+  cursor: pointer;
+}
+
+/* */
+
 #canvas_wrapper {
   position: relative;
 }
@@ -150,6 +183,10 @@
 canvas {
   width: 1200px;
   height: 800px;
+  border: 1px solid #ccc;
+  border-radius: 16px;
+  margin: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
 #action_wrapper {
@@ -159,6 +196,5 @@ canvas {
 }
 
 #wrapper {
-  // border:1px solid black;
   width: 1200px;
 }
