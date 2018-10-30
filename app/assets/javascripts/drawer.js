@@ -51,14 +51,26 @@ class Drawer {
         _item = paper.project.importSVG(icons["Map"]);
       }
       _item.position = { x: item.position_x, y: item.position_y };
-      _item.text = new paper.PointText(this._point_for_text(_item, text));
-      _item.text.content = text;
-      _item.text.style = {
-        fontSize: 12,
-        fillColor: "black"
-      };
+      _item.text_content = text;
       _item._id = item.id;
       this.item_paths.push(_item); // store items in whats_up
+    }
+  }
+
+  place_texts() {
+    for (let item of this.item_paths) {
+      item.text = new paper.PointText(
+        this._point_for_text(item, item.text_content)
+      );
+      item.text.content = item.text_content;
+      item.text.style = {
+        fontSize: 13,
+        fillColor: "black"
+      };
+      item.rect = new paper.Path.Rectangle(item.text.bounds);
+      item.rect.fillColor = "white";
+      item.rect.strokeColor = "white";
+      item.text.insertAbove(item.rect);
     }
   }
 

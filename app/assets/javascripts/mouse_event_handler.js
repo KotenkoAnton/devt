@@ -66,10 +66,10 @@ class MouseEventHandler {
       if (!this.moving_target.text) {
         return;
       }
-      this.moving_target.text.position.x =
-        this.moving_target.text.position.x - x_shift;
-      this.moving_target.text.position.y =
-        this.moving_target.text.position.y - y_shift;
+      this.moving_target.text.position.x -= x_shift;
+      this.moving_target.text.position.y -= y_shift;
+      this.moving_target.rect.position.x -= x_shift;
+      this.moving_target.rect.position.y -= y_shift;
     };
 
     let draggable_mouse_move = event => {
