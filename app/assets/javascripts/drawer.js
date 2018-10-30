@@ -31,7 +31,7 @@ class Drawer {
 
   draw_rectangle(point, size) {
     let rectangle = new paper.Path.Rectangle(point, size);
-    rectangle.strokeColor = "black";
+    rectangle.strokeColor = "#808080";
     return rectangle;
   }
 
@@ -47,11 +47,14 @@ class Drawer {
           : icons["Map"];
       let text = item.name;
       let _item = paper.project.importSVG(icon);
+      if (!_item) {
+        _item = paper.project.importSVG(icons["Map"]);
+      }
       _item.position = { x: item.position_x, y: item.position_y };
       _item.text = new paper.PointText(this._point_for_text(_item, text));
       _item.text.content = text;
       _item.text.style = {
-        fontSize: 14,
+        fontSize: 12,
         fillColor: "black"
       };
       _item._id = item.id;
@@ -129,6 +132,9 @@ class Drawer {
       second_object_type == "Item"
         ? this._find_item_by_id(connection.second_object_id)
         : this._find_shape_by_id(connection.second_object_id);
+    if (!first_object || !second_object) {
+      return;
+    }
     let first_bounds = first_object.bounds;
     let second_bounds = second_object.bounds;
     let x_difference = Math.abs(first_bounds.x - second_bounds.x);
@@ -149,7 +155,10 @@ class Drawer {
             this._point_for(first_object_type, first_bounds, second_border),
             this._point_for(second_object_type, second_bounds, first_border)
           ];
-    let path = new paper.Path({ strokeColor: "black" });
+    let path = new paper.Path({
+      strokeColor: "blue",
+      strokeWidth: 2
+    });
     path.moveTo(first_point);
     path.lineTo(second_point);
     path._id = connection.id;
@@ -196,7 +205,7 @@ class Drawer {
     return new paper.Point(
       item.bounds.x +
         Math.floor(item.bounds.width / 2) -
-        Math.floor((content.length / 2) * 8),
+        Math.floor((content.length / 2) * 6),
       item.bounds.y + item.bounds.height + 14
     );
   }
