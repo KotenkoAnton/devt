@@ -149,12 +149,19 @@ class Drawer {
     }
     let first_bounds = first_object.bounds;
     let second_bounds = second_object.bounds;
-    let x_difference = Math.abs(first_bounds.x - second_bounds.x);
+    let left_x_difference = first_bounds.x - second_bounds.x;
+    let right_x_difference =
+      first_bounds.x +
+      first_bounds.width -
+      (second_bounds.x + second_bounds.width);
     let y_difference = Math.abs(first_bounds.y - second_bounds.y);
+
     let first_point, second_point;
     let direction_line, first_border, second_border;
     [direction_line, first_border, second_border] =
-      x_difference >= y_difference
+      Math.abs(left_x_difference) >= y_difference &&
+      ((left_x_difference > 0 && right_x_difference > 0) ||
+        (left_x_difference < 0 && right_x_difference < 0))
         ? ["x", "right", "left"]
         : ["y", "down", "up"];
     [first_point, second_point] =
