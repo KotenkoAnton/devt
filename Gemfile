@@ -12,8 +12,10 @@ gem 'uglifier', '>= 1.3.0'
 
 gem 'bootsnap', '>= 1.1.0', require: false
 gem 'coffee-rails', '~> 4.2'
+gem 'figaro'
 gem 'jbuilder', '~> 2.5'
 gem 'jquery-rails'
+gem 'rest-client'
 gem 'turbolinks', '~> 5'
 
 group :development, :test do
