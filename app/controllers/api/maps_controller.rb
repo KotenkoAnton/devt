@@ -31,6 +31,11 @@ module Api
       shape.save
     end
 
+    def map_name_by_item_id
+      item = Item.find(params[:item_id])
+      render json: { map_name: Map.find(item.placeable_id).name }
+    end
+
     private
 
     def load_items(map)

@@ -53,6 +53,7 @@ class Drawer {
       _item.position = { x: item.position_x, y: item.position_y };
       _item.text_content = text;
       _item._id = item.id;
+      _item._type = item.placeable_type.toLowerCase();
       this.item_paths.push(_item); // store items in whats_up
     }
   }

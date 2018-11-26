@@ -49,7 +49,7 @@ class MouseEventHandler {
       this.moving = true;
       this.moving_target = item;
       let type;
-      if (item._type == "device") {
+      if (item._type == "device" || item._type == "map") {
         type = "Item";
       }
       if (item._type == "shape") {
@@ -117,7 +117,10 @@ class MouseEventHandler {
         return;
       }
       let type;
-      if (this.moving_target._type == "device") {
+      if (
+        this.moving_target._type == "device" ||
+        this.moving_target._type == "map"
+      ) {
         type = "Item";
       }
       if (this.moving_target._type == "shape") {
@@ -287,8 +290,24 @@ class MouseEventHandler {
         if (!item) {
           return;
         }
-        this.whats_up.dom_elements_handler.open_item_box(item);
-        this.box_opened = true;
+        switch (item._type) {
+          case "device": {
+            this.whats_up.dom_elements_handler.open_item_box(item);
+            this.box_opened = true;
+            break;
+          }
+          case "map": {
+            this.whats_up.api_communicator.map_name_by_item_id(
+              item._id,
+              data => {
+                // redirecting to selected map
+                window.location.href = `${window.location.origin}/maps?map=${
+                  data["map_name"]
+                }`;
+              }
+            );
+          }
+        }
       }
     };
 
@@ -303,7 +322,6 @@ class MouseEventHandler {
     let target_item = event_point => {
       for (let item of this.whats_up.drawer.get_items()) {
         if (is_target(item, event_point)) {
-          item._type = "device";
           return item;
         }
       }
