@@ -4,6 +4,7 @@ class MouseEventHandler {
   constructor(whats_up, papertool) {
     this.whats_up = whats_up;
     this.mode = "clickable";
+    this.clickable_mode = "main_usage";
     this.papertool = papertool;
 
     // draggable:
@@ -23,11 +24,22 @@ class MouseEventHandler {
 
     //
 
+    // ruler:
+
+    this.ruler_first_item = undefined;
+    this.ruler_second_item = undefined;
+
+    //
+
     this._set_events();
   }
 
   switch_to(mode) {
     this.mode = mode;
+  }
+
+  switch_clickable_mode_to(mode) {
+    this.clickable_mode = mode;
   }
 
   _set_events() {
@@ -280,7 +292,7 @@ class MouseEventHandler {
       }
     };
 
-    let on_mouse_click = event => {
+    let clickable_main_usage = event => {
       if (this.box_opened) {
         this.box_opened = false;
         this.whats_up.dom_elements_handler.close_item_box();
@@ -307,6 +319,43 @@ class MouseEventHandler {
               }
             );
           }
+        }
+      }
+    };
+
+    let clickable_ruler = event => {
+      let item = target_item(event.point);
+      if (!item) {
+        return;
+      }
+
+      if (!this.ruler_first_item) {
+        this.ruler_first_item = item;
+      } else {
+        this.ruler_second_item = item;
+        this.whats_up.dom_elements_handler.open_action_box(
+          "Создание связности объектов",
+          "link",
+          {
+            first_item: this.ruler_first_item,
+            second_item: this.ruler_second_item
+          }
+        );
+        this.ruler_first_item = undefined;
+        this.ruler_second_item = undefined;
+        this.clickable_mode = "main_usage";
+      }
+    };
+
+    let on_mouse_click = event => {
+      switch (this.clickable_mode) {
+        case "main_usage": {
+          clickable_main_usage(event);
+          break;
+        }
+        case "ruler": {
+          clickable_ruler(event);
+          break;
         }
       }
     };

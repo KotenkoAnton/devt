@@ -36,6 +36,17 @@ module Api
       render json: { map_name: Map.find(item.placeable_id).name }
     end
 
+    def create_connection
+      map = Map.find_by(name: params[:map_name])
+      first_item = Item.find(params[:first_item_id])
+      second_item = Item.find(params[:second_item_id])
+      connection = Connection.new
+      connection.first_object = first_item
+      connection.second_object = second_item
+      connection.map = map
+      connection.save
+    end
+
     private
 
     def load_items(map)

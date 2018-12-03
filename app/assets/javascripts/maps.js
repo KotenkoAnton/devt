@@ -5,6 +5,11 @@ let set_events = () => {
   $("#add_button").click(() => {
     whats_up.dom_elements_handler.open_action_box("Добавить объект");
   });
+
+  $("#ruler_button").click(() => {
+    whats_up.mouse_event_handler.switch_to("clickable");
+    whats_up.mouse_event_handler.switch_clickable_mode_to("ruler");
+  });
 };
 
 let init = () => {

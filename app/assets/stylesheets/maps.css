@@ -144,36 +144,135 @@
 /*                */
 
 /* action box */
-.action_box {
+.action-box {
   position: absolute;
-  bottom: 150px;
+  bottom: 80%;
   right: 150px;
-  width: 850px;
+  width: 900px;
   height: 550px;
   border: 1px solid #ccc;
   background-color: white;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
 }
 
-.title {
+.action-box .title {
   float: left;
   margin-top: 15px;
   margin-left: 10px;
   color: #808080;
 }
 
-.close-button {
+.action-box .close-button {
   width: 15px;
   height: 15px;
   float: right;
-  margin-top: 15px;
-  margin-right: 10px;
+  margin-top: 10px;
+  margin-right: 15px;
 }
 
-.close-button:hover {
+.action-box .close-button:hover {
   cursor: pointer;
 }
 
+/* action box ruler */
+.action-box .ruler-navigation {
+  margin-left: 25px;
+  width: 25%;
+  height: 450px;
+  border-right: 1px solid #808080;
+}
+
+.action-box .ruler-main {
+  position: relative;
+  width: 70%;
+}
+
+.action-box .block-wrapper {
+  margin-top: 30px;
+}
+
+.action-box .ruler-main .items-row {
+  font-size: 80%;
+  height: 20%;
+  position: relative;
+}
+
+.action-box .ruler-main .items-row .item-label {
+  position: absolute;
+  bottom: 10px;
+}
+
+.action-box .ruler-main .items-row .item-img {
+  position: absolute;
+  left: 130px;
+  top: 0;
+}
+
+.action-box .ruler-main .items-row .first-item {
+  float: left;
+  position: relative;
+  width: 300px;
+  margin-left: 10px;
+  height: 80px;
+}
+
+.action-box .ruler-main .items-row .second-item {
+  float: right;
+  position: relative;
+  width: 300px;
+  height: 80px;
+}
+
+.action-box .ruler-main .items-row .line {
+  position: absolute;
+  width: 243px;
+  height: 0;
+  left: 207px;
+  top: 22px;
+  border-top: 1px solid blue;
+  background-color: green;
+}
+
+.action-box .connection-type {
+  color: #515151;
+  font-size: 95%;
+  margin-bottom: 15px;
+}
+
+.action-box .ruler-navigation .ruler-title {
+  color: #808080;
+  font-size: 90%;
+  margin-bottom: 20px;
+}
+
+.action-box .connection-type input {
+  float: right;
+  margin-right: 15px;
+  margin-top: 4px;
+  cursor: pointer;
+}
+
+.action-box .ruler-main .save-button {
+  position: absolute;
+  left: 488px;
+  bottom: 0;
+  background-color: #43b05c;
+  border-radius: 8px;
+  float: right;
+  width: 140px;
+  height: 40px;
+}
+
+.save-button:hover {
+  cursor: pointer;
+  box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.action-box .ruler-main .save-button .save-text {
+  margin-top: 7px;
+  color: #d9eede;
+  margin-left: 29px;
+}
 /* */
 
 #canvas_wrapper {

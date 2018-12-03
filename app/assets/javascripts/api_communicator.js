@@ -45,4 +45,16 @@ class ApiCommunicator {
       success: success
     });
   }
+
+  create_connection(map_name, first_item_id, second_item_id, success = null) {
+    $.post({
+      url: `${location.origin}/api/maps/create_connection`,
+      data: {
+        map_name: map_name,
+        first_item_id: first_item_id,
+        second_item_id: second_item_id,
+        success: success
+      }
+    });
+  }
 }
