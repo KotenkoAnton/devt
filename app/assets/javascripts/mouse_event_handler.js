@@ -3,8 +3,8 @@
 class MouseEventHandler {
   constructor(whats_up, papertool) {
     this.whats_up = whats_up;
-    this.mode = "clickable";
-    this.clickable_mode = "main_usage";
+    this.mode = "clickable"; // clickable_ draggable
+    this.clickable_mode = "main_usage"; // main_usage, ruler
     this.papertool = papertool;
 
     // draggable:
@@ -39,7 +39,13 @@ class MouseEventHandler {
   }
 
   switch_clickable_mode_to(mode) {
+    this.ruler_first_item = undefined;
+    this.ruler_second_item = undefined;
     this.clickable_mode = mode;
+  }
+
+  get_clickable_mode() {
+    return this.clickable_mode;
   }
 
   _set_events() {
@@ -331,19 +337,25 @@ class MouseEventHandler {
 
       if (!this.ruler_first_item) {
         this.ruler_first_item = item;
-      } else {
+      } else if (this.ruler_first_item != item) {
         this.ruler_second_item = item;
-        this.whats_up.dom_elements_handler.open_action_box(
-          "Создание связности объектов",
-          "link",
-          {
-            first_item: this.ruler_first_item,
-            second_item: this.ruler_second_item
+        this.whats_up.api_communicator.check_connection_existence(
+          this.whats_up.map_name,
+          this.ruler_first_item._id,
+          this.ruler_second_item._id,
+          data => {
+            this.whats_up.dom_elements_handler.open_action_box(
+              data["connection_id"] ? "unlink" : "link",
+              {
+                first_item: this.ruler_first_item,
+                second_item: this.ruler_second_item
+              }
+            );
+            this.ruler_first_item = undefined;
+            this.ruler_second_item = undefined;
+            this.clickable_mode = "main_usage";
           }
         );
-        this.ruler_first_item = undefined;
-        this.ruler_second_item = undefined;
-        this.clickable_mode = "main_usage";
       }
     };
 

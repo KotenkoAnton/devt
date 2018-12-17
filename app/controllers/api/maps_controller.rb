@@ -47,6 +47,17 @@ module Api
       connection.save
     end
 
+    def check_connection_existence
+      connection = Connection.find_by_items(params[:map_name], params[:first_item_id], params[:second_item_id])
+      connection_id = connection&.id
+      render json: { connection_id: connection_id }
+    end
+
+    def delete_connection
+      connection = Connection.find_by_items(params[:map_name], params[:first_item_id], params[:second_item_id])
+      connection.destroy
+    end
+
     private
 
     def load_items(map)

@@ -191,24 +191,24 @@
   margin-top: 30px;
 }
 
-.action-box .ruler-main .items-row {
+.action-box .items-row {
   font-size: 80%;
   height: 20%;
   position: relative;
 }
 
-.action-box .ruler-main .items-row .item-label {
+.action-box .items-row .item-label {
   position: absolute;
   bottom: 10px;
 }
 
-.action-box .ruler-main .items-row .item-img {
+.action-box .items-row .item-img {
   position: absolute;
   left: 130px;
   top: 0;
 }
 
-.action-box .ruler-main .items-row .first-item {
+.action-box .items-row .first-item {
   float: left;
   position: relative;
   width: 300px;
@@ -216,14 +216,14 @@
   height: 80px;
 }
 
-.action-box .ruler-main .items-row .second-item {
+.action-box .items-row .second-item {
   float: right;
   position: relative;
   width: 300px;
   height: 80px;
 }
 
-.action-box .ruler-main .items-row .line {
+.action-box .items-row .connection-line {
   position: absolute;
   width: 243px;
   height: 0;
@@ -231,6 +231,10 @@
   top: 22px;
   border-top: 1px solid blue;
   background-color: green;
+}
+
+.action-box .items-row .unlink-line {
+  width: 500px !important;
 }
 
 .action-box .connection-type {
@@ -252,7 +256,7 @@
   cursor: pointer;
 }
 
-.action-box .ruler-main .save-button {
+.action-box .confirm-button {
   position: absolute;
   left: 488px;
   bottom: 0;
@@ -263,12 +267,18 @@
   height: 40px;
 }
 
-.save-button:hover {
+.action-box .unlink-confirm-button {
+  left: 710px !important;
+  bottom: 20px !important;
+  width: 163px !important;
+}
+
+.confirm-button:hover {
   cursor: pointer;
   box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
-.action-box .ruler-main .save-button .save-text {
+.action-box .confirm-button .text {
   margin-top: 7px;
   color: #d9eede;
   margin-left: 29px;

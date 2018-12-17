@@ -110,14 +110,45 @@ class DomElementsHandler {
                   ${items.second_item.text_content}
                 </label>
               </div>
-              <div class="line"></div>
+              <div class="connection-line"></div>
             </div>
 
-            <div id="save_connection_button" class="save-button">
-              <div class='save-text'>Сохранить</div>
+            <div id="save_connection_button" class="confirm-button">
+              <div class='text'>Сохранить</div>
             </div>
           </div>
         </div>
+      </div>
+    `;
+  }
+
+  _ruler_unlink_content(items) {
+    return `
+      <div class="items-row">
+        <div class="first-item">
+          <span class="item-img">
+            ${get_icon(items.first_item._icon_type)}
+          </span>
+          <label class="item-label"
+                 style="left: ${130 -
+                   (items.first_item.text_content.length - 6) * 4}px;">
+            ${items.first_item.text_content}
+          </label>
+        </div>
+        <div class="second-item">
+          <span class="item-img">
+            ${get_icon(items.second_item._icon_type)}
+          </span>
+          <label class="item-label"
+                 style="left: ${130 -
+                   (items.second_item.text_content.length - 6) * 4}px;">
+            ${items.second_item.text_content}
+          </label>
+        </div>
+        <div class="connection-line unlink-line"></div>
+      </div>
+      <div id="unlink_connection_button" class="confirm-button unlink-confirm-button">
+        <div class='text'>Удалить связь</div>
       </div>
     `;
   }
@@ -127,10 +158,24 @@ class DomElementsHandler {
       case "link": {
         return this._ruler_content(items);
       }
+      case "unlink": {
+        return this._ruler_unlink_content(items);
+      }
     }
   }
 
-  _action_box_events(content_type, items = null) {
+  _action_box_title(content_type) {
+    switch (content_type) {
+      case "link": {
+        return "Создание связности объектов";
+      }
+      case "unlink": {
+        return "Удаление связности объектов";
+      }
+    }
+  }
+
+  _set_action_box_events(content_type, items = null) {
     switch (content_type) {
       case "link": {
         $("#save_connection_button").click(() => {
@@ -144,16 +189,31 @@ class DomElementsHandler {
           );
         });
       }
+      case "unlink": {
+        $("#unlink_connection_button").click(() => {
+          this.whats_up.api_communicator.delete_connection(
+            this.whats_up.map_name,
+            items.first_item._id,
+            items.second_item._id,
+            () => {
+              document.location.reload();
+            }
+          );
+        });
+      }
     }
   }
 
   // action box
-  open_action_box(title, content_type, items = null) {
+  open_action_box(content_type, items = null) {
     $("#action_box").remove();
+    if (content_type == "link" || content_type == "unlink") {
+      $("#ruler_img").prop("src", "/assets/ruler.svg");
+    }
     let action_box_html = `
       <div id='action_box' class='action-box'>
         <div class='title'>
-          ${title}
+          ${this._action_box_title(content_type)}
         </div>
         <div id='close_button' class='close-button'>
           <img src='assets/close_button.svg'>
@@ -167,8 +227,7 @@ class DomElementsHandler {
     $("#close_button").click(() => {
       $("#action_box").remove();
     });
-
-    this._action_box_events(content_type, items);
+    this._set_action_box_events(content_type, items);
   }
 
   //

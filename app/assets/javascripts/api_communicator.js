@@ -57,4 +57,28 @@ class ApiCommunicator {
       }
     });
   }
+
+  check_connection_existence(map_name, first_item_id, second_item_id, success) {
+    $.get({
+      url: `${location.origin}/api/maps/check_connection_existence`,
+      data: {
+        map_name: map_name,
+        first_item_id: first_item_id,
+        second_item_id: second_item_id
+      },
+      success: success
+    });
+  }
+
+  delete_connection(map_name, first_item_id, second_item_id, success = null) {
+    $.post({
+      url: `${location.origin}/api/maps/delete_connection`,
+      data: {
+        map_name: map_name,
+        first_item_id: first_item_id,
+        second_item_id: second_item_id,
+        success: success
+      }
+    });
+  }
 }
