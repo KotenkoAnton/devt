@@ -15,7 +15,6 @@ let set_events = () => {
       whats_up.mouse_event_handler.switch_clickable_mode_to("ruler");
       $("#ruler_img").prop("src", "/assets/active_ruler.svg");
     }
-
   });
 };
 

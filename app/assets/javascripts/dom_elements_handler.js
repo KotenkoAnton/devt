@@ -153,6 +153,132 @@ class DomElementsHandler {
     `;
   }
 
+  _add_object_content() {
+    return `
+      <div class="adding-wrapper">
+        <div class="add-item">
+          <img src="assets/radio.svg" class="object-type-img uncentered-img">
+          <span class="uncentered-text">Радио<span>
+        </div>
+        <div class="add-item">
+          <img src="assets/hub.svg" class="object-type-img">
+          <span>Свичи</span>
+        </div>
+        <div class="add-item">
+          <img src="assets/L3.svg" class="object-type-img">
+          <span>L3-устройства</span>
+        </div>
+        <div class="add-item">
+          <img src="assets/router.svg" class="object-type-img">
+          <span>Роутеры</span>
+        </div>
+        <div class="add-item with-no-right-margin">
+          <img src="assets/cctv.svg" class="object-type-img">
+          <span>Камеры</span>
+        </div>
+        <div class="add-item">
+          <img src="assets/radio.svg" class="object-type-img uncentered-img">
+          <span>Оповещалки</span>
+        </div>
+        <div class="add-item">
+          <img src="assets/desktop.svg" class="object-type-img">
+          <span>Компьютеры</span>
+        </div>
+        <div class="add-item">
+          <img src="assets/network.svg" class="object-type-img">
+          <span>Конвертеры</span>
+        </div>
+        <div class="add-item">
+          <img src="assets/molecular.svg" class="object-type-img">
+          <span>Соединения</span>
+        </div>
+        <div class="add-item with-no-right-margin">
+          <img src="assets/frame.svg" class="object-type-img">
+          <span>Рамки</span>
+        </div>
+        <div class="add-item">
+          <img src="assets/figures.svg" class="object-type-img">
+          <span>Фигуры</span>
+        </div>
+        <div class="add-item">
+          <img src="assets/radio.svg" class="object-type-img uncentered-img">
+          <span>Надписи</span>
+        </div>
+        <div class="add-item">
+          <img src="assets/radio.svg" class="object-type-img uncentered-img">
+          <span>Офис</span>
+        </div>
+        <div class="add-item with-no-right-margin">
+          <img src="assets/cloud.svg" class="object-type-img">
+          <span>Зоны</span>
+        </div>
+      </div>
+    `;
+  }
+
+  _add_objects_items_content(type) {
+    let items = [];
+    let breadcrumb;
+    switch (type) {
+      case "add_object radio": {
+        breadcrumb = "Радио";
+        items = [
+          { label: "Infinet R200", img_name: "rectangle" },
+          { label: "Infinet R500", img_name: "rectangle" },
+          { label: "Infinet R2000", img_name: "rectangle" },
+          { label: "Infinet R3000", img_name: "rectangle" },
+          { label: "Infinet R5000-H02", img_name: "rectangle" },
+          { label: "Infinet R5000-H05-5.3", img_name: "rectangle" },
+          { label: "Infinet R5000-H05-2.4", img_name: "rectangle" },
+          { label: "Infinet R5000-H05-6.3", img_name: "rectangle" },
+          { label: "Infinet R5000-Ho7-2.4", img_name: "rectangle" },
+          { label: "Infinet R5000-H07-6.3", img_name: "rectangle" },
+          { label: "Infinet R5000-H07-5.3", img_name: "rectangle" },
+          { label: "Infinet R5000-H08", img_name: "rectangle" },
+          { label: "Infinet R5000-H11", img_name: "rectangle" },
+          { label: "Infilink XG-5", img_name: "rectangle" },
+          { label: "Infilink XG-6", img_name: "rectangle" }
+        ];
+        break;
+      }
+      case "add_object office": {
+        breadcrumb = "Офис";
+        items = [
+          { label: "Принтер", img_name: "printer" },
+          { label: "Сканер", img_name: "scanner" },
+          { label: "Факс", img_name: "fax" }
+        ];
+        break;
+      }
+      case "add_object routers": {
+        breadcrumb = "Роутеры";
+        items = [
+          { label: "SNR-CPE-W4N", img_name: "modem" },
+          { label: "Другой роутер", img_name: "router" }
+        ];
+        break;
+      }
+    }
+
+    let html = "";
+    for (let item of items) {
+      html += `
+        <div class="item">
+          <img src="assets/${item.img_name}.svg">
+          <span>${item.label}<span>
+        </div>
+      `;
+    }
+    return `
+      <div class="breadcrumbs">
+        <span id="all_objects_button" class="all-objects">Все объекты</span><span class="current-objects"> / ${breadcrumb}</span>
+      </div>
+      <div class="adding-wrapper">
+        ${html}
+      </div>
+    `;
+  }
+
   _action_box_content(content_type, items) {
     switch (content_type) {
       case "link": {
@@ -160,6 +286,14 @@ class DomElementsHandler {
       }
       case "unlink": {
         return this._ruler_unlink_content(items);
+      }
+      case "add_object": {
+        return this._add_object_content();
+      }
+      case "add_object routers":
+      case "add_object radio":
+      case "add_object office": {
+        return this._add_objects_items_content(content_type);
       }
     }
   }
@@ -172,7 +306,47 @@ class DomElementsHandler {
       case "unlink": {
         return "Удаление связности объектов";
       }
+      case "add_object": {
+        return "Добавление объектов";
+      }
     }
+  }
+
+  _reset_action_box(content_type) {
+    this._clear_action_box();
+    this._fill_action_box(this._action_box_content(content_type));
+    this._set_action_box_events(content_type);
+  }
+
+  _handle_object_type_selection(text) {
+    let prefix = "add_object";
+    switch (text) {
+      case "Радио": {
+        this._reset_action_box(prefix + " radio");
+        break;
+      }
+      case "Офис": {
+        this._reset_action_box(prefix + " office");
+        break;
+      }
+      case "Роутеры": {
+        this._reset_action_box(prefix + " routers");
+        break;
+      }
+    }
+    $("#all_objects_button").click(() => {
+      this._clear_action_box();
+      this._fill_action_box(this._action_box_content("add_object"));
+      this._set_action_box_events("add_object");
+    });
+  }
+
+  _clear_action_box() {
+    $("#main_wrapper").empty();
+  }
+
+  _fill_action_box(content) {
+    $("#main_wrapper").html(content);
   }
 
   _set_action_box_events(content_type, items = null) {
@@ -188,6 +362,7 @@ class DomElementsHandler {
             }
           );
         });
+        break;
       }
       case "unlink": {
         $("#unlink_connection_button").click(() => {
@@ -200,6 +375,35 @@ class DomElementsHandler {
             }
           );
         });
+        break;
+      }
+      case "add_object": {
+        $(".add-item").click(event => {
+          let text = event.currentTarget.children[1].firstChild.textContent;
+          this._handle_object_type_selection(text);
+        });
+        break;
+      }
+      case "add_object radio": {
+        $(".item").click(event => {
+          let text = event.currentTarget.children[1].firstChild.textContent;
+          console.log(text);
+        });
+        break;
+      }
+      case "add_object office": {
+        $(".item").click(event => {
+          let text = event.currentTarget.children[1].firstChild.textContent;
+          console.log(text);
+        });
+        break;
+      }
+      case "add_object routers": {
+        $(".item").click(event => {
+          let text = event.currentTarget.children[1].firstChild.textContent;
+          console.log(text);
+        });
+        break;
       }
     }
   }
@@ -219,7 +423,9 @@ class DomElementsHandler {
           <img src='assets/close_button.svg'>
         </div>
         <br><br>
-        ${this._action_box_content(content_type, items)}
+        <div id="main_wrapper">
+          ${this._action_box_content(content_type, items)}
+        </div>
       </div>
     `;
 
