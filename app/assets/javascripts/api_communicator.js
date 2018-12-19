@@ -46,37 +46,55 @@ class ApiCommunicator {
     });
   }
 
-  create_connection(map_name, first_item_id, second_item_id, success = null) {
+  create_connection(map_name, first_object, second_object, success = null) {
     $.post({
       url: `${location.origin}/api/maps/create_connection`,
       data: {
         map_name: map_name,
-        first_item_id: first_item_id,
-        second_item_id: second_item_id,
+        first_object: {
+          type: first_object._type == "shape" ? "Shape" : "Item",
+          id: first_object._id
+        },
+        second_object: {
+          type: second_object._type == "shape" ? "Shape" : "Item",
+          id: second_object._id
+        },
         success: success
       }
     });
   }
 
-  check_connection_existence(map_name, first_item_id, second_item_id, success) {
+  check_connection_existence(map_name, first_object, second_object, success) {
     $.get({
       url: `${location.origin}/api/maps/check_connection_existence`,
       data: {
         map_name: map_name,
-        first_item_id: first_item_id,
-        second_item_id: second_item_id
+        first_object: {
+          type: first_object._type == "shape" ? "Shape" : "Item",
+          id: first_object._id
+        },
+        second_object: {
+          type: second_object._type == "shape" ? "Shape" : "Item",
+          id: second_object._id
+        }
       },
       success: success
     });
   }
 
-  delete_connection(map_name, first_item_id, second_item_id, success = null) {
+  delete_connection(map_name, first_object, second_object, success = null) {
     $.post({
       url: `${location.origin}/api/maps/delete_connection`,
       data: {
         map_name: map_name,
-        first_item_id: first_item_id,
-        second_item_id: second_item_id,
+        first_object: {
+          type: first_object._type == "shape" ? "Shape" : "Item",
+          id: first_object._id
+        },
+        second_object: {
+          type: second_object._type == "shape" ? "Shape" : "Item",
+          id: second_object._id
+        },
         success: success
       }
     });

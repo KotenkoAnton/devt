@@ -43,4 +43,31 @@ let BATTERY = `<?xml version="1.0" encoding="UTF-8"?>
 <path d="M14,19v36.536C14,56.897,15.103,58,16.464,58h25.072C42.897,58,44,56.897,44,55.536V19H14z" fill="#43B05C"/>
 </svg>`;
 
-icons = { Router: RECTANGLE, Map: CLOUD, Lanbox: HUB };
+let BASIC_SHAPE = `
+<svg width="47" height="45" viewBox="0 0 45 45" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="40" height="40" style="fill:none;stroke:#808080;stroke-width:2;"/>
+</svg>
+`;
+
+let UNDEFINED = `<?xml version="1.0" encoding="UTF-8"?>
+<svg enable-background="new 0 0 58 58" version="1.1" viewBox="0 0 58 58" xml:space="preserve" xmlns="http://www.w3.org/2000/svg">
+<rect x="24" width="10" height="4" fill="#000000"/>
+<path d="M41.536,58H16.464C15.103,58,14,56.897,14,55.536V6.464C14,5.103,15.103,4,16.464,4h25.072  C42.897,4,44,5.103,44,6.464v49.072C44,56.897,42.897,58,41.536,58z" fill="#000000"/>
+<path d="M14,19v36.536C14,56.897,15.103,58,16.464,58h25.072C42.897,58,44,56.897,44,55.536V19H14z" fill="#000000"/>
+</svg>`;
+
+icons = {
+  Router: RECTANGLE,
+  Map: CLOUD,
+  Lanbox: HUB,
+  Undefined: UNDEFINED,
+  Shape: BASIC_SHAPE
+};
+
+get_icon = icon_type => {
+  let icon = icons[icon_type];
+  if (!icon) {
+    icon = icons["Undefined"];
+  }
+  return icon;
+};

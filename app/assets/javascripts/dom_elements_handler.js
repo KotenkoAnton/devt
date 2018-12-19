@@ -92,22 +92,34 @@ class DomElementsHandler {
             <div class="items-row">
               <div class="first-item">
                 <span class="item-img">
-                  ${get_icon(items.first_item._icon_type)}
+                  ${get_icon(
+                    items.first_item._icon_type
+                      ? items.first_item._icon_type
+                      : "Shape"
+                  )}
                 </span>
-                <label class="item-label"
-                       style="left: ${130 -
-                         (items.first_item.text_content.length - 6) * 4}px;">
-                  ${items.first_item.text_content}
+                <label class="item-label">
+                  ${
+                    items.first_item.text_content
+                      ? items.first_item.text_content
+                      : "Фигура"
+                  }
                 </label>
               </div>
               <div class="second-item">
                 <span class="item-img">
-                  ${get_icon(items.second_item._icon_type)}
+                  ${get_icon(
+                    items.second_item._icon_type
+                      ? items.second_item._icon_type
+                      : "Shape"
+                  )}
                 </span>
-                <label class="item-label"
-                       style="left: ${130 -
-                         (items.second_item.text_content.length - 6) * 4}px;">
-                  ${items.second_item.text_content}
+                <label class="item-label">
+                  ${
+                    items.second_item.text_content
+                      ? items.second_item.text_content
+                      : "Фигура"
+                  }
                 </label>
               </div>
               <div class="connection-line"></div>
@@ -127,22 +139,34 @@ class DomElementsHandler {
       <div class="items-row">
         <div class="first-item">
           <span class="item-img">
-            ${get_icon(items.first_item._icon_type)}
+            ${get_icon(
+              items.first_item._icon_type
+                ? items.first_item._icon_type
+                : "Shape"
+            )}
           </span>
-          <label class="item-label"
-                 style="left: ${130 -
-                   (items.first_item.text_content.length - 6) * 4}px;">
-            ${items.first_item.text_content}
+          <label class="item-label">
+            ${
+              items.first_item.text_content
+                ? items.first_item.text_content
+                : "Фигура"
+            }
           </label>
         </div>
         <div class="second-item">
           <span class="item-img">
-            ${get_icon(items.second_item._icon_type)}
+            ${get_icon(
+              items.second_item._icon_type
+                ? items.second_item._icon_type
+                : "Shape"
+            )}
           </span>
-          <label class="item-label"
-                 style="left: ${130 -
-                   (items.second_item.text_content.length - 6) * 4}px;">
-            ${items.second_item.text_content}
+          <label class="item-label">
+            ${
+              items.second_item.text_content
+                ? items.second_item.text_content
+                : "Фигура"
+            }
           </label>
         </div>
         <div class="connection-line unlink-line"></div>
@@ -355,8 +379,8 @@ class DomElementsHandler {
         $("#save_connection_button").click(() => {
           this.whats_up.api_communicator.create_connection(
             this.whats_up.map_name,
-            items.first_item._id,
-            items.second_item._id,
+            items.first_item,
+            items.second_item,
             () => {
               document.location.reload();
             }
@@ -368,8 +392,8 @@ class DomElementsHandler {
         $("#unlink_connection_button").click(() => {
           this.whats_up.api_communicator.delete_connection(
             this.whats_up.map_name,
-            items.first_item._id,
-            items.second_item._id,
+            items.first_item,
+            items.second_item,
             () => {
               document.location.reload();
             }

@@ -38,23 +38,23 @@ module Api
 
     def create_connection
       map = Map.find_by(name: params[:map_name])
-      first_item = Item.find(params[:first_item_id])
-      second_item = Item.find(params[:second_item_id])
+      first_object = params[:first_object][:type].constantize.find(params[:first_object][:id])
+      second_object = params[:second_object][:type].constantize.find(params[:second_object][:id])
       connection = Connection.new
-      connection.first_object = first_item
-      connection.second_object = second_item
+      connection.first_object = first_object
+      connection.second_object = second_object
       connection.map = map
       connection.save
     end
 
     def check_connection_existence
-      connection = Connection.find_by_items(params[:map_name], params[:first_item_id], params[:second_item_id])
+      connection = Connection.find_by_objects(params[:map_name], params[:first_object], params[:second_object])
       connection_id = connection&.id
       render json: { connection_id: connection_id }
     end
 
     def delete_connection
-      connection = Connection.find_by_items(params[:map_name], params[:first_item_id], params[:second_item_id])
+      connection = Connection.find_by_objects(params[:map_name], params[:first_object], params[:second_object])
       connection.destroy
     end
 

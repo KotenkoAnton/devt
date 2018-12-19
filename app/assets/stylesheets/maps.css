@@ -198,17 +198,18 @@
 }
 
 .action-box .items-row .item-label {
-  position: absolute;
-  bottom: 10px;
 }
 
 .action-box .items-row .item-img {
   position: absolute;
-  left: 130px;
-  top: 0;
+  left: 43%;
+  top: 5%;
 }
 
 .action-box .items-row .first-item {
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
   float: left;
   position: relative;
   width: 300px;
@@ -217,6 +218,9 @@
 }
 
 .action-box .items-row .second-item {
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
   float: right;
   position: relative;
   width: 300px;

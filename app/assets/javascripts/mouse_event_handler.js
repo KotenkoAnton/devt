@@ -334,15 +334,14 @@ class MouseEventHandler {
       if (!item) {
         return;
       }
-
       if (!this.ruler_first_item) {
         this.ruler_first_item = item;
       } else if (this.ruler_first_item != item) {
         this.ruler_second_item = item;
         this.whats_up.api_communicator.check_connection_existence(
           this.whats_up.map_name,
-          this.ruler_first_item._id,
-          this.ruler_second_item._id,
+          this.ruler_first_item,
+          this.ruler_second_item,
           data => {
             this.whats_up.dom_elements_handler.open_action_box(
               data["connection_id"] ? "unlink" : "link",
