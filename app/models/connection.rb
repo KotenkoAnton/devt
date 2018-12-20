@@ -18,6 +18,7 @@ class Connection < ActiveRecord::Base
                                second_object_type: second_type,
                                second_object_id: second_id)
       return con if con
+
       con = Connection.find_by(map: map,
                                first_object_type: second_type,
                                first_object_id: second_id,

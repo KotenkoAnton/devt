@@ -41,19 +41,22 @@ class Drawer {
 
   place_items(items) {
     for (let item of items) {
-      let icon =
-        item.placeable_type == "Device"
-          ? icons[item.placeable.host_type_name]
-          : icons["Map"];
-      let text = item.name;
-      let _item = paper.project.importSVG(icon);
-      if (!_item) {
-        _item = paper.project.importSVG(icons["Map"]);
+      let icon_type =
+        item.placeable_type == "Device" ? item.placeable.host_type_name : "Map";
+      let icon = get_icon(icon_type);
+      let zabbix_check = ""; // show that device is not in zabbix
+      if (item.placeable_type == "Device") {
+        zabbix_check = item.placeable.zbx_id ? "" : " NOT IN ZABBIX";
       }
+
+      let text = item.name + zabbix_check;
+
+      let _item = paper.project.importSVG(icon);
       _item.position = { x: item.position_x, y: item.position_y };
       _item.text_content = text;
       _item._id = item.id;
       _item._type = item.placeable_type.toLowerCase();
+      _item._icon_type = icon_type;
       this.item_paths.push(_item); // store items in whats_up
     }
   }
