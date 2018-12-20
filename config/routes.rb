@@ -2,6 +2,11 @@ Rails.application.routes.draw do
   resources :maps, only: :index
 
   namespace :api do
+    resources :devices do
+      collection do
+        post :update_status
+      end
+    end
     resources :maps do
       collection do
         get :fetch_map
