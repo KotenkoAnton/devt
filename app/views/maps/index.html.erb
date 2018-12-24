@@ -1,6 +1,19 @@
 <div id='wrapper'>
   <div id='action_wrapper'>
     <div id='map_name' class='title-text'><%= @map_name %></div>
+
+    <!-- help block, move map -->
+
+    <div class="move-map-wrapper">
+      <label>Вниз:</label>
+      <input id="down_move_input" class="move-input" value="0" autocomplete="off"></input>
+      <label>Вправо:</label>
+      <input id="right_move_input" class="move-input" value="0" autocomplete="off"></input>
+      <button class="btn btn-info" id="move_button">Подвинуть</button>
+    </div>
+
+    <!-- -->
+
     <div id='add_button'>
       <div id='plus_icon'><%= image_tag 'plus_button' %></div>
       <div id='text'>Добавить</div>
@@ -9,6 +22,8 @@
     <div id='ruler_button'>
       <%= image_tag 'ruler', id: 'ruler_img' %>
     </div>
+
+
 
   </div>
   <div id='canvas_wrapper'>

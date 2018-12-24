@@ -58,6 +58,25 @@ module Api
       connection.destroy
     end
 
+    def move_items_on_map
+      map_name = params[:map_name]
+      down_move = params[:down_move].to_i
+      right_move = params[:right_move].to_i
+      map = Map.find_by(name: map_name)
+      items = Item.where(map: map)
+      shapes = Shape.where(map: map)
+      items.each do |item|
+        item.position_x += right_move
+        item.position_y += down_move
+        item.save
+      end
+      shapes.each do |shape|
+        shape.position_x += right_move
+        shape.position_y += down_move
+        shape.save
+      end
+    end
+
     private
 
     def load_items(map)

@@ -99,4 +99,20 @@ class ApiCommunicator {
       }
     });
   }
+
+  // move items on map
+
+  move_items_on_map(map_name, down_move, right_move, success) {
+    $.post({
+      url: `${location.origin}/api/maps/move_items_on_map`,
+      data: {
+        map_name: map_name,
+        down_move: down_move,
+        right_move: right_move,
+        success: success
+      }
+    });
+  }
+
+  //
 }

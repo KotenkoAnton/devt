@@ -16,6 +16,21 @@ let set_events = () => {
       $("#ruler_img").prop("src", "/assets/active_ruler.svg");
     }
   });
+
+  // move items on map
+
+  $("#move_button").click(() => {
+    whats_up.api_communicator.move_items_on_map(
+      $("#map_name").html(),
+      $("#down_move_input").val(),
+      $("#right_move_input").val(),
+      () => {
+        document.location.reload();
+      }
+    );
+  });
+
+  //
 };
 
 let init = () => {

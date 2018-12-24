@@ -380,6 +380,20 @@
 
 /* */
 
+/* move map */
+
+.move-map-wrapper {
+  float: right;
+  width: 443px;
+  height: 40px;
+}
+
+.move-map-wrapper .move-input {
+  width: 100px;
+}
+
+/* */
+
 #canvas_wrapper {
   position: relative;
 }
