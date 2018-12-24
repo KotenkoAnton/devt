@@ -394,6 +394,15 @@
 
 /* */
 
+/* switch mode */
+.switch-mode-wrapper {
+  float: right;
+  margin-right: 5px;
+  margin-top: 1px;
+}
+
+/* */
+
 #canvas_wrapper {
   position: relative;
 }

@@ -38,6 +38,10 @@ class MouseEventHandler {
     this.mode = mode;
   }
 
+  toggle_mode() {
+    this.mode = this.mode == "clickable" ? "draggable" : "clickable";
+  }
+
   switch_clickable_mode_to(mode) {
     this.ruler_first_item = undefined;
     this.ruler_second_item = undefined;

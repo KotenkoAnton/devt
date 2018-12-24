@@ -31,6 +31,14 @@ let set_events = () => {
   });
 
   //
+
+  // switch mode
+
+  $("#switch_move_button").click(() => {
+    whats_up.mouse_event_handler.toggle_mode();
+  });
+
+  //
 };
 
 let init = () => {
