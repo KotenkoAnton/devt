@@ -12,7 +12,6 @@ Rails.application.routes.draw do
         get :fetch_map
         get :map_name_by_item_id
         get :check_connection_existence
-        post :move_items_on_map
         post :create_connection
         post :change_item_position
         post :change_shape_position

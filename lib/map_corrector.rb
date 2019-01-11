@@ -16,6 +16,13 @@ module MapCorrector
       min_x = (items + shapes).min_by(&:position_x).position_x
       min_y = (items + shapes).min_by(&:position_y).position_y
 
+      max_x = (items + shapes).max_by(&:position_x).position_x
+      max_y = (items + shapes).max_by(&:position_y).position_y
+
+      map.width = max_x - min_x + 3 * INDENTATION
+      map.height = max_y - min_y + 3 * INDENTATION
+      map.save
+
       move_by({ x: INDENTATION - min_x, y: INDENTATION - min_y }, map)
     end
 

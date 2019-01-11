@@ -8,16 +8,26 @@ class WhatsUp {
     // this.mouse_event_handler.switch_to("draggable");
     this.dom_elements_handler = new DomElementsHandler(this);
     this.map_name = undefined;
-    paper.setup(canvas_id); // initialize paper
+    this.canvas_id = canvas_id;
   }
 
   load_map(map_name) {
     this.map_name = map_name;
     this.api_communicator.fetch_map(map_name, data => {
-      this.drawer.place_items(data["items"]);
-      this.drawer.draw_shapes(data["shapes"]);
-      this.drawer.draw_connections(data["connections"]);
-      this.drawer.place_texts();
+      // set size of the map
+      $(this.canvas_id).css({
+        width: data["map_width"],
+        height: data["map_height"]
+      });
+      $(this.canvas_id)
+        .promise()
+        .done(() => {
+          paper.setup(this.canvas_id); // initialize paper after map size setting
+          this.drawer.place_items(data["items"]);
+          this.drawer.draw_shapes(data["shapes"]);
+          this.drawer.draw_connections(data["connections"]);
+          this.drawer.place_texts();
+        });
     });
   }
 
