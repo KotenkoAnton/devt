@@ -1,22 +1,20 @@
-<div id='wrapper'>
-  <div id='action_wrapper'>
-    <div id='map_name' class='title-text'><%= @map_name %></div>
+<div id="action_wrapper" class="action-wrapper">
+  <div id="map_name" class="title-text"><%= @map_name %></div>
 
-    <div id='add_button'>
-      <div id='plus_icon'><%= image_tag 'plus_button.svg' %></div>
-      <div id='text'>Добавить</div>
-    </div>
-
-    <div class="switch-mode-wrapper">
-      <button id="switch_move_button" class="btn btn-info">Переключить режим</button>
-    </div>
-
-    <div id='ruler_button'>
-      <%= image_tag 'ruler.svg', id: 'ruler_img' %>
-    </div>
+  <div id="add_button" class="add-button">
+    <div class="plus-icon"><%= image_tag "plus_button.svg" %></div>
+    <div class="add-button-text">Добавить</div>
   </div>
 
-  <div id='canvas_wrapper'>
-    <canvas id='canvas'></canvas>
+  <div class="switch-mode-wrapper">
+    <button id="switch_move_button" class="btn btn-info">Переключить режим</button>
   </div>
+
+  <div id="ruler_button" class="ruler-button">
+    <%= image_tag "ruler.svg", id: "ruler_img" %>
+  </div>
+</div>
+
+<div class="canvas-wrapper">
+  <canvas id="canvas"></canvas>
 </div>

@@ -6,7 +6,7 @@ class DomElementsHandler {
   }
   open_item_box(item) {
     let info_box_html = `
-      <div id='info_box' class='container'>
+      <div id='info_box' class='info-box container'>
         <div class='item-name'>Bolshoy_Dipol_RM5</div>
         <hr class='info-box-delimiter'>
         <div class='info-label'>Hostname:</div>
@@ -41,7 +41,7 @@ class DomElementsHandler {
     `;
     $("#canvas").after(info_box_html);
     $("#info_box").css({
-      top: item.position.y - 65,
+      top: item.position.y - 55,
       left: item.position.x + 45
     });
   }
@@ -80,100 +80,104 @@ class DomElementsHandler {
 
   _ruler_content(items) {
     return `
-      <div class="block-wrapper">
-        <div class="row">
-          <div class="ruler-navigation">
-            <div class="ruler-title">
-              Тип связи
-            </div>
-            ${this._ruler_connection_types()}
+    <div class="ruler-wrapper">
+      <div class="row">
+        <div class="ruler-navigation">
+          <div class="ruler-title">
+            Тип связи
           </div>
-          <div class="ruler-main">
-            <div class="items-row">
-              <div class="first-item">
-                <span class="item-img">
-                  ${get_icon(
-                    items.first_item._icon_type
-                      ? items.first_item._icon_type
-                      : "Shape"
-                  )}
-                </span>
-                <label class="item-label">
-                  ${
-                    items.first_item.text_content
-                      ? items.first_item.text_content
-                      : "Фигура"
-                  }
-                </label>
-              </div>
-              <div class="second-item">
-                <span class="item-img">
-                  ${get_icon(
-                    items.second_item._icon_type
-                      ? items.second_item._icon_type
-                      : "Shape"
-                  )}
-                </span>
-                <label class="item-label">
-                  ${
-                    items.second_item.text_content
-                      ? items.second_item.text_content
-                      : "Фигура"
-                  }
-                </label>
-              </div>
-              <div class="connection-line"></div>
+          ${this._ruler_connection_types()}
+        </div>
+        <div class="ruler-main">
+          <div class="items-row">
+            <div class="first-item">
+              <span class="item-img">
+                ${get_icon(
+                  items.first_item._icon_type
+                    ? items.first_item._icon_type
+                    : "Shape"
+                )}
+              </span>
+              <label class="item-label">
+                ${
+                  items.first_item.text_content
+                    ? items.first_item.text_content
+                    : "Фигура"
+                }
+              </label>
             </div>
+            <div class="second-item">
+              <span class="item-img">
+                ${get_icon(
+                  items.second_item._icon_type
+                    ? items.second_item._icon_type
+                    : "Shape"
+                )}
+              </span>
+              <label class="item-label">
+                ${
+                  items.second_item.text_content
+                    ? items.second_item.text_content
+                    : "Фигура"
+                }
+              </label>
+            </div>
+            <div class="connection-line"></div>
+          </div>
 
-            <div id="save_connection_button" class="confirm-button">
-              <div class='text'>Сохранить</div>
-            </div>
+          <div id="save_connection_button" class="confirm-button">
+            <div class='text'>Сохранить</div>
           </div>
         </div>
       </div>
+    </div>
     `;
   }
 
   _ruler_unlink_content(items) {
     return `
-      <div class="items-row">
-        <div class="first-item">
-          <span class="item-img">
-            ${get_icon(
-              items.first_item._icon_type
-                ? items.first_item._icon_type
-                : "Shape"
-            )}
-          </span>
-          <label class="item-label">
-            ${
-              items.first_item.text_content
-                ? items.first_item.text_content
-                : "Фигура"
-            }
-          </label>
+    <div class="ruler-wrapper">
+      <div class="ruler-main">
+        <div class="items-row">
+          <div class="first-item">
+            <span class="item-img">
+              ${get_icon(
+                items.first_item._icon_type
+                  ? items.first_item._icon_type
+                  : "Shape"
+              )}
+            </span>
+            <label class="item-label">
+              ${
+                items.first_item.text_content
+                  ? items.first_item.text_content
+                  : "Фигура"
+              }
+            </label>
+          </div>
+          <div class="second-item">
+            <span class="item-img">
+              ${get_icon(
+                items.second_item._icon_type
+                  ? items.second_item._icon_type
+                  : "Shape"
+              )}
+            </span>
+            <label class="item-label">
+              ${
+                items.second_item.text_content
+                  ? items.second_item.text_content
+                  : "Фигура"
+              }
+            </label>
+          </div>
+          <div class="connection-line unlink-line"></div>
         </div>
-        <div class="second-item">
-          <span class="item-img">
-            ${get_icon(
-              items.second_item._icon_type
-                ? items.second_item._icon_type
-                : "Shape"
-            )}
-          </span>
-          <label class="item-label">
-            ${
-              items.second_item.text_content
-                ? items.second_item.text_content
-                : "Фигура"
-            }
-          </label>
+        <div id="unlink_connection_button" class="confirm-button unlink-confirm-button">
+          <div class='text'>Удалить связь</div>
         </div>
-        <div class="connection-line unlink-line"></div>
       </div>
-      <div id="unlink_connection_button" class="confirm-button unlink-confirm-button">
-        <div class='text'>Удалить связь</div>
-      </div>
+    </div>
     `;
   }
 
@@ -366,11 +370,11 @@ class DomElementsHandler {
   }
 
   _clear_action_box() {
-    $("#main_wrapper").empty();
+    $("#action_box_content_wrapper").empty();
   }
 
   _fill_action_box(content) {
-    $("#main_wrapper").html(content);
+    $("#action_box_content_wrapper").html(content);
   }
 
   _set_action_box_events(content_type, items = null) {
@@ -447,7 +451,7 @@ class DomElementsHandler {
           <img src='assets/close_button.svg'>
         </div>
         <br><br>
-        <div id="main_wrapper">
+        <div id="action_box_content_wrapper" class="action-box-content-wrapper">
           ${this._action_box_content(content_type, items)}
         </div>
       </div>
