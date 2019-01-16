@@ -45,9 +45,12 @@ class Drawer {
         item.placeable_type == "Device" ? item.placeable.host_type_name : "Map";
       let icon = get_icon(icon_type);
       let zabbix_check = ""; // show that device is not in zabbix
+
+      /*
       if (item.placeable_type == "Device") {
         zabbix_check = item.placeable.zbx_id ? "" : " NOT IN ZABBIX";
       }
+      */
 
       let text = item.name + zabbix_check;
 
