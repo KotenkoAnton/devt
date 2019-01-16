@@ -9,11 +9,11 @@ let set_events = () => {
   $("#ruler_button").click(() => {
     if (whats_up.mouse_event_handler.get_clickable_mode() == "ruler") {
       whats_up.mouse_event_handler.switch_clickable_mode_to("main_usage");
-      $("#ruler_img").prop("src", "/assets/ruler.svg");
+      $("#ruler_img").prop("src", "<%= asset_path('ruler.svg') %>");
     } else {
       whats_up.mouse_event_handler.switch_to("clickable");
       whats_up.mouse_event_handler.switch_clickable_mode_to("ruler");
-      $("#ruler_img").prop("src", "/assets/active_ruler.svg");
+      $("#ruler_img").prop("src", "<%= asset_path('active_ruler.svg') %>");
     }
   });
 
