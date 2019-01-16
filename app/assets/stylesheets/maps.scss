@@ -407,6 +407,54 @@ $theme-color: #808080;
       }
     }
   }
+
+  .whole-info {
+    position: absolute;
+    box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2),
+      0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    background-color: white;
+    width: 450px;
+    height: 840px;
+    padding-top: 15px;
+    font-size: 15px;
+
+    input {
+      width: inherit;
+      height: 30px;
+      margin-top: 5px;
+    }
+
+    .ip-address {
+      color: $theme-color;
+    }
+
+    .guide-label {
+      color: $theme-color;
+    }
+
+    .delete-button {
+      float: right;
+      margin-top: 3px;
+
+      &:hover {
+        cursor: pointer;
+      }
+    }
+
+    .add-button {
+      float: right;
+      margin-top: 3px;
+      margin-right: 10px;
+
+      &:hover {
+        cursor: pointer;
+      }
+
+      img {
+        height: 40px;
+      }
+    }
+  }
 }
 
 // end of canvas wrapper
