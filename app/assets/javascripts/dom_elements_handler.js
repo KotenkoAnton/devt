@@ -25,23 +25,23 @@ class DomElementsHandler {
         <div class='info-label'>20180828 202618 UP</div>
         <div class='info-label'>20180828 202618 DOWN</div>
         <div class='info-label'>20180828 202618 UP</div>
-        <div class='open-button'>
+        <div id="info_box_open_button" class='open-button'>
           <div class='open-button-text'>Перейти</div>
         </div>
-        <div class='unlink-button'>
+        <div id="info_box_unlink_button" class='unlink-button'>
           <img src='assets/unlink_button.svg'>
         </div>
-        <div class='copy-button'>
+        <div id="info_box_copy_button" class='copy-button'>
           <img src='assets/copy_button.svg'>
         </div>
-        <div class='delete-button'>
+        <div id="info_box_delete_button" class='delete-button'>
           <img src='assets/delete_button.svg'>
         </div>
       </div>
     `;
     $("#canvas").after(info_box_html);
     $("#info_box").css({
-      top: item.position.y - 55,
+      top: item.position.y,
       left: item.position.x + 45
     });
   }
