@@ -6,6 +6,14 @@ module Api
                      map_width: map.width, map_height: map.height }
     end
 
+    def fetch_item_info
+      item = Item.includes(:placeable).find(params[:item_id])
+      placeable = item.placeable
+      render json: { name: item.name, host_name: placeable.host_name,
+                     address: placeable[:ip_address], status: placeable[:icmp_available],
+                     description: placeable.description }
+    end
+
     def change_item_position
       position_x = params[:position_x]
       position_y = params[:position_y]

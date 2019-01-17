@@ -95,6 +95,8 @@ $theme-color: #808080;
     .item-name {
       margin-left: 20px;
       margin-top: 12px;
+      word-wrap: break-word;
+      overflow-wrap: break-word;
     }
 
     .info-box-delimiter {
@@ -414,14 +416,24 @@ $theme-color: #808080;
       0 6px 20px 0 rgba(0, 0, 0, 0.19);
     background-color: white;
     width: 450px;
-    height: 840px;
     padding-top: 15px;
+    padding-bottom: 15px;
     font-size: 15px;
 
     input {
       width: inherit;
       height: 30px;
       margin-top: 5px;
+    }
+
+    .item-name {
+      word-wrap: break-word;
+      overflow-wrap: break-word;
+    }
+
+    .description {
+      word-wrap: break-word;
+      overflow-wrap: break-word;
     }
 
     .ip-address {
@@ -434,7 +446,7 @@ $theme-color: #808080;
 
     .delete-button {
       float: right;
-      margin-top: 3px;
+      margin-top: 15px;
 
       &:hover {
         cursor: pointer;
@@ -443,7 +455,7 @@ $theme-color: #808080;
 
     .add-button {
       float: right;
-      margin-top: 3px;
+      margin-top: 15px;
       margin-right: 10px;
 
       &:hover {

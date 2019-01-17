@@ -314,8 +314,11 @@ class MouseEventHandler {
         }
         switch (item._type) {
           case "device": {
-            this.whats_up.dom_elements_handler.open_item_box(item);
-            this.box_opened = true;
+            this.whats_up.api_communicator.fetch_item_info(item._id, data => {
+              data.id = item._id;
+              this.whats_up.dom_elements_handler.open_item_box(item, data);
+              this.box_opened = true;
+            });
             break;
           }
           case "map": {

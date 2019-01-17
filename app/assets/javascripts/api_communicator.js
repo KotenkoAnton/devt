@@ -99,4 +99,12 @@ class ApiCommunicator {
       }
     });
   }
+
+  fetch_item_info(item_id, success = null) {
+    $.get({
+      url: `${location.origin}/api/maps/fetch_item_info`,
+      data: { item_id: item_id },
+      success: success
+    });
+  }
 }

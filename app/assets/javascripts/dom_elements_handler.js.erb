@@ -12,22 +12,19 @@ class DomElementsHandler {
       <div id="whole_info_box" class="whole-info">
         <div class="container">
           <div class="row">
-            <div class="col-7">DES2108_Bolshoy</div>
-            <div class="col-5">(D-link, DES 2108)</div>
+            <div class="col-7 item-name">${item.name}</div>
+            <div class="col-5">(D-link, DES 2108)??</div>
           </div>
-          <div class="ip-address">192.168.109.254</div>
-          <div>х. Большой, ул. Ленина 17, администрация Большовского сельского поселения.</div>
+          <div class="ip-address">${item.address}</div>
+          <div>Здесь должен быть адрес</div>
           <hr>
           <div class="guide-label">
             Описание:
           </div>
-          <div>На крыше мачта 9м, на Малодельскую большая круглая мимо антанна, на Михайловку большая круглая мимо антанна, оба прибора Х. Для ретранслятора на кронштейне стоит антенна Фашка 60 градусов и 5000 ошка. БП ретранслятора UBNT с синей лампочкой. Ящик в администрации на первом этаже в комнате слева от входа. В ящике АДД 155, два акк-ра 40, оповещалка SNR и свитч.</div>
+          <div class="description">${item.description ? item.description : "" }</div>
           <hr>
           <div class="guide-label">Контакты:</div>
-          <div>
-            89377392387 Наталья (Глава администрации)<br>
-            89377392387 Сергей (Электрик)
-          </div>
+          <div>Здесь должны быть контакты</div>
           <hr>
           <div class="guide-label">Порты:</div>
           <div>
@@ -165,15 +162,15 @@ class DomElementsHandler {
 
   // info box
 
-  open_item_box(item) {
+  open_item_box(item, item_data) {
     let info_box_html = `
       <div id='info_box' class='info-box container'>
-        <div class='item-name'>Bolshoy_Dipol_RM5</div>
+        <div class='item-name'>${item_data.name}</div>
         <hr class='info-box-delimiter'>
         <div class='info-label'>Hostname:</div>
-        <div class='info-text'>192.168.109.254</div><br>
+        <div class='info-text'>${item_data.host_name}</div><br>
         <div class='info-label'>Address:</div>
-        <div class='info-text'>192.168.109.254</div><br>
+        <div class='info-text'>${item_data.address}</div><br>
         <div class='info-label'>Up since:</div>
         <div class='info-text'>08/28/18 20:25:29</div><br>
         <div class='info-label'>Responded:</div>
@@ -206,19 +203,20 @@ class DomElementsHandler {
       left: item.position.x + 45
     });
 
-    // this._set_item_box_events();
+    this._set_item_box_events(item_data);
   }
 
   close_item_box() {
     $("#info_box").remove();
+    $("#whole_info_box").remove();
   }
 
-  _set_item_box_events() {
+  _set_item_box_events(item_data) {
     $("#info_box_open_button").click(() => {
       let top = $("#info_box").css("top");
       let left = $("#info_box").css("left");
       left = Number(left.slice(0, left.length - 2)) + 320 + "px";
-      this.open_whole_info_box(null, { top, left });
+      this.open_whole_info_box(item_data, { top, left });
     });
   }
 

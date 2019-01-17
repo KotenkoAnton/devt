@@ -10,6 +10,7 @@ Rails.application.routes.draw do
     resources :maps do
       collection do
         get :fetch_map
+        get :fetch_item_info
         get :map_name_by_item_id
         get :check_connection_existence
         post :create_connection
