@@ -177,9 +177,9 @@ $theme-color: #808080;
   // action box
 
   .action-box {
-    position: absolute;
-    bottom: 20%;
-    right: 150px;
+    position: fixed;
+    bottom: 22%;
+    left: 25%;
     width: 900px;
     height: 550px;
     border: 1px solid #ccc;
