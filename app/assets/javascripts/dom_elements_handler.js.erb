@@ -15,16 +15,24 @@ class DomElementsHandler {
             <div class="col-7 item-name">${item.name}</div>
             <div class="col-5">(D-link, DES 2108)??</div>
           </div>
-          <div class="ip-address">${item.address}</div>
-          <div>Здесь должен быть адрес</div>
+          <div class="ip-address whole-box-editable" id="whole_box_ip_address">${
+            item.ip_address
+          }</div>
+          <div class="whole-box-editable" id="whole_box_address">${
+            item.address ? item.address : ""
+          }</div>
           <hr>
           <div class="guide-label">
             Описание:
           </div>
-          <div class="description">${item.description ? item.description : "" }</div>
+          <div class="description whole-box-editable" id="whole_box_description">${
+            item.description ? item.description : ""
+          }</div>
           <hr>
           <div class="guide-label">Контакты:</div>
-          <div>Здесь должны быть контакты</div>
+          <div class="whole-box-editable" id="whole_box_contacts">${
+            item.contacts ? item.contacts : ""
+          }</div>
           <hr>
           <div class="guide-label">Порты:</div>
           <div>
@@ -144,11 +152,17 @@ class DomElementsHandler {
               </div>
             </div>
           </div>
-          <div id="delete_device_button" class="delete-button">
-            <img src="<%= asset_path('delete_button.svg') %>">
-          </div>
-          <div id="add_device_button" class="add-button">
-            <img src="<%= asset_path('plus_button.svg') %>">
+          <div class="device-buttons-wrapper">
+            <div id="delete_device_button">
+              <img src="<%= asset_path('delete_button.svg') %>">
+            </div>
+            <div id="add_device_button">
+              <img src="<%= asset_path('plus_button.svg') %>">
+            </div>
+            <div id="edit_device_button">
+              <img src="<%= asset_path('edit_button.svg') %>">
+            </div>
+            <div id="save_changes_button" class="save-changes-button btn btn-success">Сохранить</div>
           </div>
         </div>
       </div>
@@ -156,6 +170,44 @@ class DomElementsHandler {
 
     $("#canvas").after(whole_box_html);
     $("#whole_info_box").css({ top: position.top, left: position.left });
+
+    this._set_whole_info_box_events(item);
+  }
+
+  _set_whole_info_box_events(item) {
+    $("#edit_device_button").click(() => {
+      let editables = $(".whole-box-editable");
+      // set editing on fields
+      editables.addClass("whole-box-editing");
+      editables.attr("contenteditable", "true");
+
+      $("#edit_device_button").css("display", "none");
+      $("#save_changes_button").css("display", "block");
+    });
+
+    $("#save_changes_button").click(() => {
+      this.whats_up.api_communicator.change_device_info(
+        item.id,
+        {
+          description: $("#whole_box_description").html(),
+          address: $("#whole_box_address").html(),
+          contacts: $("#whole_box_contacts").html(),
+          ip_address: $("#whole_box_ip_address").html()
+        },
+        () => {
+          let editables = $(".whole-box-editable");
+          // remove editing from fields
+          editables.removeClass("whole-box-editing");
+          editables.attr("contenteditable", "false");
+
+          $("#edit_device_button").css("display", "block");
+          $("#save_changes_button").css("display", "none");
+
+          // change ip in info box
+          $("#info_box_ip_address").html($("#whole_box_ip_address").html());
+        }
+      );
+    });
   }
 
   //
@@ -170,7 +222,9 @@ class DomElementsHandler {
         <div class='info-label'>Hostname:</div>
         <div class='info-text'>${item_data.host_name}</div><br>
         <div class='info-label'>Address:</div>
-        <div class='info-text'>${item_data.address}</div><br>
+        <div class='info-text' id="info_box_ip_address">${
+          item_data.ip_address
+        }</div><br>
         <div class='info-label'>Up since:</div>
         <div class='info-text'>08/28/18 20:25:29</div><br>
         <div class='info-label'>Responded:</div>
@@ -362,7 +416,7 @@ class DomElementsHandler {
   // adding item in action box
 
   _add_object_content() {
-    "<%= asset_path('ruler.svg') %>"
+    "<%= asset_path('ruler.svg') %>";
     return `
       <div class="adding-wrapper">
         <div class="add-item">
@@ -432,21 +486,66 @@ class DomElementsHandler {
       case "add_object radio": {
         breadcrumb = "Радио";
         items = [
-          { label: "Infinet R200", img_src: "<%= asset_path('rectangle.svg') %>" },
-          { label: "Infinet R500", img_src: "<%= asset_path('rectangle.svg') %>" },
-          { label: "Infinet R2000", img_src: "<%= asset_path('rectangle.svg') %>" },
-          { label: "Infinet R3000", img_src: "<%= asset_path('rectangle.svg') %>" },
-          { label: "Infinet R5000-H02", img_src: "<%= asset_path('rectangle.svg') %>" },
-          { label: "Infinet R5000-H05-5.3", img_src: "<%= asset_path('rectangle.svg') %>" },
-          { label: "Infinet R5000-H05-2.4", img_src: "<%= asset_path('rectangle.svg') %>" },
-          { label: "Infinet R5000-H05-6.3", img_src: "<%= asset_path('rectangle.svg') %>" },
-          { label: "Infinet R5000-Ho7-2.4", img_src: "<%= asset_path('rectangle.svg') %>" },
-          { label: "Infinet R5000-H07-6.3", img_src: "<%= asset_path('rectangle.svg') %>" },
-          { label: "Infinet R5000-H07-5.3", img_src: "<%= asset_path('rectangle.svg') %>" },
-          { label: "Infinet R5000-H08", img_src: "<%= asset_path('rectangle.svg') %>" },
-          { label: "Infinet R5000-H11", img_src: "<%= asset_path('rectangle.svg') %>" },
-          { label: "Infilink XG-5", img_src: "<%= asset_path('rectangle.svg') %>" },
-          { label: "Infilink XG-6", img_src: "<%= asset_path('rectangle.svg') %>" }
+          {
+            label: "Infinet R200",
+            img_src: "<%= asset_path('rectangle.svg') %>"
+          },
+          {
+            label: "Infinet R500",
+            img_src: "<%= asset_path('rectangle.svg') %>"
+          },
+          {
+            label: "Infinet R2000",
+            img_src: "<%= asset_path('rectangle.svg') %>"
+          },
+          {
+            label: "Infinet R3000",
+            img_src: "<%= asset_path('rectangle.svg') %>"
+          },
+          {
+            label: "Infinet R5000-H02",
+            img_src: "<%= asset_path('rectangle.svg') %>"
+          },
+          {
+            label: "Infinet R5000-H05-5.3",
+            img_src: "<%= asset_path('rectangle.svg') %>"
+          },
+          {
+            label: "Infinet R5000-H05-2.4",
+            img_src: "<%= asset_path('rectangle.svg') %>"
+          },
+          {
+            label: "Infinet R5000-H05-6.3",
+            img_src: "<%= asset_path('rectangle.svg') %>"
+          },
+          {
+            label: "Infinet R5000-Ho7-2.4",
+            img_src: "<%= asset_path('rectangle.svg') %>"
+          },
+          {
+            label: "Infinet R5000-H07-6.3",
+            img_src: "<%= asset_path('rectangle.svg') %>"
+          },
+          {
+            label: "Infinet R5000-H07-5.3",
+            img_src: "<%= asset_path('rectangle.svg') %>"
+          },
+          {
+            label: "Infinet R5000-H08",
+            img_src: "<%= asset_path('rectangle.svg') %>"
+          },
+          {
+            label: "Infinet R5000-H11",
+            img_src: "<%= asset_path('rectangle.svg') %>"
+          },
+          {
+            label: "Infilink XG-5",
+            img_src: "<%= asset_path('rectangle.svg') %>"
+          },
+          {
+            label: "Infilink XG-6",
+            img_src: "<%= asset_path('rectangle.svg') %>"
+          }
         ];
         break;
       }

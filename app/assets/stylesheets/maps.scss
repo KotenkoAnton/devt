@@ -426,6 +426,16 @@ $theme-color: #808080;
       margin-top: 5px;
     }
 
+    .whole-box-editable {
+      margin-left: 2px;
+      min-height: 25px;
+    }
+
+    .whole-box-editing {
+      border: 1px solid $theme-color;
+      border-radius: 5px;
+    }
+
     .item-name {
       word-wrap: break-word;
       overflow-wrap: break-word;
@@ -444,26 +454,25 @@ $theme-color: #808080;
       color: $theme-color;
     }
 
-    .delete-button {
-      float: right;
+    .device-buttons-wrapper {
       margin-top: 15px;
 
-      &:hover {
-        cursor: pointer;
-      }
-    }
-
-    .add-button {
-      float: right;
-      margin-top: 15px;
-      margin-right: 10px;
-
-      &:hover {
+      img:hover {
         cursor: pointer;
       }
 
       img {
+        width: 40px;
         height: 40px;
+      }
+
+      div {
+        float: right;
+        margin-right: 10px;
+      }
+
+      .save-changes-button {
+        display: none;
       }
     }
   }

@@ -10,8 +10,9 @@ module Api
       item = Item.includes(:placeable).find(params[:item_id])
       placeable = item.placeable
       render json: { name: item.name, host_name: placeable.host_name,
-                     address: placeable[:ip_address], status: placeable[:icmp_available],
-                     description: placeable.description }
+                     ip_address: placeable[:ip_address], status: placeable[:icmp_available],
+                     description: placeable.description, address: placeable.address,
+                     contacts: placeable.contacts }
     end
 
     def change_item_position
@@ -65,6 +66,15 @@ module Api
     def delete_connection
       connection = Connection.find_by_objects(params[:map_name], params[:first_object], params[:second_object])
       connection.destroy
+    end
+
+    def update_device_info
+      device = Device.by_item_id(params[:item_id])
+      device[:description] = params[:description]
+      device[:address] = params[:address]
+      device[:contacts] = params[:contacts]
+      device[:ip_address] = params[:ip_address]
+      device.save
     end
 
     private

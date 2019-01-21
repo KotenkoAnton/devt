@@ -38,6 +38,20 @@ class ApiCommunicator {
     });
   }
 
+  change_device_info(item_id, info, success) {
+    $.post({
+      url: `${location.origin}/api/maps/update_device_info`,
+      data: {
+        item_id: item_id,
+        description: info.description,
+        address: info.address,
+        contacts: info.contacts,
+        ip_address: info.ip_address
+      },
+      success: success
+    });
+  }
+
   map_name_by_item_id(item_id, success = null) {
     $.get({
       url: `${location.origin}/api/maps/map_name_by_item_id`,
