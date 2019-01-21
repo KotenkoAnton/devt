@@ -22,7 +22,16 @@ module Api
       item = Item.find(item_id)
       item.position_x = position_x
       item.position_y = position_y
+      map = item.map
       item.save
+
+      return render json: { corrected: false } unless item.position_x <= 150 ||
+                                                      map.width - item.position_x <= 150 ||
+                                                      item.position_y <= 150 ||
+                                                      map.height - item.position_y <= 150
+
+      MapCorrector.correct_on_map(map)
+      render json: { corrected: true }
     end
 
     def change_shape_position

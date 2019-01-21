@@ -152,7 +152,12 @@ class MouseEventHandler {
       if (this.moving_target._type == "device") {
         this.whats_up.api_communicator.change_item_position(
           this.moving_target._id,
-          event.point
+          event.point,
+          data => {
+            if (data.corrected) {
+              location.reload();
+            }
+          }
         );
       }
       if (this.moving_target._type == "shape") {

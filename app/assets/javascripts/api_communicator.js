@@ -7,10 +7,15 @@ class ApiCommunicator {
     });
   }
 
-  change_item_position(item_id, position) {
+  change_item_position(item_id, position, success = null) {
     $.post({
       url: `${location.origin}/api/maps/change_item_position`,
-      data: { item_id: item_id, position_x: position.x, position_y: position.y }
+      data: {
+        item_id: item_id,
+        position_x: position.x,
+        position_y: position.y
+      },
+      success: success
     });
   }
 
