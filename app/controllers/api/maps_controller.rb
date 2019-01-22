@@ -86,6 +86,27 @@ module Api
       device.save
     end
 
+    def add_device_and_item
+      item = Item.new
+      Device.transaction do
+        device = Device.new
+        device.display_name = params[:name]
+        device.ip_address = "127.0.0.1"
+        device.host_name = "127.0.0.1"
+        device.host_type_name = params[:placeable][:host_type_name]
+        device[:monitored] = false
+        device.save!
+
+        item.name = params[:name]
+        item.position_x = params[:position_x]
+        item.position_y = params[:position_y]
+        item.placeable = device
+        item.map = Map.find_by(name: params[:map_name])
+        item.save!
+      end
+      render json: { item_id: item&.id }
+    end
+
     private
 
     def load_items(map)

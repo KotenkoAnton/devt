@@ -13,6 +13,7 @@ Rails.application.routes.draw do
         get :fetch_item_info
         get :map_name_by_item_id
         get :check_connection_existence
+        post :add_device_and_item
         post :update_device_info
         post :create_connection
         post :change_item_position

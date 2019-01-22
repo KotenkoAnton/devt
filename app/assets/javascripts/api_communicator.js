@@ -7,6 +7,14 @@ class ApiCommunicator {
     });
   }
 
+  add_device_and_item(adding_object, success = null) {
+    $.post({
+      url: `${location.origin}/api/maps/add_device_and_item`,
+      data: adding_object,
+      success: success
+    });
+  }
+
   change_item_position(item_id, position, success = null) {
     $.post({
       url: `${location.origin}/api/maps/change_item_position`,

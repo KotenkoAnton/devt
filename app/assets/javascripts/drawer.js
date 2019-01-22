@@ -41,44 +41,46 @@ class Drawer {
 
   place_items(items) {
     for (let item of items) {
-      let icon_type =
-        item.placeable_type == "Device" ? item.placeable.host_type_name : "Map";
-      let icon = get_icon(icon_type);
-      let zabbix_check = ""; // show that device is not in zabbix
-
-      /*
-      if (item.placeable_type == "Device") {
-        zabbix_check = item.placeable.zbx_id ? "" : " NOT IN ZABBIX";
-      }
-      */
-
-      let text = item.name + zabbix_check;
-
-      let _item = paper.project.importSVG(icon);
-      _item.position = { x: item.position_x, y: item.position_y };
-      _item.text_content = text;
-      _item._id = item.id;
-      _item._type = item.placeable_type.toLowerCase();
-      _item._icon_type = icon_type;
-      this.item_paths.push(_item); // store items in whats_up
+      this.place_item(item);
     }
+  }
+
+  place_item(item) {
+    let icon_type =
+      item.placeable_type == "Device" ? item.placeable.host_type_name : "Map";
+    let icon = get_icon(icon_type);
+
+    let text = item.name;
+
+    let _item = paper.project.importSVG(icon);
+    _item.position = { x: item.position_x, y: item.position_y };
+    _item.text_content = text;
+    _item._id = item.id;
+    _item._type = item.placeable_type.toLowerCase();
+    _item._icon_type = icon_type;
+    this.item_paths.push(_item); // store items in whats_up
+    return _item;
   }
 
   place_texts() {
     for (let item of this.item_paths) {
-      item.text = new paper.PointText(
-        this._point_for_text(item, item.text_content)
-      );
-      item.text.content = item.text_content;
-      item.text.style = {
-        fontSize: 13,
-        fillColor: "black"
-      };
-      item.rect = new paper.Path.Rectangle(item.text.bounds);
-      item.rect.fillColor = "white";
-      item.rect.strokeColor = "white";
-      item.text.insertAbove(item.rect);
+      this.place_text(item);
     }
+  }
+
+  place_text(item) {
+    item.text = new paper.PointText(
+      this._point_for_text(item, item.text_content)
+    );
+    item.text.content = item.text_content;
+    item.text.style = {
+      fontSize: 13,
+      fillColor: "black"
+    };
+    item.rect = new paper.Path.Rectangle(item.text.bounds);
+    item.rect.fillColor = "white";
+    item.rect.strokeColor = "white";
+    item.text.insertAbove(item.rect);
   }
 
   get_items() {

@@ -363,6 +363,15 @@ class DomElementsHandler {
       case "add_object radio": {
         $(".item").click(event => {
           let text = event.currentTarget.children[1].firstChild.textContent;
+          this.whats_up.mouse_event_handler.switch_clickable_mode_to(
+            "adding_object"
+          );
+          this.whats_up.mouse_event_handler.set_adding_object({
+            placeable: { host_type_name: "Router" },
+            placeable_type: "Device",
+            name: "New Router",
+            text_content: "New Router"
+          });
           console.log(text);
         });
         break;
@@ -370,6 +379,9 @@ class DomElementsHandler {
       case "add_object office": {
         $(".item").click(event => {
           let text = event.currentTarget.children[1].firstChild.textContent;
+          this.whats_up.mouse_event_handler.switch_clickable_mode_to(
+            "adding_object"
+          );
           console.log(text);
         });
         break;
@@ -378,6 +390,9 @@ class DomElementsHandler {
         $(".item").click(event => {
           let text = event.currentTarget.children[1].firstChild.textContent;
           console.log(text);
+          this.whats_up.mouse_event_handler.switch_clickable_mode_to(
+            "adding_object"
+          );
         });
         break;
       }

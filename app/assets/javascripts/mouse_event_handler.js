@@ -4,7 +4,7 @@ class MouseEventHandler {
   constructor(whats_up, papertool) {
     this.whats_up = whats_up;
     this.mode = "clickable"; // clickable_ draggable
-    this.clickable_mode = "main_usage"; // main_usage, ruler
+    this.clickable_mode = "main_usage"; // main_usage, ruler, adding_object
     this.papertool = papertool;
 
     // draggable:
@@ -31,6 +31,12 @@ class MouseEventHandler {
 
     //
 
+    // adding object:
+
+    this.adding_object;
+
+    //
+
     this._set_events();
   }
 
@@ -50,6 +56,10 @@ class MouseEventHandler {
 
   get_clickable_mode() {
     return this.clickable_mode;
+  }
+
+  set_adding_object(adding_object) {
+    this.adding_object = adding_object;
   }
 
   _set_events() {
@@ -380,10 +390,33 @@ class MouseEventHandler {
           clickable_ruler(event);
           break;
         }
+        case "adding_object": {
+          add_object(event);
+          break;
+        }
       }
     };
 
     //
+
+    // adding object
+
+    let add_object = event => {
+      this.clickable_mode = "main_usage";
+      this.adding_object.position_x = event.event.clientX;
+      this.adding_object.position_y = event.event.clientY;
+      this.adding_object.map_name = this.whats_up.map_name;
+      this.whats_up.api_communicator.add_device_and_item(
+        this.adding_object,
+        data => {
+          this.adding_object.id = data.item_id;
+          this.adding_object = this.whats_up.drawer.place_item(
+            this.adding_object
+          );
+          this.whats_up.drawer.place_text(this.adding_object);
+        }
+      );
+    };
 
     // main logic:
 
