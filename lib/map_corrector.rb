@@ -20,8 +20,8 @@ module MapCorrector
       max_y = (items + shapes).max_by(&:position_y).position_y
 
       # TODO: find out whats going on here. When using map.update_attributes, it fires update on item.placeable_id
-      Map.find(map.id).update_attributes({ width: max_x - min_x + 3 * INDENTATION,
-                                           height: max_y - min_y + 3 * INDENTATION })
+      Map.find(map.id).update_attributes(width: max_x - min_x + 3 * INDENTATION,
+                                         height: max_y - min_y + 3 * INDENTATION)
 
       move_by({ x: INDENTATION - min_x, y: INDENTATION - min_y }, map)
     end

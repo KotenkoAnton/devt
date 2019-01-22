@@ -107,6 +107,16 @@ module Api
       render json: { item_id: item&.id }
     end
 
+    def delete_device_by_item_id
+      item = Item.find(params[:item_id])
+      item.placeable.destroy
+    end
+
+    def delete_connections_by_item_id
+      item = Item.find(params[:item_id])
+      item.delete_connections
+    end
+
     private
 
     def load_items(map)

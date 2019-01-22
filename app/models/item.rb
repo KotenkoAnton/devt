@@ -8,12 +8,9 @@ class Item < ActiveRecord::Base
 
   before_destroy :delete_connections
 
-
   def connections
     self.cons1 + self.cons2
   end
-
-  private
 
   def delete_connections
     self.cons1.destroy_all

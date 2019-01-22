@@ -134,4 +134,24 @@ class ApiCommunicator {
       success: success
     });
   }
+
+  delete_device_by_item_id(item_id, success = null) {
+    $.post({
+      url: `${location.origin}/api/maps/delete_device_by_item_id`,
+      data: {
+        item_id: item_id
+      },
+      success: success
+    });
+  }
+
+  delete_connections_by_item_id(item_id, success = null) {
+    $.post({
+      url: `${location.origin}/api/maps/delete_connections_by_item_id`,
+      data: {
+        item_id: item_id
+      },
+      success: success
+    });
+  }
 }

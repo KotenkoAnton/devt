@@ -272,6 +272,22 @@ class DomElementsHandler {
       left = Number(left.slice(0, left.length - 2)) + 320 + "px";
       this.open_whole_info_box(item_data, { top, left });
     });
+    $("#info_box_delete_button").click(() => {
+      this.whats_up.api_communicator.delete_device_by_item_id(
+        item_data.id,
+        () => {
+          location.reload();
+        }
+      );
+    });
+    $("#info_box_unlink_button").click(() => {
+      this.whats_up.api_communicator.delete_connections_by_item_id(
+        item_data.id,
+        () => {
+          location.reload();
+        }
+      );
+    });
   }
 
   //
