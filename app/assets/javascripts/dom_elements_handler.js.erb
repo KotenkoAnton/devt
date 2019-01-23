@@ -273,6 +273,7 @@ class DomElementsHandler {
 
   _set_item_box_events(item_data) {
     $("#info_box_open_button").click(() => {
+      $("#whole_info_box").remove(); // remove info box if opened
       let top = $("#info_box").css("top");
       let left = $("#info_box").css("left");
       left = Number(left.slice(0, left.length - 2)) + 320 + "px";
