@@ -78,12 +78,16 @@ module Api
     end
 
     def update_device_info
-      device = Device.by_item_id(params[:item_id])
+      item = Item.find(params[:item_id])
+      device = item.placeable
       device[:description] = params[:description]
       device[:address] = params[:address]
       device[:contacts] = params[:contacts]
       device[:ip_address] = params[:ip_address]
       device.save
+
+      item.name = params[:name]
+      item.save
     end
 
     def add_device_and_item

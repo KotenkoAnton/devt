@@ -59,7 +59,8 @@ class ApiCommunicator {
         description: info.description,
         address: info.address,
         contacts: info.contacts,
-        ip_address: info.ip_address
+        ip_address: info.ip_address,
+        name: info.name
       },
       success: success
     });

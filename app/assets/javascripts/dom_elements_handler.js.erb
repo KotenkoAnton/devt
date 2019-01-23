@@ -12,7 +12,9 @@ class DomElementsHandler {
       <div id="whole_info_box" class="whole-info">
         <div class="container">
           <div class="row">
-            <div class="col-7 item-name">${item.name}</div>
+            <div class="col-6 whole-box-editable item-name" id="whole_box_name">${
+              item.name
+            }</div>
             <div class="col-5">(D-link, DES 2108)??</div>
           </div>
           <div class="ip-address whole-box-editable" id="whole_box_ip_address">${
@@ -192,7 +194,8 @@ class DomElementsHandler {
           description: $("#whole_box_description").html(),
           address: $("#whole_box_address").html(),
           contacts: $("#whole_box_contacts").html(),
-          ip_address: $("#whole_box_ip_address").html()
+          ip_address: $("#whole_box_ip_address").html(),
+          name: $("#whole_box_name").html()
         },
         () => {
           let editables = $(".whole-box-editable");
@@ -205,6 +208,9 @@ class DomElementsHandler {
 
           // change ip in info box
           $("#info_box_ip_address").html($("#whole_box_ip_address").html());
+          if ($("#info_box_name").html() != $("#whole_box_name").html()) {
+            location.reload();
+          }
         }
       );
     });
@@ -217,7 +223,7 @@ class DomElementsHandler {
   open_item_box(item, item_data) {
     let info_box_html = `
       <div id='info_box' class='info-box container'>
-        <div class='item-name'>${item_data.name}</div>
+        <div class='item-name' id="info_box_name">${item_data.name}</div>
         <hr class='info-box-delimiter'>
         <div class='info-label'>Hostname:</div>
         <div class='info-text'>${item_data.host_name}</div><br>
