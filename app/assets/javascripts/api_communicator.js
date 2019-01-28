@@ -1,4 +1,11 @@
 class ApiCommunicator {
+  fetch_all_maps_names(success = null) {
+    $.get({
+      url: `${location.origin}/api/maps/fetch_all_maps_names`,
+      success: success
+    });
+  }
+
   fetch_map(map, success = null) {
     $.get({
       url: `${location.origin}/api/maps/fetch_map`,
@@ -10,6 +17,14 @@ class ApiCommunicator {
   add_device_and_item(adding_object, success = null) {
     $.post({
       url: `${location.origin}/api/maps/add_device_and_item`,
+      data: adding_object,
+      success: success
+    });
+  }
+
+  add_map_item(adding_object, success = null) {
+    $.post({
+      url: `${location.origin}/api/maps/add_map_item`,
       data: adding_object,
       success: success
     });

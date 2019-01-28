@@ -1,5 +1,9 @@
 module Api
   class MapsController < ApplicationController
+    def fetch_all_maps_names
+      render json: { maps: Map.pluck(:name).reject(&:nil?).sort }
+    end
+
     def fetch_map
       map = Map.find_by(name: params[:map])
       render json: { items: load_items(map), connections: load_connections(map), shapes: load_shapes(map),
@@ -119,6 +123,19 @@ module Api
     def delete_connections_by_item_id
       item = Item.find(params[:item_id])
       item.delete_connections
+    end
+
+    def add_map_item
+      map = Map.find_by(name: params[:map_name])
+      destination_map = Map.find_by(name: params[:destination_map_name])
+      item = Item.new
+      item.position_x = params[:position_x]
+      item.position_y = params[:position_y]
+      item.name = params[:name]
+      item.map = map
+      item.placeable = destination_map
+      item.save
+      render json: { item_id: item&.id }
     end
 
     private

@@ -312,6 +312,7 @@ class DomElementsHandler {
       case "add_object": {
         return this._add_object_content();
       }
+      case "add_object zones":
       case "add_object routers":
       case "add_object radio":
       case "add_object office": {
@@ -338,6 +339,11 @@ class DomElementsHandler {
     this._clear_action_box();
     this._fill_action_box(this._action_box_content(content_type));
     this._set_action_box_events(content_type);
+
+    if (content_type == "add_object zones") {
+      // if adding zones, load maps and set events
+      this._set_adding_zones();
+    }
   }
 
   _clear_action_box() {
@@ -385,7 +391,6 @@ class DomElementsHandler {
       }
       case "add_object radio": {
         $(".item").click(event => {
-          let text = event.currentTarget.children[1].firstChild.textContent;
           this.whats_up.mouse_event_handler.switch_clickable_mode_to(
             "adding_object"
           );
@@ -395,7 +400,6 @@ class DomElementsHandler {
             name: "New Router",
             text_content: "New Router"
           });
-          console.log(text);
         });
         break;
       }
@@ -418,6 +422,20 @@ class DomElementsHandler {
           );
         });
         break;
+      }
+      case "add_object zones": {
+        $("#add_zone_button").click(() => {
+          this.whats_up.mouse_event_handler.switch_clickable_mode_to(
+            "adding_object"
+          );
+          let zone_name = $("#zone_name").val();
+          let zone_map_name = $("a.list-group-item-action.active").text();
+          this.whats_up.mouse_event_handler.set_adding_object({
+            placeable_type: "Map",
+            name: zone_name,
+            destination_map_name: zone_map_name
+          });
+        });
       }
     }
   }
@@ -453,8 +471,39 @@ class DomElementsHandler {
 
   // adding item in action box
 
+  _set_adding_zones() {
+    $("#action_box_content_wrapper")
+      .promise()
+      .done(() => {
+        this.whats_up.api_communicator.fetch_all_maps_names(data => {
+          let maps = data.maps;
+          let html =
+            "<input id='map_name_search_box' class='map-name-search-box' placeholder='Поиск по названию'>";
+          maps.forEach(map => {
+            html += `<a class="list-group-item list-group-item-action">${map}</a>`;
+          });
+          $("#map_selecting_list_group").html(html);
+          $("#map_name_search_box").keyup(() => {
+            let filter = $("#map_name_search_box")
+              .val()
+              .toLowerCase();
+            $("#map_selecting_list_group a").each((_, map_name) => {
+              if (map_name.text.toLowerCase().includes(filter)) {
+                $(map_name).show();
+              } else {
+                $(map_name).hide();
+              }
+            });
+          });
+          $("#map_selecting_list_group a").click(e => {
+            $("#map_selecting_list_group a.active").removeClass("active");
+            $(e.target).addClass("active");
+          });
+        });
+      });
+  }
+
   _add_object_content() {
-    "<%= asset_path('ruler.svg') %>";
     return `
       <div class="adding-wrapper">
         <div class="add-item">
@@ -519,6 +568,7 @@ class DomElementsHandler {
 
   _add_objects_items_content(type) {
     let items = [];
+    let html = '<div class="adding-wrapper">';
     let breadcrumb;
     switch (type) {
       case "add_object radio": {
@@ -604,24 +654,45 @@ class DomElementsHandler {
         ];
         break;
       }
+      case "add_object zones": {
+        breadcrumb = "Зоны";
+
+        html += `
+          <div class="item">
+            <img src="<%= asset_path('cloud.svg') %>">
+            <input id="zone_name" placeholder="Имя зоны" class="zone-name"></input>
+          </div>
+          <div class="btn btn-success add-zone-button" id="add_zone_button">
+            Добавить зону
+          </div>
+          <div id="map_selecting_wrapper" class="map-selecting-wrapper">
+            <div id="map_selecting_list_group" class="list-group">
+            </div>
+          </div>
+        `;
+        break;
+      }
     }
 
-    let html = "";
-    for (let item of items) {
-      html += `
-        <div class="item">
-          <img src=${item.img_src}>
-          <span>${item.label}<span>
-        </div>
-      `;
+    // if filling with items content
+    if (items.length > 0) {
+      for (let item of items) {
+        html += `
+          <div class="item">
+            <img src=${item.img_src}>
+            <span>${item.label}</span>
+          </div>
+        `;
+      }
     }
+
+    html += "</div>";
+
     return `
       <div class="breadcrumbs">
         <span id="all_objects_button" class="all-objects">Все объекты</span><span class="current-objects"> / ${breadcrumb}</span>
       </div>
-      <div class="adding-wrapper">
-        ${html}
-      </div>
+      ${html}
     `;
   }
 
@@ -638,6 +709,10 @@ class DomElementsHandler {
       }
       case "Роутеры": {
         this._reset_action_box(prefix + " routers");
+        break;
+      }
+      case "Зоны": {
+        this._reset_action_box(prefix + " zones");
         break;
       }
     }

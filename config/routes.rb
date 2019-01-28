@@ -9,10 +9,12 @@ Rails.application.routes.draw do
     end
     resources :maps do
       collection do
+        get :fetch_all_maps_names
         get :fetch_map
         get :fetch_item_info
         get :map_name_by_item_id
         get :check_connection_existence
+        post :add_map_item
         post :delete_connections_by_item_id
         post :delete_device_by_item_id
         post :add_device_and_item

@@ -406,16 +406,34 @@ class MouseEventHandler {
       this.adding_object.position_x = event.event.clientX;
       this.adding_object.position_y = event.event.clientY;
       this.adding_object.map_name = this.whats_up.map_name;
-      this.whats_up.api_communicator.add_device_and_item(
-        this.adding_object,
-        data => {
-          this.adding_object.id = data.item_id;
-          this.adding_object = this.whats_up.drawer.place_item(
-            this.adding_object
+      switch (this.adding_object.placeable_type) {
+        case "Device": {
+          this.whats_up.api_communicator.add_device_and_item(
+            this.adding_object,
+            data => {
+              place_new_object(data);
+            }
           );
-          this.whats_up.drawer.place_text(this.adding_object);
+          break;
         }
-      );
+        case "Map": {
+          this.whats_up.api_communicator.add_map_item(
+            this.adding_object,
+            data => {
+              place_new_object(data);
+            }
+          );
+          break;
+        }
+      }
+
+      let place_new_object = data => {
+        this.adding_object.id = data.item_id;
+        this.adding_object = this.whats_up.drawer.place_item(
+          this.adding_object
+        );
+        this.whats_up.drawer.place_text(this.adding_object);
+      };
     };
 
     // main logic:

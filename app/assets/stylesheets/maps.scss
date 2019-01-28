@@ -405,6 +405,40 @@ $theme-color: #808080;
             width: 40px;
             height: 40px;
           }
+
+          .zone-name {
+            width: 140px;
+            margin-bottom: -10px;
+            margin-left: 10px;
+          }
+        }
+
+        .map-selecting-wrapper {
+          width: 70%;
+          height: 100%;
+          margin-right: 20px;
+          float: right;
+          overflow-y: scroll;
+          border: 1px solid $theme-color;
+
+          .map-name-search-box {
+            position: absolute;
+            top: 80px;
+            left: 262px;
+            width: 250px;
+          }
+
+          a {
+            &:hover {
+              cursor: pointer;
+            }
+          }
+        }
+
+        .add-zone-button {
+          position: absolute;
+          left: 30px;
+          bottom: 270px;
         }
       }
     }
