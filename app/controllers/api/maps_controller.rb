@@ -94,6 +94,16 @@ module Api
       item.save
     end
 
+    def add_new_map
+      map = Map.new
+      map.name = params[:map_name]
+      map.width = 400
+      map.height = 400
+      return render json: { added: true } if map.save
+
+      render json: { added: false }
+    end
+
     def add_device_and_item
       item = Item.new
       Device.transaction do

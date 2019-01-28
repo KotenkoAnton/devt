@@ -14,6 +14,14 @@ class ApiCommunicator {
     });
   }
 
+  add_new_map(map_name, success = null) {
+    $.post({
+      url: `${location.origin}/api/maps/add_new_map`,
+      data: { map_name },
+      success: success
+    });
+  }
+
   add_device_and_item(adding_object, success = null) {
     $.post({
       url: `${location.origin}/api/maps/add_device_and_item`,

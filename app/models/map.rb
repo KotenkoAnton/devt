@@ -8,4 +8,5 @@ class Map < ActiveRecord::Base
   has_many :shapes
 
   validates :name, uniqueness: true
+  validates :name, presence: true
 end

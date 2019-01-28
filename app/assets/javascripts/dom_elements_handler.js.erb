@@ -312,6 +312,7 @@ class DomElementsHandler {
       case "add_object": {
         return this._add_object_content();
       }
+      case "add_object maps":
       case "add_object zones":
       case "add_object routers":
       case "add_object radio":
@@ -436,6 +437,30 @@ class DomElementsHandler {
             destination_map_name: zone_map_name
           });
         });
+      }
+      case "add_object maps": {
+        $("#add_map_button").click(() => {
+          this.whats_up.api_communicator.add_new_map(
+            $("#new_map_name").val(),
+            data => {
+              if (data.added) {
+                $("#new_map_name").val("");
+                $("#new_map_info_label").html("Карта добавлена");
+                $("#new_map_info_label").css({
+                  display: "block",
+                  color: "green"
+                });
+              } else {
+                $("#new_map_info_label").html("Карта не добавлена");
+                $("#new_map_info_label").css({
+                  display: "block",
+                  color: "red"
+                });
+              }
+            }
+          );
+        });
+        break;
       }
     }
   }
@@ -562,6 +587,10 @@ class DomElementsHandler {
           <img src="<%= asset_path('cloud.svg') %>" class="object-type-img">
           <span>Зоны</span>
         </div>
+        <div class="add-item">
+          <img src="<%= asset_path('radio.svg') %>" class="object-type-img uncentered-img">
+          <span class="uncentered-text">Карты<span>
+        </div>
       </div>
     `;
   }
@@ -660,7 +689,7 @@ class DomElementsHandler {
         html += `
           <div class="item">
             <img src="<%= asset_path('cloud.svg') %>">
-            <input id="zone_name" placeholder="Имя зоны" class="zone-name"></input>
+            <input id="zone_name" placeholder="Имя зоны" class="zone-name">
           </div>
           <div class="btn btn-success add-zone-button" id="add_zone_button">
             Добавить зону
@@ -669,6 +698,16 @@ class DomElementsHandler {
             <div id="map_selecting_list_group" class="list-group">
             </div>
           </div>
+        `;
+        break;
+      }
+      case "add_object maps": {
+        breadcrumb = "Карты";
+
+        html += `
+          <input id="new_map_name" placeholder="Имя карты"><br>
+          <label id="new_map_info_label" class="info-label">check</label>
+          <div id="add_map_button" class="btn btn-success add-map-button">Добавить карту</div>
         `;
         break;
       }
@@ -715,11 +754,13 @@ class DomElementsHandler {
         this._reset_action_box(prefix + " zones");
         break;
       }
+      case "Карты": {
+        this._reset_action_box(prefix + " maps");
+        break;
+      }
     }
     $("#all_objects_button").click(() => {
-      this._clear_action_box();
-      this._fill_action_box(this._action_box_content("add_object"));
-      this._set_action_box_events("add_object");
+      this._reset_action_box("add_object");
     });
   }
 
