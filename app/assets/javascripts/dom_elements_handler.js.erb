@@ -487,6 +487,8 @@ class DomElementsHandler {
 
     $("#canvas").after(action_box_html);
     $("#close_button").click(() => {
+      this.whats_up.mouse_event_handler.switch_clickable_mode_to("main_usage");
+      this.whats_up.mouse_event_handler.set_adding_object(null);
       $("#action_box").remove();
     });
     this._set_action_box_events(content_type, items);
