@@ -454,7 +454,7 @@ $theme-color: #808080;
   }
 
   .whole-info {
-    position: absolute;
+    position: fixed;
     box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2),
       0 6px 20px 0 rgba(0, 0, 0, 0.19);
     background-color: white;
@@ -462,6 +462,20 @@ $theme-color: #808080;
     padding-top: 15px;
     padding-bottom: 15px;
     font-size: 15px;
+    top: 70px;
+    right: 20px;
+
+    .close-button {
+      width: 15px;
+      height: 15px;
+      float: right;
+      margin-top: 10px;
+      margin-right: 15px;
+
+      &:hover {
+        cursor: pointer;
+      }
+    }
 
     input {
       width: inherit;
@@ -482,7 +496,6 @@ $theme-color: #808080;
     .item-name {
       word-wrap: break-word;
       overflow-wrap: break-word;
-      margin-left: 17px;
       padding-left: 2px;
     }
 

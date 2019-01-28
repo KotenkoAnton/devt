@@ -7,15 +7,17 @@ class DomElementsHandler {
 
   // whole info
 
-  open_whole_info_box(item, position) {
+  open_whole_info_box(item) {
     let whole_box_html = `
       <div id="whole_info_box" class="whole-info">
         <div class="container">
+          <div id='whole_box_close_button' class='close-button'>
+            <img src="<%= asset_path('close_button.svg') %>">
+          </div>
           <div class="row">
-            <div class="col-6 whole-box-editable item-name" id="whole_box_name">${
+            <div class="col-7 whole-box-editable item-name" id="whole_box_name">${
               item.name
             }</div>
-            <div class="col-5">(D-link, DES 2108)??</div>
           </div>
           <div class="ip-address whole-box-editable" id="whole_box_ip_address">${
             item.ip_address
@@ -171,12 +173,14 @@ class DomElementsHandler {
     `;
 
     $("#canvas").after(whole_box_html);
-    $("#whole_info_box").css({ top: position.top, left: position.left });
 
     this._set_whole_info_box_events(item);
   }
 
   _set_whole_info_box_events(item) {
+    $("#whole_box_close_button").click(() => {
+      $("#whole_info_box").remove();
+    });
     $("#edit_device_button").click(() => {
       let editables = $(".whole-box-editable");
       // set editing on fields
@@ -268,16 +272,12 @@ class DomElementsHandler {
 
   close_item_box() {
     $("#info_box").remove();
-    $("#whole_info_box").remove();
   }
 
   _set_item_box_events(item_data) {
     $("#info_box_open_button").click(() => {
       $("#whole_info_box").remove(); // remove info box if opened
-      let top = $("#info_box").css("top");
-      let left = $("#info_box").css("left");
-      left = Number(left.slice(0, left.length - 2)) + 320 + "px";
-      this.open_whole_info_box(item_data, { top, left });
+      this.open_whole_info_box(item_data);
     });
     $("#info_box_delete_button").click(() => {
       this.whats_up.api_communicator.delete_device_by_item_id(
@@ -475,7 +475,7 @@ class DomElementsHandler {
         <div class='title'>
           ${this._action_box_title(content_type)}
         </div>
-        <div id='close_button' class='close-button'>
+        <div id='action_box_close_button' class='close-button'>
           <img src="<%= asset_path('close_button.svg') %>">
         </div>
         <br><br>
@@ -486,7 +486,7 @@ class DomElementsHandler {
     `;
 
     $("#canvas").after(action_box_html);
-    $("#close_button").click(() => {
+    $("#action_box_close_button").click(() => {
       this.whats_up.mouse_event_handler.switch_clickable_mode_to("main_usage");
       this.whats_up.mouse_event_handler.set_adding_object(null);
       $("#action_box").remove();
