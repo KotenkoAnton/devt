@@ -1,4 +1,12 @@
 class ApiCommunicator {
+  delete_zone_item(item_id, success = null) {
+    $.post({
+      url: `${location.origin}/api/maps/delete_zone_item`,
+      data: { item_id },
+      success: success
+    });
+  }
+
   fetch_all_maps_names(success = null) {
     $.get({
       url: `${location.origin}/api/maps/fetch_all_maps_names`,

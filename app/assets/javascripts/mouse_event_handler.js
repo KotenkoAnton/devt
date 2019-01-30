@@ -4,7 +4,7 @@ class MouseEventHandler {
   constructor(whats_up, papertool) {
     this.whats_up = whats_up;
     this.mode = "clickable"; // clickable_ draggable
-    this.clickable_mode = "main_usage"; // main_usage, ruler, adding_object
+    this.clickable_mode = "main_usage"; // main_usage, ruler, adding_object, zone_deleting
     this.papertool = papertool;
 
     // draggable:
@@ -380,6 +380,16 @@ class MouseEventHandler {
       }
     };
 
+    let delete_zone = event => {
+      let item = target_item(event.point);
+      if (!item || item._type != "map") {
+        return;
+      }
+      whats_up.api_communicator.delete_zone_item(item._id, () => {
+        location.reload();
+      });
+    };
+
     let on_mouse_click = event => {
       switch (this.clickable_mode) {
         case "main_usage": {
@@ -392,6 +402,10 @@ class MouseEventHandler {
         }
         case "adding_object": {
           add_object(event);
+          break;
+        }
+        case "zone_deleting": {
+          delete_zone(event);
           break;
         }
       }
