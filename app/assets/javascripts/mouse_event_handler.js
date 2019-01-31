@@ -52,6 +52,11 @@ class MouseEventHandler {
     this.ruler_first_item = undefined;
     this.ruler_second_item = undefined;
     this.clickable_mode = mode;
+    if (mode == "adding_object") {
+      this._set_cursor("crosshair");
+    } else {
+      this._set_cursor("auto");
+    }
   }
 
   get_clickable_mode() {
@@ -88,7 +93,7 @@ class MouseEventHandler {
         type = "Shape";
       }
       this.whats_up.drawer.delete_item_connections(item._id, type);
-      set_cursor("move");
+      this._set_cursor("move");
     };
 
     let dragging = event_point => {
@@ -117,7 +122,7 @@ class MouseEventHandler {
       }
       let cursor = check_for_expand(event);
       if (cursor) {
-        set_cursor(cursor);
+        this._set_cursor(cursor);
       }
     };
 
@@ -181,7 +186,7 @@ class MouseEventHandler {
       }
       this.moving = false;
       this.moving_target = null;
-      set_cursor("default");
+      this._set_cursor("default");
     };
 
     // expanding
@@ -273,7 +278,7 @@ class MouseEventHandler {
       };
       let hit_result = paper.project.hitTest(event.point, hitOptions);
       if (!hit_result) {
-        set_cursor("default");
+        this._set_cursor("default");
         return;
       }
       let item = hit_result.item;
@@ -416,7 +421,7 @@ class MouseEventHandler {
     // adding object
 
     let add_object = event => {
-      this.clickable_mode = "main_usage";
+      this.switch_clickable_mode_to("main_usage");
       this.adding_object.position_x = event.event.clientX;
       this.adding_object.position_y = event.event.clientY;
       this.adding_object.map_name = this.whats_up.map_name;
@@ -426,6 +431,7 @@ class MouseEventHandler {
             this.adding_object,
             data => {
               place_new_object(data);
+              this.adding_object = null;
             }
           );
           break;
@@ -435,6 +441,7 @@ class MouseEventHandler {
             this.adding_object,
             data => {
               place_new_object(data);
+              this.adding_object = null;
             }
           );
           break;
@@ -451,10 +458,6 @@ class MouseEventHandler {
     };
 
     // main logic:
-
-    let set_cursor = cursor => {
-      document.body.style.cursor = cursor;
-    };
 
     let target_item = event_point => {
       for (let item of this.whats_up.drawer.get_items()) {
@@ -509,5 +512,9 @@ class MouseEventHandler {
     };
 
     //
+  }
+
+  _set_cursor(cursor) {
+    $("body").css({ cursor });
   }
 }
