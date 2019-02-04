@@ -304,10 +304,10 @@ class DomElementsHandler {
   _action_box_content(content_type, items) {
     switch (content_type) {
       case "link": {
-        return this._ruler_content(items);
+        return this._ruler_content(items, "link");
       }
       case "unlink": {
-        return this._ruler_unlink_content(items);
+        return this._ruler_content(items, "unlink");
       }
       case "add_object": {
         return this._add_object_content();
@@ -770,132 +770,52 @@ class DomElementsHandler {
 
   // ruler in action box
 
-  _ruler_connection_types() {
-    let connection_types = [
-      "10BaseT",
-      "10/100BaseTX",
-      "10/100/100BaseTX",
-      "Gigabit-Combo",
-      "SFP",
-      "GBIC",
-      "SFP+",
-      "XFP"
-    ];
-    let html = `
-      <div class="connection-type">
-        <lable>Радиоподключение</lable>
-        <input type="radio" name="connection_type" checked>
-      </div>
-    `;
-    for (let connection_type of connection_types) {
-      html += `
-      <div class="connection-type">
-        <lable>${connection_type}</lable>
-        <input type="radio" name="connection_type">
-      </div>
-      `;
-    }
-    return html;
-  }
-
-  _ruler_content(items) {
+  _ruler_content(items, action) {
     return `
     <div class="ruler-wrapper">
-      <div class="row">
-        <div class="ruler-navigation">
-          <div class="ruler-title">
-            Тип связи
-          </div>
-          ${this._ruler_connection_types()}
+      <div class="items-row">
+        <div class="item first-item">
+          <span class="item-img">
+            ${get_icon(
+              items.first_item._icon_type
+                ? items.first_item._icon_type
+                : "Shape"
+            )}
+          </span>
+          <label class="item-label">
+            ${
+              items.first_item.text_content
+                ? items.first_item.text_content
+                : "Фигура"
+            }
+          </label>
         </div>
-        <div class="ruler-main">
-          <div class="items-row">
-            <div class="first-item">
-              <span class="item-img">
-                ${get_icon(
-                  items.first_item._icon_type
-                    ? items.first_item._icon_type
-                    : "Shape"
-                )}
-              </span>
-              <label class="item-label">
-                ${
-                  items.first_item.text_content
-                    ? items.first_item.text_content
-                    : "Фигура"
-                }
-              </label>
-            </div>
-            <div class="second-item">
-              <span class="item-img">
-                ${get_icon(
-                  items.second_item._icon_type
-                    ? items.second_item._icon_type
-                    : "Shape"
-                )}
-              </span>
-              <label class="item-label">
-                ${
-                  items.second_item.text_content
-                    ? items.second_item.text_content
-                    : "Фигура"
-                }
-              </label>
-            </div>
-            <div class="connection-line"></div>
-          </div>
-
-          <div id="save_connection_button" class="confirm-button">
-            <div class='text'>Сохранить</div>
-          </div>
+        <div class="item second-item">
+          <span class="item-img">
+            ${get_icon(
+              items.second_item._icon_type
+                ? items.second_item._icon_type
+                : "Shape"
+            )}
+          </span>
+          <label class="item-label">
+            ${
+              items.second_item.text_content
+                ? items.second_item.text_content
+                : "Фигура"
+            }
+          </label>
         </div>
+        <div class="connection-line"></div>
       </div>
-    </div>
-    `;
-  }
 
-  _ruler_unlink_content(items) {
-    return `
-    <div class="ruler-wrapper">
-      <div class="ruler-main">
-        <div class="items-row">
-          <div class="first-item">
-            <span class="item-img">
-              ${get_icon(
-                items.first_item._icon_type
-                  ? items.first_item._icon_type
-                  : "Shape"
-              )}
-            </span>
-            <label class="item-label">
-              ${
-                items.first_item.text_content
-                  ? items.first_item.text_content
-                  : "Фигура"
-              }
-            </label>
-          </div>
-          <div class="second-item">
-            <span class="item-img">
-              ${get_icon(
-                items.second_item._icon_type
-                  ? items.second_item._icon_type
-                  : "Shape"
-              )}
-            </span>
-            <label class="item-label">
-              ${
-                items.second_item.text_content
-                  ? items.second_item.text_content
-                  : "Фигура"
-              }
-            </label>
-          </div>
-          <div class="connection-line unlink-line"></div>
-        </div>
-        <div id="unlink_connection_button" class="confirm-button unlink-confirm-button">
-          <div class='text'>Удалить связь</div>
-        </div>
+      <div class="buttons-wrapper">
+        <div id="unlink_connection_button" class="btn btn-danger button ${
+          action == "link" ? "hidden" : ""
+        }">Удалить связь</div>
+        <div id="save_connection_button" class="btn btn-success button ${
+          action == "unlink" ? "hidden" : ""
+        }">Сохранить</div>
       </div>
     </div>
     `;

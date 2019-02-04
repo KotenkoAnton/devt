@@ -229,41 +229,21 @@ $theme-color: #808080;
 
       // ruler
       .ruler-wrapper {
-        .ruler-navigation {
-          margin-left: 25px;
-          width: 25%;
-          height: 450px;
-          border-right: 1px solid $theme-color;
+        position: relative;
+        height: inherit;
 
-          .connection-type {
-            color: #515151;
-            font-size: 95%;
-            margin-bottom: 15px;
-
-            input {
-              float: right;
-              margin-right: 15px;
-              margin-top: 4px;
-              cursor: pointer;
-            }
-          }
-
-          .ruler-title {
-            color: $theme-color;
-            font-size: 90%;
-            margin-bottom: 20px;
-          }
-        }
-
-        .ruler-main {
+        .items-row {
+          font-size: 80%;
+          height: 20%;
           position: relative;
-          width: 70%;
-          height: inherit;
 
-          .items-row {
-            font-size: 80%;
-            height: 20%;
+          .item {
+            display: flex;
+            justify-content: center;
+            align-items: flex-end;
             position: relative;
+            width: 300px;
+            height: 80px;
 
             .item-img {
               position: absolute;
@@ -273,67 +253,36 @@ $theme-color: #808080;
           }
 
           .first-item {
-            display: flex;
-            justify-content: center;
-            align-items: flex-end;
-            float: left;
-            position: relative;
-            width: 300px;
             margin-left: 10px;
-            height: 80px;
+            float: left;
           }
 
           .second-item {
-            display: flex;
-            justify-content: center;
-            align-items: flex-end;
             float: right;
-            position: relative;
-            width: 300px;
-            height: 80px;
           }
 
           .connection-line {
             position: absolute;
-            width: 243px;
+            width: 490px;
             height: 0;
             left: 207px;
             top: 22px;
             border-top: 1px solid blue;
             background-color: green;
           }
+        }
 
-          .confirm-button {
-            position: absolute;
-            left: 488px;
-            bottom: 0;
-            background-color: #43b05c;
-            border-radius: 8px;
-            float: right;
-            width: 140px;
-            height: 40px;
+        .buttons-wrapper {
+          position: absolute;
+          bottom: 0;
+          right: 40px;
 
-            &:hover {
-              cursor: pointer;
-              box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2),
-                0 6px 20px 0 rgba(0, 0, 0, 0.19);
-            }
-
-            .text {
-              margin-top: 7px;
-              color: #d9eede;
-              margin-left: 29px;
-            }
+          .hidden {
+            display: none;
           }
 
-          .unlink-line {
-            width: 217px !important;
-          }
-
-          .unlink-confirm-button {
-            bottom: -450px;
-            left: 710px;
-            width: 163px;
+          .button {
+            margin-right: 10px;
           }
         }
       }
