@@ -1,5 +1,12 @@
 module Api
   class MapsController < ApplicationController
+    def fetch_device_copy
+      item = Item.find(params[:item_id])
+      device = item.placeable
+      device.display_name.prepend("New_")
+      render json: device.as_json(except: %i[created_at updated_at icmp_available id monitored zbx_id])
+    end
+
     def fetch_all_maps_names
       render json: { maps: Map.pluck(:name).reject(&:nil?).sort }
     end
@@ -108,18 +115,15 @@ module Api
       item = Item.new
       Device.transaction do
         device = Device.new
-        device.display_name = params[:name]
-        device.ip_address = "127.0.0.1"
-        device.host_name = "127.0.0.1"
-        device.host_type_name = params[:placeable][:host_type_name]
-        device[:monitored] = false
+        device.attributes = { display_name: params[:name], ip_address: "127.0.0.1",
+                              host_name: "127.0.0.1", host_type_name: params[:placeable][:host_type_name],
+                              monitored: false, address: params[:address], description: params[:description],
+                              contacts: params[:contacts] }
         device.save!
 
-        item.name = params[:name]
-        item.position_x = params[:position_x]
-        item.position_y = params[:position_y]
-        item.placeable = device
-        item.map = Map.find_by(name: params[:map_name])
+        item.attributes = { position_x: params[:position_x], position_y: params[:position_y],
+                            placeable: device, map: Map.find_by(name: params[:map_name]),
+                            name: params[:name] }
         item.save!
       end
       render json: { item_id: item&.id }

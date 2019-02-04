@@ -7,6 +7,14 @@ class ApiCommunicator {
     });
   }
 
+  fetch_device_copy(item_id, success = null) {
+    $.get({
+      url: `${location.origin}/api/maps/fetch_device_copy`,
+      data: { item_id },
+      success: success
+    });
+  }
+
   fetch_all_maps_names(success = null) {
     $.get({
       url: `${location.origin}/api/maps/fetch_all_maps_names`,

@@ -9,6 +9,7 @@ Rails.application.routes.draw do
     end
     resources :maps do
       collection do
+        get :fetch_device_copy
         get :fetch_all_maps_names
         get :fetch_map
         get :fetch_item_info
