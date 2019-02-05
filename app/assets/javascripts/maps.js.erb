@@ -36,6 +36,30 @@ let set_events = () => {
       $("body").css({ cursor: "crosshair" });
     }
   });
+
+  // search
+
+  $("#search_input").keyup(() => {
+    let filter = $("#search_input")
+      .val()
+      .toLowerCase();
+    let items = whats_up.drawer.get_items();
+    if (filter.length == 0) {
+      items.forEach(item => {
+        item.text.style.fillColor = "black";
+      });
+      return;
+    }
+    items.forEach(item => {
+      if (item.text.content.toLowerCase().includes(filter)) {
+        item.text.style.fillColor = "red";
+      } else {
+        item.text.style.fillColor = "black";
+      }
+    });
+  });
+
+  //
 };
 
 let init = () => {
