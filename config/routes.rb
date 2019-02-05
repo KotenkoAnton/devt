@@ -15,6 +15,7 @@ Rails.application.routes.draw do
         get :fetch_item_info
         get :map_name_by_item_id
         get :check_connection_existence
+        post :delete_shape
         post :add_shape
         post :delete_zone_item
         post :add_new_map

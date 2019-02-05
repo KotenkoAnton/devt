@@ -88,6 +88,10 @@ module Api
       connection.destroy
     end
 
+    def delete_shape
+      Shape.find(params[:shape_id]).destroy
+    end
+
     def update_device_info
       item = Item.find(params[:item_id])
       device = item.placeable

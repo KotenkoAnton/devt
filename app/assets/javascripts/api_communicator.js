@@ -7,6 +7,14 @@ class ApiCommunicator {
     });
   }
 
+  delete_shape(shape_id, success = null) {
+    $.post({
+      url: `${location.origin}/api/maps/delete_shape`,
+      data: { shape_id },
+      success: success
+    });
+  }
+
   fetch_device_copy(item_id, success = null) {
     $.get({
       url: `${location.origin}/api/maps/fetch_device_copy`,
