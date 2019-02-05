@@ -438,9 +438,12 @@ class MouseEventHandler {
       this.switch_clickable_mode_to("main_usage");
       this.adding_object.position_x = event.event.clientX;
       this.adding_object.position_y = event.event.clientY;
+
       this.adding_object.map_name = this.whats_up.map_name;
       switch (this.adding_object.placeable_type) {
         case "Device": {
+          this.adding_object.position_x += 7;
+          this.adding_object.position_y -= 50;
           this.whats_up.api_communicator.add_device_and_item(
             this.adding_object,
             data => {
@@ -451,6 +454,8 @@ class MouseEventHandler {
           break;
         }
         case "Map": {
+          this.adding_object.position_x += 7;
+          this.adding_object.position_y -= 50;
           this.whats_up.api_communicator.add_map_item(
             this.adding_object,
             data => {
@@ -461,6 +466,8 @@ class MouseEventHandler {
           break;
         }
         case "Shape": {
+          this.adding_object.position_x -= 10;
+          this.adding_object.position_y -= 65;
           this.whats_up.api_communicator.add_shape(this.adding_object, data => {
             this.adding_object.id = data.shape_id;
             this.adding_object.height = data.height;
