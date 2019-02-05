@@ -153,36 +153,39 @@ class MouseEventHandler {
       if (!this.moving_target) {
         return;
       }
-      let type;
-      if (
-        this.moving_target._type == "device" ||
-        this.moving_target._type == "map"
-      ) {
-        type = "Item";
-      }
-      if (this.moving_target._type == "shape") {
-        type = "Shape";
-      }
-      this.whats_up.drawer.draw_item_connections(this.moving_target._id, type);
-      if (this.moving_target._type == "device") {
-        this.whats_up.api_communicator.change_item_position(
-          this.moving_target._id,
-          event.point,
-          data => {
-            if (data.corrected) {
-              location.reload();
+
+      switch (this.moving_target._type) {
+        case "device":
+        case "map": {
+          this.whats_up.drawer.draw_item_connections(
+            this.moving_target._id,
+            "Item"
+          );
+          this.whats_up.api_communicator.change_item_position(
+            this.moving_target._id,
+            event.point,
+            data => {
+              if (data.corrected) {
+                location.reload();
+              }
             }
-          }
-        );
-      }
-      if (this.moving_target._type == "shape") {
-        this.whats_up.api_communicator.change_shape_position(
-          this.moving_target._id,
-          {
-            x: Math.floor(this.moving_target.bounds.x),
-            y: Math.floor(this.moving_target.bounds.y)
-          }
-        );
+          );
+          break;
+        }
+        case "shape": {
+          this.whats_up.drawer.draw_item_connections(
+            this.moving_target._id,
+            "Shape"
+          );
+          this.whats_up.api_communicator.change_shape_position(
+            this.moving_target._id,
+            {
+              x: Math.floor(this.moving_target.bounds.x),
+              y: Math.floor(this.moving_target.bounds.y)
+            }
+          );
+          break;
+        }
       }
       this.moving = false;
       this.moving_target = null;
