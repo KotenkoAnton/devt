@@ -328,6 +328,7 @@ class DomElementsHandler {
       case "add_object": {
         return this._add_object_content();
       }
+      case "add_object shapes":
       case "add_object maps":
       case "add_object zones":
       case "add_object routers":
@@ -477,6 +478,17 @@ class DomElementsHandler {
           );
         });
         break;
+      }
+      case "add_object shapes": {
+        $("#rectangle").click(() => {
+          this.whats_up.mouse_event_handler.switch_clickable_mode_to(
+            "adding_object"
+          );
+          this.whats_up.mouse_event_handler.set_adding_object({
+            placeable_type: "Shape",
+            shape_type: "Rectangle"
+          });
+        });
       }
     }
   }
@@ -729,18 +741,26 @@ class DomElementsHandler {
         `;
         break;
       }
+      case "add_object shapes": {
+        breadcrumb = "Фигуры";
+
+        html += `
+          <div id="rectangle" class="rectangle">
+            <span>Прямоугольник</span>
+          </div>
+        `;
+        break;
+      }
     }
 
     // if filling with items content
-    if (items.length > 0) {
-      for (let item of items) {
-        html += `
-          <div class="item">
-            <img src=${item.img_src}>
-            <span>${item.label}</span>
-          </div>
-        `;
-      }
+    for (let item of items) {
+      html += `
+        <div class="item">
+          <img src=${item.img_src}>
+          <span>${item.label}</span>
+        </div>
+      `;
     }
 
     html += "</div>";
@@ -774,6 +794,10 @@ class DomElementsHandler {
       }
       case "Карты": {
         this._reset_action_box(prefix + " maps");
+        break;
+      }
+      case "Фигуры": {
+        this._reset_action_box(prefix + " shapes");
         break;
       }
     }

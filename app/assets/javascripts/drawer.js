@@ -17,15 +17,19 @@ class Drawer {
 
   draw_shapes(shapes) {
     for (let shape of shapes) {
-      if (shape.shape == "rectangle") {
-        let rectangle = this.draw_rectangle(
-          new paper.Point(shape.position_x, shape.position_y),
-          new paper.Size(shape.width, shape.height)
-        );
-        rectangle._id = shape.id;
-        rectangle._type = "shape";
-        this.shapes.push(rectangle);
-      }
+      this.draw_shape(shape);
+    }
+  }
+
+  draw_shape(shape) {
+    if (shape.shape == "rectangle") {
+      let rectangle = this.draw_rectangle(
+        new paper.Point(shape.position_x, shape.position_y),
+        new paper.Size(shape.width, shape.height)
+      );
+      rectangle._id = shape.id;
+      rectangle._type = "shape";
+      this.shapes.push(rectangle);
     }
   }
 

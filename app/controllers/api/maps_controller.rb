@@ -129,6 +129,14 @@ module Api
       render json: { item_id: item&.id }
     end
 
+    def add_shape
+      shape = Shape.new
+      shape.attributes = { map: Map.find_by(name: params[:map_name]), position_x: params[:position_x],
+                           position_y: params[:position_y], width: 100, height: 100, shape: "rectangle" }
+      shape.save
+      render json: { shape_id: shape&.id, shape: shape&.shape, height: shape&.height, width: shape&.width }
+    end
+
     def delete_device_by_item_id
       item = Item.find(params[:item_id])
       item.placeable.destroy

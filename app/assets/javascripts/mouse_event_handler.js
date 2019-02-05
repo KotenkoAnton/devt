@@ -446,6 +446,16 @@ class MouseEventHandler {
           );
           break;
         }
+        case "Shape": {
+          this.whats_up.api_communicator.add_shape(this.adding_object, data => {
+            this.adding_object.id = data.shape_id;
+            this.adding_object.height = data.height;
+            this.adding_object.width = data.width;
+            this.adding_object.shape = data.shape;
+            this.whats_up.drawer.draw_shape(this.adding_object);
+          });
+          break;
+        }
       }
 
       let place_new_object = data => {

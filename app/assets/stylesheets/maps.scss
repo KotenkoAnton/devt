@@ -300,6 +300,25 @@ $theme-color: #808080;
         padding-top: 24px;
         padding-right: 0;
 
+        .rectangle {
+          width: 45px;
+          height: 45px;
+          background-color: #c3c3c3;
+          margin-left: 40px;
+          position: relative;
+
+          &:hover {
+            cursor: pointer;
+          }
+
+          span {
+            color: $theme-color;
+            position: absolute;
+            right: -36px;
+            top: 50px;
+          }
+        }
+
         .with-no-right-margin {
           margin-right: 0;
         }
