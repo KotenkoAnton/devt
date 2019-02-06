@@ -436,8 +436,10 @@ class MouseEventHandler {
 
     let add_object = event => {
       this.switch_clickable_mode_to("main_usage");
-      this.adding_object.position_x = event.event.clientX;
-      this.adding_object.position_y = event.event.clientY;
+      this.adding_object.position_x =
+        event.event.clientX + $(document).scrollLeft();
+      this.adding_object.position_y =
+        event.event.clientY + $(document).scrollTop();
 
       this.adding_object.map_name = this.whats_up.map_name;
       switch (this.adding_object.placeable_type) {
