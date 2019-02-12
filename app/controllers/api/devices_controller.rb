@@ -4,20 +4,20 @@ module Api
     include AccessApiAuth
 
     def update_status
-      return err("Bad parameters", 422) unless params[:ip_address] && params[:status]
+      return err("Bad parameters", 422) unless params[:ip] && params[:status]
 
-      device = Device.find_by(ip_address: params[:ip_address])
-      return err("Record not found", 404) unless device
+      ip_address = IpAddress.find_by(ip_address: params[:ip_address])
+      return err("Record not found", 404) unless ip_address
 
       case params[:status]
       when "down"
-        device.icmp_available = false
+        ip_address.icmp_available = false
       when "up"
-        device.icmp_available = true
+        ip_address.icmp_available = true
       else
         return err("Bad parameters", 422)
       end
-      return render json: { status: "Success" }, status: 200 if device.save
+      return render json: { status: "Success" }, status: 200 if ip_address.save
 
       render json: { status: "Could not save the record" }, status: 200
     end
