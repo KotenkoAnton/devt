@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_01_17_102212) do
+ActiveRecord::Schema.define(version: 2019_02_08_105641) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -29,17 +29,24 @@ ActiveRecord::Schema.define(version: 2019_01_17_102212) do
 
   create_table "devices", force: :cascade do |t|
     t.string "display_name"
-    t.string "ip_address"
     t.string "host_type_name"
-    t.boolean "monitored"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "host_name"
-    t.integer "zbx_id"
-    t.boolean "icmp_available"
     t.string "description"
     t.string "contacts"
     t.string "address"
+    t.bigint "ip_address_id"
+    t.index ["ip_address_id"], name: "index_devices_on_ip_address_id"
+  end
+
+  create_table "ip_addresses", force: :cascade do |t|
+    t.string "ip_address"
+    t.boolean "monitored"
+    t.integer "zbx_id"
+    t.boolean "icmp_available"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "items", force: :cascade do |t|

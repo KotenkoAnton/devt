@@ -4,7 +4,7 @@ module Api
       item = Item.find(params[:item_id])
       device = item.placeable
       device.display_name.prepend("New_")
-      render json: device.as_json(except: %i[created_at updated_at icmp_available id monitored zbx_id])
+      render json: device.as_json(except: %i[created_at updated_at id])
     end
 
     def fetch_all_maps_names
@@ -18,10 +18,10 @@ module Api
     end
 
     def fetch_item_info
-      item = Item.includes(:placeable).find(params[:item_id])
+      item = Item.includes(placeable: :ip_address).find(params[:item_id])
       placeable = item.placeable
       render json: { name: item.name, host_name: placeable.host_name,
-                     ip_address: placeable[:ip_address], status: placeable[:icmp_available],
+                     ip_address: placeable.ip_address[:ip_address], status: placeable.ip_address[:icmp_available],
                      description: placeable.description, address: placeable.address,
                      contacts: placeable.contacts }
     end
@@ -98,7 +98,7 @@ module Api
       device[:description] = params[:description]
       device[:address] = params[:address]
       device[:contacts] = params[:contacts]
-      device[:ip_address] = params[:ip_address]
+      device.ip_address = IpAddress.by_ip(params[:ip_address])
       device.save
 
       item.name = params[:name]
@@ -119,10 +119,10 @@ module Api
       item = Item.new
       Device.transaction do
         device = Device.new
-        device.attributes = { display_name: params[:name], ip_address: "127.0.0.1",
+        ip_address = IpAddress.find_by(ip_address: "127.0.0.1")
+        device.attributes = { display_name: params[:name], ip_address: ip_address,
                               host_name: "127.0.0.1", host_type_name: params[:placeable][:host_type_name],
-                              monitored: false, address: params[:address], description: params[:description],
-                              contacts: params[:contacts] }
+                              address: params[:address], description: params[:description], contacts: params[:contacts] }
         device.save!
 
         item.attributes = { position_x: params[:position_x], position_y: params[:position_y],
@@ -172,12 +172,23 @@ module Api
     private
 
     def load_items(map)
-      Item.where(map: map).as_json(except: %i[created_at updated_at],
-                                   include: {
-                                     placeable: {
-                                       except: %i[created_at updated_at]
-                                     }
-                                   })
+      devices = Item.where(map: map, placeable_type: 'Device').includes(placeable: :ip_address)
+      maps = Item.where(map: map, placeable_type: 'Map').includes(:placeable)
+
+      devices_json = devices.as_json(except: %i[created_at updated_at],
+                                     include: {
+                                       placeable: {
+                                         except: %i[created_at updated_at],
+                                         include: {
+                                           ip_address: { except: %i[created_at updated_at] }
+                                         }
+                                       }
+                                     })
+      maps_json = maps.as_json(except: %i[created_at updated_at],
+                               include: {
+                                 placeable: { except: %i[created_at updated_at] }
+                               })
+      devices_json + maps_json
     end
 
     def load_connections(map)
