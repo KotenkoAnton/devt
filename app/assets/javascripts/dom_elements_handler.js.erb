@@ -235,8 +235,8 @@ class DomElementsHandler {
         <div class='info-text' id="info_box_ip_address">${
           item_data.ip_address
         }</div><br>
-        <div class='info-label'>Up since:</div>
-        <div class='info-text'>08/28/18 20:25:29</div><br>
+        <div class='info-label'>${item_data.status ? "Up" : "Down"} since:</div>
+        <div class='info-text'>${item_data.changed_status_at}</div><br>
         <div class='info-label'>Responded:</div>
         <div class='info-text'>98.13%</div><br>
         <div class='info-label'>Status:</div>

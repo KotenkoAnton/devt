@@ -23,7 +23,8 @@ module Api
       render json: { name: item.name, host_name: placeable.host_name,
                      ip_address: placeable.ip_address[:ip_address], status: placeable.ip_address[:icmp_available],
                      description: placeable.description, address: placeable.address,
-                     contacts: placeable.contacts }
+                     contacts: placeable.contacts,
+                     changed_status_at: placeable.ip_address[:changed_status_at]&.strftime("%d/%m/%y %H:%M:%S") }
     end
 
     def change_item_position
