@@ -17,7 +17,7 @@ module Api
       else
         return err("Bad parameters", 422)
       end
-      ip_address.changed_status_at = Time.now
+      ip_address.changed_status_at = Time.current
       return render json: { status: "Success" }, status: 200 if ip_address.save
 
       render json: { status: "Could not save the record" }, status: 200

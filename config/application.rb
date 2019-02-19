@@ -13,6 +13,9 @@ module WhatsUp
 
     config.autoload_paths += Dir["#{config.root}/app/services/**/"]
 
+    config.time_zone = ENV['TIMEZONE']
+    config.active_record.default_timezone = :local
+
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration can go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded after loading
