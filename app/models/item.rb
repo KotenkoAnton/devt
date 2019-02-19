@@ -8,6 +8,9 @@ class Item < ActiveRecord::Base
 
   before_destroy :delete_connections
 
+  include PgSearch
+  pg_search_scope :search, against: :name
+
   def connections
     self.cons1 + self.cons2
   end
