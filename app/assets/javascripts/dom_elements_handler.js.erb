@@ -298,20 +298,27 @@ class DomElementsHandler {
       );
     });
     $("#info_box_copy_button").click(() => {
-      this.whats_up.api_communicator.fetch_device_copy(item_data.id, data => {
+      if ($("body").css("cursor") == "crosshair") {
         this.whats_up.mouse_event_handler.switch_clickable_mode_to(
-          "adding_object"
+          "main_usage"
         );
-        this.whats_up.mouse_event_handler.set_adding_object({
-          placeable: { host_type_name: data.host_type_name },
-          placeable_type: "Device",
-          name: data.display_name,
-          text_content: data.display_name,
-          address: data.address,
-          contacts: data.contacts,
-          description: data.description
+        this.whats_up.mouse_event_handler.set_adding_object(null);
+      } else {
+        this.whats_up.api_communicator.fetch_device_copy(item_data.id, data => {
+          this.whats_up.mouse_event_handler.switch_clickable_mode_to(
+            "adding_object"
+          );
+          this.whats_up.mouse_event_handler.set_adding_object({
+            placeable: { host_type_name: data.host_type_name },
+            placeable_type: "Device",
+            name: data.display_name,
+            text_content: data.display_name,
+            address: data.address,
+            contacts: data.contacts,
+            description: data.description
+          });
         });
-      });
+      }
     });
   }
 
