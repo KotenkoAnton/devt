@@ -50,9 +50,7 @@ class Drawer {
   }
 
   place_item(item) {
-    let icon_type =
-      item.placeable_type == "Device" ? item.placeable.host_type_name : "Map";
-    let icon = get_icon(icon_type);
+    let icon = get_icon(item);
 
     let text = item.name;
 
@@ -61,7 +59,8 @@ class Drawer {
     _item.text_content = text;
     _item._id = item.id;
     _item._type = item.placeable_type.toLowerCase();
-    _item._icon_type = icon_type;
+    _item._icon_type =
+      item.placeable_type == "Device" ? item.placeable.host_type_name : "Map";
     this.item_paths.push(_item); // store items in whats_up
     return _item;
   }
