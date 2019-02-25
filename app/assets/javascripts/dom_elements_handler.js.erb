@@ -225,6 +225,10 @@ class DomElementsHandler {
   // info box
 
   open_item_box(item, item_data) {
+    let logs = "";
+    item_data.logs.forEach(log => {
+      logs += `<div class='info-label'>${log.date} ${log.status}</div>`;
+    });
     let info_box_html = `
       <div id='info_box' class='info-box container'>
         <div class='item-name' id="info_box_name">${item_data.name}</div>
@@ -244,11 +248,7 @@ class DomElementsHandler {
           item_data.status ? "green-status" : "red-status"
         }'>${item_data.status ? "Active" : "Not active"}</div><br>
         <hr class='info-box-delimiter'>
-        <div class='info-label'>20180828 202618 UP</div>
-        <div class='info-label'>20180828 202618 DOWN</div>
-        <div class='info-label'>20180828 202618 UP</div>
-        <div class='info-label'>20180828 202618 DOWN</div>
-        <div class='info-label'>20180828 202618 UP</div>
+        ${logs}
         <div id="info_box_open_button" class='open-button'>
           <div class='open-button-text'>Перейти</div>
         </div>

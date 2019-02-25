@@ -18,9 +18,10 @@ module Api
         return err("Bad parameters", 422)
       end
       ip_address.changed_status_at = Time.current
-      return render json: { status: "Success" }, status: 200 if ip_address.save
+      return err("Could not save the record", 500) unless ip_address.save
 
-      render json: { status: "Could not save the record" }, status: 200
+      IpLog.create(ip_address: ip_address, status: params[:status])
+      render json: { status: "Success" }, status: 200
     end
 
     private

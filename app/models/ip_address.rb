@@ -1,5 +1,6 @@
 class IpAddress < ActiveRecord::Base
   has_many :devices
+  has_many :ip_logs
   validates_uniqueness_of :ip_address
   before_destroy :remove_from_zabbix
 

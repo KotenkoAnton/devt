@@ -20,10 +20,15 @@ module Api
     def fetch_item_info
       item = Item.includes(placeable: :ip_address).find(params[:item_id])
       placeable = item.placeable
+      ip_logs =
+        placeable.ip_address.ip_logs.last(6).reverse.map do |ip_log|
+          { status: ip_log.status, date: ip_log.created_at.strftime("%d/%m/%y %H:%M:%S") }
+        end
+
       render json: { name: item.name, host_name: placeable.host_name,
                      ip_address: placeable.ip_address[:ip_address], status: placeable.ip_address[:icmp_available],
                      description: placeable.description, address: placeable.address,
-                     contacts: placeable.contacts,
+                     contacts: placeable.contacts, logs: ip_logs,
                      changed_status_at: placeable.ip_address[:changed_status_at]&.strftime("%d/%m/%y %H:%M:%S") }
     end
 
