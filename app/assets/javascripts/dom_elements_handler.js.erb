@@ -337,6 +337,10 @@ class DomElementsHandler {
       case "add_object": {
         return this._add_object_content();
       }
+      case "add_object workstation":
+      case "add_object camera":
+      case "add_object L3":
+      case "add_object switch":
       case "add_object shapes":
       case "add_object maps":
       case "add_object zones":
@@ -416,37 +420,51 @@ class DomElementsHandler {
         });
         break;
       }
+      case "add_object workstation": {
+        $(".item").click(event => {
+          set_adding("Workstation");
+        });
+        break;
+      }
+      case "add_object camera": {
+        $(".item").click(event => {
+          set_adding("Camera");
+        });
+        break;
+      }
+      case "add_object switch": {
+        $(".item").click(event => {
+          set_adding("Switch");
+        });
+        break;
+      }
       case "add_object radio": {
         $(".item").click(event => {
-          this.whats_up.mouse_event_handler.switch_clickable_mode_to(
-            "adding_object"
-          );
-          this.whats_up.mouse_event_handler.set_adding_object({
-            placeable: { host_type_name: "Router" },
-            placeable_type: "Device",
-            name: "New Router",
-            text_content: "New Router"
-          });
+          set_adding("Radio");
         });
         break;
       }
       case "add_object office": {
         $(".item").click(event => {
+          let names_map = {
+            Принтер: "Printer",
+            Сканер: "Scanner",
+            Факс: "Fax"
+          };
           let text = event.currentTarget.children[1].firstChild.textContent;
-          this.whats_up.mouse_event_handler.switch_clickable_mode_to(
-            "adding_object"
-          );
-          console.log(text);
+          set_adding(names_map[text]);
         });
         break;
       }
       case "add_object routers": {
         $(".item").click(event => {
-          let text = event.currentTarget.children[1].firstChild.textContent;
-          console.log(text);
-          this.whats_up.mouse_event_handler.switch_clickable_mode_to(
-            "adding_object"
-          );
+          set_adding("Router");
+        });
+        break;
+      }
+      case "add_object L3": {
+        $(".item").click(event => {
+          set_adding("L3");
         });
         break;
       }
@@ -500,6 +518,18 @@ class DomElementsHandler {
         });
       }
     }
+
+    let set_adding = host_type_name => {
+      this.whats_up.mouse_event_handler.switch_clickable_mode_to(
+        "adding_object"
+      );
+      this.whats_up.mouse_event_handler.set_adding_object({
+        placeable: { host_type_name, ip_address: { icmp_available: true } },
+        placeable_type: "Device",
+        name: "New Router",
+        text_content: "New Router"
+      });
+    };
   }
 
   open_action_box(content_type, items = null) {
@@ -587,7 +617,7 @@ class DomElementsHandler {
           <span>Роутеры</span>
         </div>
         <div class="add-item with-no-right-margin">
-          <img src="<%= asset_path('cctv.svg') %>" class="object-type-img">
+          <img src="<%= asset_path('camera.svg') %>" class="object-type-img">
           <span>Камеры</span>
         </div>
         <div class="add-item">
@@ -705,6 +735,16 @@ class DomElementsHandler {
         ];
         break;
       }
+      case "add_object switch": {
+        breadcrumb = "Свичи";
+        items = [
+          {
+            label: "D-link DES 1005",
+            img_src: "<%= asset_path('switch.svg') %>"
+          }
+        ];
+        break;
+      }
       case "add_object office": {
         breadcrumb = "Офис";
         items = [
@@ -714,11 +754,25 @@ class DomElementsHandler {
         ];
         break;
       }
+      case "add_object workstation": {
+        breadcrumb = "Компьютеры";
+        items = [
+          { label: "Компьютер", img_src: "<%= asset_path('desktop.svg') %>" }
+        ];
+        break;
+      }
       case "add_object routers": {
         breadcrumb = "Роутеры";
         items = [
           { label: "SNR-CPE-W4N", img_src: "<%= asset_path('modem.svg') %>" },
           { label: "Другой роутер", img_src: "<%= asset_path('router.svg') %>" }
+        ];
+        break;
+      }
+      case "add_object camera": {
+        breadcrumb = "Камеры";
+        items = [
+          { label: "Камера", img_src: "<%= asset_path('camera.svg') %>" }
         ];
         break;
       }
@@ -760,6 +814,13 @@ class DomElementsHandler {
         `;
         break;
       }
+      case "add_object L3": {
+        breadcrumb = "L3-устройства";
+        items = [
+          { label: "L3-устройство", img_src: "<%= asset_path('L3.svg') %>" }
+        ];
+        break;
+      }
     }
 
     // if filling with items content
@@ -789,6 +850,10 @@ class DomElementsHandler {
         this._reset_action_box(prefix + " radio");
         break;
       }
+      case "Свичи": {
+        this._reset_action_box(prefix + " switch");
+        break;
+      }
       case "Офис": {
         this._reset_action_box(prefix + " office");
         break;
@@ -807,6 +872,18 @@ class DomElementsHandler {
       }
       case "Фигуры": {
         this._reset_action_box(prefix + " shapes");
+        break;
+      }
+      case "L3-устройства": {
+        this._reset_action_box(prefix + " L3");
+        break;
+      }
+      case "Камеры": {
+        this._reset_action_box(prefix + " camera");
+        break;
+      }
+      case "Компьютеры": {
+        this._reset_action_box(prefix + " workstation");
         break;
       }
     }
