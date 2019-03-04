@@ -11,9 +11,13 @@
 // about supported directives.
 //
 //= require jquery
+//= require bootstrap-sprockets
 //= require paperscript
 //= require rails-ujs
 //= require activestorage
 //= require turbolinks
+//= require pace/pace.min.js
 //= require jasny/jasny-bootstrap.min.js
+//= require metisMenu/jquery.metisMenu.js
+//= require slimscroll/jquery.slimscroll.min.js
 //= require_tree .

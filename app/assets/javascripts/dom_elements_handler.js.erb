@@ -10,164 +10,47 @@ class DomElementsHandler {
   open_whole_info_box(item) {
     let whole_box_html = `
       <div id="whole_info_box" class="whole-info">
-        <div class="container">
-          <div id='whole_box_close_button' class='close-button'>
-            <img src="<%= asset_path('close_button.svg') %>">
-          </div>
-          <div class="row">
-            <div class="col-7 whole-box-editable item-name" id="whole_box_name">${
-              item.name
-            }</div>
-          </div>
-          <div class="ip-address whole-box-editable" id="whole_box_ip_address">${
+        <img id='whole_box_close_button' class="whole-info-close-button" src="<%= asset_path('close_button.svg') %>">
+        <div class="whole-info-row">
+          <div id="whole_box_name" class="whole-info-title whole-box-editable">${
+            item.name
+          }</div>
+        </div>
+        <div class="whole-info-row">
+          <div id="whole_box_ip_address" class="whole-info-ip-address whole-box-editable">${
             item.ip_address
           }</div>
-          <div class="whole-box-editable" id="whole_box_address">${
-            item.address ? item.address : ""
-          }</div>
-          <hr>
-          <div class="guide-label">
-            Описание:
+        </div>
+        <div class="whole-info-row">
+          <div class="whole-info-basic-content">
+            <div id="whole_box_address" class="whole-box-editable">${
+              item.address ? item.address : ""
+            }</div>
           </div>
-          <div class="description whole-box-editable" id="whole_box_description">${
-            item.description ? item.description : ""
-          }</div>
-          <hr>
-          <div class="guide-label">Контакты:</div>
-          <div class="whole-box-editable" id="whole_box_contacts">${
-            item.contacts ? item.contacts : ""
-          }</div>
-          <hr>
-          <div class="guide-label">Порты:</div>
-          <div>
-            <div class="row">
-              <div class="col-3">
-                <input></input>
-              </div>
-              <div class="col-3">
-                <input></input>
-              </div>
-              <div class="col-6">
-                <input></input>
-              </div>
-            </div>
+        </div>
+        <hr>
+        <div class="whole-info-row"><label>Описание:</label></div>
+        <div class="whole-info-row">
+          <div class="whole-info-basic-content">
+            <div id="whole_box_description" class="whole-box-editable">${
+              item.description ? item.description : ""
+            }</div>
           </div>
-          <div>
-            <div class="row">
-              <div class="col-3">
-                <input></input>
-              </div>
-              <div class="col-3">
-                <input></input>
-              </div>
-              <div class="col-6">
-                <input></input>
-              </div>
-            </div>
+        </div>
+        <hr>
+        <div class="whole-info-row"><label>Контакты:</label></div>
+        <div class="whole-info-row">
+          <div class="whole-info-basic-content whole-info-contacts">
+            <div id="whole_box_contacts" class="whole-box-editable">${
+              item.contacts ? item.contacts : ""
+            }</div>
           </div>
-          <div>
-            <div class="row">
-              <div class="col-3">
-                <input></input>
-              </div>
-              <div class="col-3">
-                <input></input>
-              </div>
-              <div class="col-6">
-                <input></input>
-              </div>
-            </div>
-          </div>
-          <div>
-            <div class="row">
-              <div class="col-3">
-                <input></input>
-              </div>
-              <div class="col-3">
-                <input></input>
-              </div>
-              <div class="col-6">
-                <input></input>
-              </div>
-            </div>
-          </div>
-          <div>
-            <div class="row">
-              <div class="col-3">
-                <input></input>
-              </div>
-              <div class="col-3">
-                <input></input>
-              </div>
-              <div class="col-6">
-                <input></input>
-              </div>
-            </div>
-          </div>
-          <div>
-            <div class="row">
-              <div class="col-3">
-                <input></input>
-              </div>
-              <div class="col-3">
-                <input></input>
-              </div>
-              <div class="col-6">
-                <input></input>
-              </div>
-            </div>
-          </div>
-          <div>
-            <div class="row">
-              <div class="col-3">
-                <input></input>
-              </div>
-              <div class="col-3">
-                <input></input>
-              </div>
-              <div class="col-6">
-                <input></input>
-              </div>
-            </div>
-          </div>
-          <div>
-            <div class="row">
-              <div class="col-3">
-                <input></input>
-              </div>
-              <div class="col-3">
-                <input></input>
-              </div>
-              <div class="col-6">
-                <input></input>
-              </div>
-            </div>
-          </div>
-          <div>
-            <div class="row">
-              <div class="col-3">
-                <input></input>
-              </div>
-              <div class="col-3">
-                <input></input>
-              </div>
-              <div class="col-6">
-                <input></input>
-              </div>
-            </div>
-          </div>
-          <div class="device-buttons-wrapper">
-            <div id="delete_device_button">
-              <img src="<%= asset_path('delete_button.svg') %>">
-            </div>
-            <div id="add_device_button">
-              <img src="<%= asset_path('plus_button.svg') %>">
-            </div>
-            <div id="edit_device_button">
-              <img src="<%= asset_path('edit_button.svg') %>">
-            </div>
-            <div id="save_changes_button" class="save-changes-button btn btn-success">Сохранить</div>
-          </div>
+        </div>
+        <div class="whole-info-row whole-info-buttons-wrapper">
+          <img src="<%= asset_path('delete_button.svg') %>">
+          <img src="<%= asset_path('plus_button.svg') %>">
+          <img id="edit_device_button" src="<%= asset_path('edit_button.svg') %>">
+          <button id="save_changes_button" class="btn btn-success">Сохранить</div>
         </div>
       </div>
     `;
@@ -196,10 +79,12 @@ class DomElementsHandler {
         item.id,
         {
           description: $("#whole_box_description").html(),
-          address: $("#whole_box_address").html(),
+          address: $("#whole_box_address").text(),
           contacts: $("#whole_box_contacts").html(),
-          ip_address: $("#whole_box_ip_address").html(),
-          name: $("#whole_box_name").html()
+          ip_address: $("#whole_box_ip_address")
+            .text()
+            .trim(),
+          name: $("#whole_box_name").text()
         },
         () => {
           let editables = $(".whole-box-editable");
@@ -233,20 +118,32 @@ class DomElementsHandler {
       <div id='info_box' class='info-box container'>
         <div class='item-name' id="info_box_name">${item_data.name}</div>
         <hr class='info-box-delimiter'>
-        <div class='info-label'>Hostname:</div>
-        <div class='info-text'>${item_data.host_name}</div><br>
-        <div class='info-label'>Address:</div>
-        <div class='info-text' id="info_box_ip_address">${
-          item_data.ip_address
-        }</div><br>
-        <div class='info-label'>${item_data.status ? "Up" : "Down"} since:</div>
-        <div class='info-text'>${item_data.changed_status_at}</div><br>
-        <div class='info-label'>Responded:</div>
-        <div class='info-text'>98.13%</div><br>
-        <div class='info-label'>Status:</div>
-        <div class='info-text ${
-          item_data.status ? "green-status" : "red-status"
-        }'>${item_data.status ? "Active" : "Not active"}</div><br>
+        <div class="info-row">
+          <div class='info-label'>Hostname:</div>
+          <div class='info-text'>${item_data.host_name}</div>
+        </div>
+        <div class="info-row">
+          <div class='info-label'>Address:</div>
+          <div class='info-text' id="info_box_ip_address">${
+            item_data.ip_address
+          }</div>
+        </div>
+        <div class="info-row">
+          <div class='info-label'>${
+            item_data.status ? "Up" : "Down"
+          } since:</div>
+          <div class='info-text'>${item_data.changed_status_at}</div>
+        </div>
+        <div class="info-row">
+          <div class='info-label'>Responded:</div>
+          <div class='info-text'>98.13%</div>
+        </div>
+        <div class="info-row">
+          <div class='info-label'>Status:</div>
+          <div class='info-text ${
+            item_data.status ? "green-status" : "red-status"
+          }'>${item_data.status ? "Active" : "Not active"}</div>
+        </div>
         <hr class='info-box-delimiter'>
         ${logs}
         <div id="info_box_open_button" class='open-button'>
@@ -265,8 +162,8 @@ class DomElementsHandler {
     `;
     $("#canvas").after(info_box_html);
     $("#info_box").css({
-      top: item.position.y,
-      left: item.position.x + 45
+      top: item.position.y - 60,
+      left: item.position.x + 35
     });
 
     this._set_item_box_events(item_data);
@@ -309,7 +206,10 @@ class DomElementsHandler {
             "adding_object"
           );
           this.whats_up.mouse_event_handler.set_adding_object({
-            placeable: { host_type_name: data.host_type_name },
+            placeable: {
+              host_type_name: data.host_type_name,
+              ip_address: { icmp_available: true }
+            },
             placeable_type: "Device",
             name: data.display_name,
             text_content: data.display_name,

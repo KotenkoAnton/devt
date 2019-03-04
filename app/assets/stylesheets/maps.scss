@@ -1,84 +1,21 @@
 $theme-color: #808080;
-
-// action wrapper
-.action-wrapper {
-  height: 65px;
-  margin-top: 20px;
-  width: 100%;
-  position: fixed;
-  background-color: white;
-  margin-top: 0;
-  padding-top: 20px;
-  margin-left: 10px;
-
-  .search-input {
-    float: right;
-    margin-right: 10px;
-    margin-top: 3px;
-  }
-
-  .title-text {
-    float: left;
-    margin-left: 100px;
-  }
-
-  .add-button {
-    background-color: #43b05c;
-    border-radius: 8px;
-    float: right;
-    width: 140px;
-    height: 40px;
-    margin-right: 20px;
-
-    &:hover {
-      cursor: pointer;
-      box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2),
-        0 6px 20px 0 rgba(0, 0, 0, 0.19);
-    }
-
-    .plus-icon {
-      margin-top: 5px;
-      float: left;
-    }
-
-    .add-button-text {
-      margin-top: 7px;
-      color: #d9eede;
-    }
-  }
-
-  .ruler-button {
-    float: right;
-    margin-right: 30px;
-
-    &:hover {
-      cursor: pointer;
-    }
-  }
-
-  .action-wrapper-button {
-    float: right;
-    margin-right: 5px;
-    margin-top: 1px;
-  }
-}
-
-// end of action wrapper
-
 // canvas wrapper
 
 .canvas-wrapper {
+  overflow: hidden;
+  height: 99vh;
+  margin: -19px;
+  margin-top: -14px;
+  position: relative;
+
   canvas {
-    width: 4000px;
-    height: 4000px;
     border: 1px solid #ccc;
     border-radius: 16px;
-    margin: 10px;
-    margin-top: 65px;
+    height: inherit;
+    width: inherit;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   }
 
-  // info box
   .info-box {
     position: absolute;
     width: 300px !important;
@@ -101,12 +38,18 @@ $theme-color: #808080;
     .item-name {
       margin-left: 20px;
       margin-top: 12px;
+      font-size: 16px;
       word-wrap: break-word;
       overflow-wrap: break-word;
     }
 
     .info-box-delimiter {
       margin-top: 5px;
+    }
+
+    .info-row {
+      width: 100%;
+      height: 20px;
     }
 
     .info-label {
@@ -141,6 +84,7 @@ $theme-color: #808080;
       background-color: #43b05c;
       color: #d9eede;
       text-align: center;
+      font-size: 17px;
 
       &:hover {
         cursor: pointer;
@@ -184,7 +128,90 @@ $theme-color: #808080;
     }
   }
 
-  // action box
+  .whole-info {
+    position: absolute;
+    top: 5px;
+    left: 5px;
+    background-color: white;
+    border: 1px solid $theme-color;
+    box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2),
+      0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    width: 420px;
+    padding: 15px;
+    min-height: 500px;
+
+    .whole-info-buttons-wrapper {
+      position: absolute;
+      right: 10px;
+      bottom: 10px;
+    }
+
+    .whole-box-editable {
+      margin-left: 2px;
+      min-height: 25px;
+    }
+
+    .whole-box-editing {
+      border: 1px solid $theme-color;
+      border-radius: 5px;
+    }
+
+    .whole-info-close-button {
+      position: absolute;
+      top: 9px;
+      right: 9px;
+      width: 15px;
+
+      &:hover {
+        cursor: pointer;
+      }
+    }
+
+    .whole-info-row {
+      width: 97%;
+      margin-bottom: 5px;
+
+      button {
+        display: none;
+        margin-right: 5px;
+        float: right;
+      }
+
+      img {
+        float: right;
+        margin-right: 5px;
+        height: 35px;
+        width: 35px;
+
+        &:hover {
+          cursor: pointer;
+        }
+      }
+
+      .whole-info-basic-content {
+        color: black;
+      }
+
+      .whole-info-contacts {
+        margin-bottom: 50px;
+      }
+
+      .whole-info-ip-address {
+        font-size: 14px;
+      }
+
+      .whole-info-title {
+        font-size: 15px;
+        font-weight: bold;
+      }
+
+      label {
+        color: $theme-color;
+        font-weight: normal;
+        font-size: 14px;
+      }
+    }
+  }
 
   .action-box {
     position: fixed;
@@ -197,6 +224,7 @@ $theme-color: #808080;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
 
     .title {
+      font-size: 16px;
       float: left;
       margin-top: 15px;
       margin-left: 10px;
@@ -259,6 +287,11 @@ $theme-color: #808080;
               position: absolute;
               left: 43%;
               top: 5%;
+            }
+
+            .item-label {
+              font-size: 13px;
+              font-weight: normal;
             }
           }
 
@@ -346,6 +379,10 @@ $theme-color: #808080;
             cursor: pointer;
           }
 
+          span {
+            font-size: 15px;
+          }
+
           .object-type-img {
             width: 60px;
             position: absolute;
@@ -375,6 +412,10 @@ $theme-color: #808080;
 
           &:hover {
             cursor: pointer;
+          }
+
+          span {
+            font-size: 13px;
           }
 
           img {
@@ -430,88 +471,4 @@ $theme-color: #808080;
       }
     }
   }
-
-  .whole-info {
-    position: fixed;
-    box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2),
-      0 6px 20px 0 rgba(0, 0, 0, 0.19);
-    background-color: white;
-    width: 450px;
-    padding-top: 15px;
-    padding-bottom: 15px;
-    font-size: 15px;
-    top: 70px;
-    right: 20px;
-
-    .close-button {
-      width: 15px;
-      height: 15px;
-      float: right;
-      margin-top: 10px;
-      margin-right: 15px;
-
-      &:hover {
-        cursor: pointer;
-      }
-    }
-
-    input {
-      width: inherit;
-      height: 30px;
-      margin-top: 5px;
-    }
-
-    .whole-box-editable {
-      margin-left: 2px;
-      min-height: 25px;
-    }
-
-    .whole-box-editing {
-      border: 1px solid $theme-color;
-      border-radius: 5px;
-    }
-
-    .item-name {
-      word-wrap: break-word;
-      overflow-wrap: break-word;
-      padding-left: 2px;
-    }
-
-    .description {
-      word-wrap: break-word;
-      overflow-wrap: break-word;
-    }
-
-    .ip-address {
-      color: $theme-color;
-    }
-
-    .guide-label {
-      color: $theme-color;
-    }
-
-    .device-buttons-wrapper {
-      margin-top: 15px;
-
-      img:hover {
-        cursor: pointer;
-      }
-
-      img {
-        width: 40px;
-        height: 40px;
-      }
-
-      div {
-        float: right;
-        margin-right: 10px;
-      }
-
-      .save-changes-button {
-        display: none;
-      }
-    }
-  }
 }
-
-// end of canvas wrapper

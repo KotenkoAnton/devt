@@ -1,0 +1,75 @@
+.label {
+  background-color: $light-gray;
+  color: $label-badge-color;
+  font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 600;
+  padding: 3px 8px;
+  text-shadow: none;
+}
+
+.badge {
+  background-color: $light-gray;
+  color: $label-badge-color;
+  font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 600;
+  padding-bottom: 4px;
+  padding-left: 6px;
+  padding-right: 6px;
+  text-shadow: none;
+}
+
+.label-primary,
+.badge-primary {
+  background-color: $navy;
+  color: #ffffff;
+}
+
+.label-success,
+.badge-success {
+  background-color: $blue;
+  color: #ffffff;
+}
+
+.label-warning,
+.badge-warning {
+  background-color: $yellow;
+  color: #ffffff;
+}
+
+.label-warning-light,
+.badge-warning-light {
+  background-color: $yellow;
+  color: #ffffff;
+}
+
+.label-danger,
+.badge-danger {
+  background-color: $red;
+  color: #ffffff;
+}
+
+.label-info,
+.badge-info {
+  background-color: $lazur;
+  color: #ffffff;
+}
+
+.label-inverse,
+.badge-inverse {
+  background-color: #262626;
+  color: #ffffff;
+}
+
+.label-white,
+.badge-white {
+  background-color: #ffffff;
+  color: #5e5e5e;
+}
+
+.label-white,
+.badge-disable {
+  background-color: #2a2e36;
+  color: #8b91a0;
+}

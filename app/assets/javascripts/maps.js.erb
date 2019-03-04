@@ -19,7 +19,7 @@ let set_events = () => {
 
   // switch mode
 
-  $("#switch_move_button").click(() => {
+  $("#switch_mode_button").click(() => {
     whats_up.mouse_event_handler.toggle_mode();
   });
 
@@ -39,8 +39,8 @@ let set_events = () => {
 
   // search
 
-  $("#search_input").keyup(() => {
-    let filter = $("#search_input")
+  $("#search").keyup(() => {
+    let filter = $("#search")
       .val()
       .toLowerCase();
     let items = whats_up.drawer.get_items();
@@ -56,6 +56,17 @@ let set_events = () => {
       } else {
         item.text.style.fillColor = "black";
       }
+    });
+  });
+
+  //
+
+  // minimize button
+
+  $("#minimize_navbar_btn").click(() => {
+    $.post({
+      url: location.origin + "/custom_settings/change",
+      data: { setting: "minimize_navbar" }
     });
   });
 

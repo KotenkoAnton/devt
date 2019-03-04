@@ -21,6 +21,8 @@ class MouseEventHandler {
 
     this.mount_down_point = null;
     this.box_opened = false;
+    this.scrolling = false;
+    this.scrolling_first_position = null;
 
     //
 
@@ -313,6 +315,18 @@ class MouseEventHandler {
     // clickable:
 
     let clickable_mouse_down = event => {
+      if (
+        !target_item(event.point) &&
+        !this.box_opened &&
+        this.clickable_mode == "main_usage"
+      ) {
+        this.scrolling = true;
+        this._set_cursor("move");
+        this.scrolling_first_position = {
+          x: event.event.clientX,
+          y: event.event.clientY
+        };
+      }
       this.mouse_down_point = event.point;
     };
 
@@ -436,10 +450,8 @@ class MouseEventHandler {
 
     let add_object = event => {
       this.switch_clickable_mode_to("main_usage");
-      this.adding_object.position_x =
-        event.event.clientX + $(document).scrollLeft();
-      this.adding_object.position_y =
-        event.event.clientY + $(document).scrollTop();
+      this.adding_object.position_x = event.event.layerX + 11;
+      this.adding_object.position_y = event.event.layerY + 60;
 
       this.adding_object.map_name = this.whats_up.map_name;
       switch (this.adding_object.placeable_type) {
@@ -534,6 +546,21 @@ class MouseEventHandler {
     };
 
     this.papertool.onMouseMove = event => {
+      if (this.scrolling) {
+        let x_diff = this.scrolling_first_position.x - event.event.clientX;
+        let y_diff = this.scrolling_first_position.y - event.event.clientY;
+        this.scrolling_first_position = {
+          x: event.event.clientX,
+          y: event.event.clientY
+        };
+        $("#canvas_wrapper").scrollLeft(
+          $("#canvas_wrapper").scrollLeft() + x_diff
+        );
+        $("#canvas_wrapper").scrollTop(
+          $("#canvas_wrapper").scrollTop() + y_diff
+        );
+        return;
+      }
       if (this.mode != "draggable") {
         return;
       }
@@ -541,6 +568,12 @@ class MouseEventHandler {
     };
 
     this.papertool.onMouseUp = event => {
+      if (this.scrolling) {
+        this.scrolling_first_position = null;
+        this.scrolling = false;
+        this._set_cursor("default");
+        return;
+      }
       choose_mode(clickable_mouse_up, draggable_mouse_up, event);
     };
 

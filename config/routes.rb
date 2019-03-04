@@ -1,5 +1,10 @@
 Rails.application.routes.draw do
   resources :maps, only: :index
+  resources :custom_settings do
+    collection do
+      post :change
+    end
+  end
 
   namespace :api do
     resources :devices do

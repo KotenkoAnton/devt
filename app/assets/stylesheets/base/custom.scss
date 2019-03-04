@@ -1,0 +1,16 @@
+/* Only demo */
+@media (max-width: 1000px) {
+  .welcome-message {
+    display: none;
+  }
+}
+
+.ibox-tools a.btn {
+  cursor: pointer;
+  margin-left: 5px;
+  color: #fff;
+}
+
+a.btn i {
+  margin-right: 4px;
+}

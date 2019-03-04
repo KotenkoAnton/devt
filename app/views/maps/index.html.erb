@@ -1,30 +1,18 @@
-<div id="action_wrapper" class="action-wrapper">
-  <div class="container">
-    <div id="map_name" class="title-text"><%= @map_name %></div>
+<% content_for :title do  %>
+  <div id="map_name"><%= @map_name %></div>
+<% end %>
 
-    <div id="add_button" class="add-button">
-      <div class="plus-icon"><%= image_tag "plus_button.svg" %></div>
-      <div class="add-button-text">Добавить</div>
-    </div>
+<%= render 'search' %>
 
-    <div class="action-wrapper-button">
-      <button id="switch_move_button" class="btn btn-info">Переключить режим</button>
-    </div>
+<% content_for :action_wrapper do %>
+  <%= image_tag "ruler.svg", id: "ruler_button", class: "btn" %>
+  <button id="delete_button" class="btn btn-success">Удалить зону / фигуру</button>
+  <button id="add_button" class="btn btn-success">Добавить</button>
+  <button id="switch_mode_button" class="btn btn-success">Переключить режим</button>
+<% end %>
 
-    <div id="delete_button" class="action-wrapper-button">
-      <div class="btn btn-info">Удалить зону / фигуру</div>
-    </div>
-
-    <div id="ruler_button" class="ruler-button">
-      <%= image_tag "ruler.svg", id: "ruler_img" %>
-    </div>
-
-    <div class="search-input">
-      <input id="search_input" placeholder="Имя устройства" autocomplete="off">
-    </div>
+<div class="ibox-content">
+  <div id="canvas_wrapper" class="canvas-wrapper">
+    <canvas id="canvas"></canvas>
   </div>
-</div>
-
-<div class="canvas-wrapper">
-  <canvas id="canvas"></canvas>
 </div>
