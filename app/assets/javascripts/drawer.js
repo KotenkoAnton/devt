@@ -6,6 +6,7 @@ class Drawer {
     this.connections = [];
     this.connection_paths = [];
     this.shapes = [];
+    this.inscriptions = [];
   }
 
   draw_connections(connections) {
@@ -71,6 +72,29 @@ class Drawer {
     }
   }
 
+  place_inscription(inscription) {
+    const point = new paper.Point(
+      inscription.position_x,
+      inscription.position_y
+    );
+
+    let text = new paper.PointText(point);
+    text.content = inscription.content;
+    text.style = {
+      fontSize: inscription.font_size,
+      fillColor: inscription.font_color
+    };
+    text._type = "inscription";
+    text.ext_id = inscription.id;
+    this.inscriptions.push(text);
+  }
+
+  place_inscriptions(inscriptions) {
+    inscriptions.forEach(inscription => {
+      this.place_inscription(inscription);
+    });
+  }
+
   place_text(item) {
     item.text = new paper.PointText(
       this._point_for_text(item, item.text_content)
@@ -86,12 +110,25 @@ class Drawer {
     item.text.insertAbove(item.rect);
   }
 
+  _point_for_text(item, content) {
+    return new paper.Point(
+      item.bounds.x +
+        Math.floor(item.bounds.width / 2) -
+        Math.floor((content.length / 2) * 6),
+      item.bounds.y + item.bounds.height + 14
+    );
+  }
+
   get_items() {
     return this.item_paths;
   }
 
   get_shapes() {
     return this.shapes;
+  }
+
+  get_inscriptions() {
+    return this.inscriptions;
   }
 
   delete_item_connections(item_id, type) {
@@ -230,14 +267,5 @@ class Drawer {
         }
       }
     }
-  }
-
-  _point_for_text(item, content) {
-    return new paper.Point(
-      item.bounds.x +
-        Math.floor(item.bounds.width / 2) -
-        Math.floor((content.length / 2) * 6),
-      item.bounds.y + item.bounds.height + 14
-    );
   }
 }

@@ -237,6 +237,7 @@ class DomElementsHandler {
       case "add_object": {
         return this._add_object_content();
       }
+      case "add_object inscription":
       case "add_object workstation":
       case "add_object camera":
       case "add_object L3":
@@ -414,6 +415,19 @@ class DomElementsHandler {
           this.whats_up.mouse_event_handler.set_adding_object({
             placeable_type: "Shape",
             shape_type: "Rectangle"
+          });
+        });
+      }
+      case "add_object inscription": {
+        $("#add_new_inscription_button").click(() => {
+          this.whats_up.mouse_event_handler.switch_clickable_mode_to(
+            "adding_object"
+          );
+          this.whats_up.mouse_event_handler.set_adding_object({
+            placeable_type: "Inscription",
+            font_size: 13,
+            font_color: "black",
+            content: $("#new_inscription_input").val()
           });
         });
       }
@@ -721,6 +735,15 @@ class DomElementsHandler {
         ];
         break;
       }
+      case "add_object inscription": {
+        breadcrumb = "Надписи";
+
+        html += `
+          <input id="new_inscription_input" placeholder="Текст"><br><br>
+          <button id="add_new_inscription_button" class="btn btn-success">Добавить текст</button>
+        `;
+        break;
+      }
     }
 
     // if filling with items content
@@ -784,6 +807,10 @@ class DomElementsHandler {
       }
       case "Компьютеры": {
         this._reset_action_box(prefix + " workstation");
+        break;
+      }
+      case "Надписи": {
+        this._reset_action_box(prefix + " inscription");
         break;
       }
     }

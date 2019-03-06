@@ -26,6 +26,7 @@ class WhatsUp {
           this.drawer.place_items(data["items"]);
           this.drawer.draw_shapes(data["shapes"]);
           this.drawer.draw_connections(data["connections"]);
+          this.drawer.place_inscriptions(data["inscriptions"]);
           this.drawer.place_texts();
         });
     });

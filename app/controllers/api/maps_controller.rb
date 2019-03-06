@@ -14,6 +14,7 @@ module Api
     def fetch_map
       map = Map.find_by(name: params[:map])
       render json: { items: load_items(map), connections: load_connections(map), shapes: load_shapes(map),
+                     inscriptions: load_inscriptions(map),
                      map_width: map.width, map_height: map.height }
     end
 
@@ -49,6 +50,13 @@ module Api
 
       MapCorrector.correct_on_map(map)
       render json: { corrected: true }
+    end
+
+    def change_inscription_position
+      inscription = Inscription.find(params[:inscription_id])
+      inscription.position_x = params[:position_x]
+      inscription.position_y = params[:position_y]
+      inscription.save
     end
 
     def change_shape_position
@@ -94,6 +102,10 @@ module Api
       connection.destroy
     end
 
+    def delete_inscription
+      Inscription.find(params[:inscription_id]).destroy
+    end
+
     def delete_shape
       Shape.find(params[:shape_id]).destroy
     end
@@ -119,6 +131,13 @@ module Api
       return render json: { added: true } if map.save
 
       render json: { added: false }
+    end
+
+    def add_new_inscription
+      inscription = Inscription.create(content: params[:content], font_size: params[:font_size],
+                                       font_color: params[:font_color], position_x: params[:position_x],
+                                       position_y: params[:position_y], map: Map.find_by(name: params[:map_name]))
+      render json: { id: inscription&.id }
     end
 
     def add_device_and_item
@@ -176,6 +195,10 @@ module Api
     end
 
     private
+
+    def load_inscriptions(map)
+      Inscription.where(map: map).as_json(except: %i[created_at updated_at])
+    end
 
     def load_items(map)
       devices = Item.where(map: map, placeable_type: 'Device').includes(placeable: :ip_address)

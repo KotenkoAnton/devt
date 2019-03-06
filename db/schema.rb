@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_02_25_082029) do
+ActiveRecord::Schema.define(version: 2019_03_05_070459) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -38,6 +38,17 @@ ActiveRecord::Schema.define(version: 2019_02_25_082029) do
     t.string "address"
     t.bigint "ip_address_id"
     t.index ["ip_address_id"], name: "index_devices_on_ip_address_id"
+  end
+
+  create_table "inscriptions", force: :cascade do |t|
+    t.integer "map_id"
+    t.string "content"
+    t.integer "font_size"
+    t.string "font_color"
+    t.integer "position_x"
+    t.integer "position_y"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "ip_addresses", force: :cascade do |t|

@@ -15,6 +15,14 @@ class ApiCommunicator {
     });
   }
 
+  delete_inscription(inscription_id, success = null) {
+    $.post({
+      url: `${location.origin}/api/maps/delete_inscription`,
+      data: { inscription_id },
+      success: success
+    });
+  }
+
   fetch_device_copy(item_id, success = null) {
     $.get({
       url: `${location.origin}/api/maps/fetch_device_copy`,
@@ -34,6 +42,14 @@ class ApiCommunicator {
     $.get({
       url: `${location.origin}/api/maps/fetch_map`,
       data: { map: map },
+      success: success
+    });
+  }
+
+  add_new_inscription(adding_object, success) {
+    $.post({
+      url: `${location.origin}/api/maps/add_new_inscription`,
+      data: adding_object,
       success: success
     });
   }
@@ -75,6 +91,18 @@ class ApiCommunicator {
       url: `${location.origin}/api/maps/change_item_position`,
       data: {
         item_id: item_id,
+        position_x: position.x,
+        position_y: position.y
+      },
+      success: success
+    });
+  }
+
+  change_inscription_position(inscription_id, position, success = null) {
+    $.post({
+      url: `${location.origin}/api/maps/change_inscription_position`,
+      data: {
+        inscription_id,
         position_x: position.x,
         position_y: position.y
       },

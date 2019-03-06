@@ -155,7 +155,6 @@ class MouseEventHandler {
       if (!this.moving_target) {
         return;
       }
-
       switch (this.moving_target._type) {
         case "device":
         case "map": {
@@ -187,6 +186,12 @@ class MouseEventHandler {
             }
           );
           break;
+        }
+        case "inscription": {
+          this.whats_up.api_communicator.change_inscription_position(
+            this.moving_target.ext_id,
+            this.moving_target.point
+          );
         }
       }
       this.moving = false;
@@ -420,6 +425,12 @@ class MouseEventHandler {
           });
           break;
         }
+        case "inscription": {
+          whats_up.api_communicator.delete_inscription(item.ext_id, () => {
+            location.reload();
+          });
+          break;
+        }
       }
     };
 
@@ -450,14 +461,14 @@ class MouseEventHandler {
 
     let add_object = event => {
       this.switch_clickable_mode_to("main_usage");
-      this.adding_object.position_x = event.event.layerX + 11;
-      this.adding_object.position_y = event.event.layerY + 60;
+      this.adding_object.position_x = event.event.layerX;
+      this.adding_object.position_y = event.event.layerY;
 
       this.adding_object.map_name = this.whats_up.map_name;
       switch (this.adding_object.placeable_type) {
         case "Device": {
-          this.adding_object.position_x += 7;
-          this.adding_object.position_y -= 50;
+          this.adding_object.position_x += 18;
+          this.adding_object.position_y -= 10;
           this.whats_up.api_communicator.add_device_and_item(
             this.adding_object,
             data => {
@@ -468,8 +479,8 @@ class MouseEventHandler {
           break;
         }
         case "Map": {
-          this.adding_object.position_x += 7;
-          this.adding_object.position_y -= 50;
+          this.adding_object.position_x += 18;
+          this.adding_object.position_y -= 10;
           this.whats_up.api_communicator.add_map_item(
             this.adding_object,
             data => {
@@ -480,8 +491,8 @@ class MouseEventHandler {
           break;
         }
         case "Shape": {
-          this.adding_object.position_x -= 10;
-          this.adding_object.position_y -= 65;
+          this.adding_object.position_x += 1;
+          this.adding_object.position_y -= 5;
           this.whats_up.api_communicator.add_shape(this.adding_object, data => {
             this.adding_object.id = data.shape_id;
             this.adding_object.height = data.height;
@@ -490,6 +501,15 @@ class MouseEventHandler {
             this.whats_up.drawer.draw_shape(this.adding_object);
           });
           break;
+        }
+        case "Inscription": {
+          this.whats_up.api_communicator.add_new_inscription(
+            this.adding_object,
+            data => {
+              this.adding_object.id = data.id;
+              this.whats_up.drawer.place_inscription(this.adding_object);
+            }
+          );
         }
       }
 
@@ -511,9 +531,20 @@ class MouseEventHandler {
         }
       }
 
+      for (let inscription of this.whats_up.drawer.get_inscriptions()) {
+        if (
+          event_point.x > inscription.point.x - 10 &&
+          event_point.x <
+            inscription.point.x + inscription.content.length * 8.7 &&
+          event_point.y > inscription.point.y - 10 &&
+          event_point.y < inscription.point.y + 10
+        ) {
+          return inscription;
+        }
+      }
+
       for (let shape of this.whats_up.drawer.get_shapes()) {
         if (is_target(shape, event_point)) {
-          shape._type = "shape";
           return shape;
         }
       }

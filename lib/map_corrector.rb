@@ -13,13 +13,14 @@ module MapCorrector
     def correct_on_map(map)
       items = Item.where(map: map)
       shapes = Shape.where(map: map)
-      return if (items + shapes).empty?
+      inscriptions = Inscription.where(map: map)
+      return if (items + shapes + inscriptions).empty?
 
-      min_x = (items + shapes).min_by(&:position_x).position_x
-      min_y = (items + shapes).min_by(&:position_y).position_y
+      min_x = (items + shapes + inscriptions).min_by(&:position_x).position_x
+      min_y = (items + shapes + inscriptions).min_by(&:position_y).position_y
 
-      max_x = (items + shapes).max_by(&:position_x).position_x
-      max_y = (items + shapes).max_by(&:position_y).position_y
+      max_x = (items + shapes + inscriptions).max_by(&:position_x).position_x
+      max_y = (items + shapes + inscriptions).max_by(&:position_y).position_y
 
       # TODO: find out whats going on here. When using map.update_attributes, it fires update on item.placeable_id
       Map.find(map.id).update_attributes(width: [max_x - min_x + 3 * INDENTATION, MIN_WIDTH].max,
@@ -39,6 +40,12 @@ module MapCorrector
         shape.position_x += shift[:x]
         shape.position_y += shift[:y]
         shape.save
+      end
+
+      Inscription.where(map: map).each do |inscription|
+        inscription.position_x += shift[:x]
+        inscription.position_y += shift[:y]
+        inscription.save
       end
     end
   end
