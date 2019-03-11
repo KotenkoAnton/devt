@@ -1,0 +1,34 @@
+<div id="right-sidebar">
+  <div class="sidebar-container">
+    <div class="tab-content whole-info">
+      <div id="tab-1" class="tab-pane active">
+
+        <div class="sidebar-title">
+          <h3 id="whole_info_name"></h3>
+          <div id="whole_info_ip" class="whole-info-ip-address"></div>
+        </div>
+
+        <div class="popup-window-body">
+          <div class="whole-info-content-wrapper">
+            <label>Адрес:</label>
+            <div id="whole_info_address"></div>
+            <hr>
+            <label>Описание:</label>
+            <div id="whole_info_description"></div>
+            <hr>
+            <label>Контакты:</label>
+            <div id="whole_info_contacts"></div>
+          </div>
+        </div>
+
+        <div class="whole-info-buttons-wrapper">
+          <img src="<%= asset_path('delete_button.svg') %>">
+          <img src="<%= asset_path('plus_button.svg') %>">
+          <img id="edit_device_button" src="<%= asset_path('edit_button.svg') %>">
+          <button id="save_changes_button" class="btn btn-success save-changes-btn">Сохранить</div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>

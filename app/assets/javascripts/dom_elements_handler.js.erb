@@ -8,101 +8,93 @@ class DomElementsHandler {
   // whole info
 
   open_whole_info_box(item) {
-    let whole_box_html = `
-      <div id="whole_info_box" class="whole-info">
-        <img id='whole_box_close_button' class="whole-info-close-button" src="<%= asset_path('close_button.svg') %>">
-        <div class="whole-info-row">
-          <div id="whole_box_name" class="whole-info-title whole-box-editable">${
-            item.name
-          }</div>
-        </div>
-        <div class="whole-info-row">
-          <div id="whole_box_ip_address" class="whole-info-ip-address whole-box-editable">${
-            item.ip_address
-          }</div>
-        </div>
-        <div class="whole-info-row">
-          <div class="whole-info-basic-content">
-            <div id="whole_box_address" class="whole-box-editable">${
-              item.address ? item.address : ""
-            }</div>
-          </div>
-        </div>
-        <hr>
-        <div class="whole-info-row"><label>Описание:</label></div>
-        <div class="whole-info-row">
-          <div class="whole-info-basic-content">
-            <div id="whole_box_description" class="whole-box-editable">${
-              item.description ? item.description : ""
-            }</div>
-          </div>
-        </div>
-        <hr>
-        <div class="whole-info-row"><label>Контакты:</label></div>
-        <div class="whole-info-row">
-          <div class="whole-info-basic-content whole-info-contacts">
-            <div id="whole_box_contacts" class="whole-box-editable">${
-              item.contacts ? item.contacts : ""
-            }</div>
-          </div>
-        </div>
-        <div class="whole-info-row whole-info-buttons-wrapper">
-          <img src="<%= asset_path('delete_button.svg') %>">
-          <img src="<%= asset_path('plus_button.svg') %>">
-          <img id="edit_device_button" src="<%= asset_path('edit_button.svg') %>">
-          <button id="save_changes_button" class="btn btn-success">Сохранить</div>
-        </div>
-      </div>
-    `;
-
-    $("#canvas").after(whole_box_html);
+    $("#right-sidebar").addClass("sidebar-open");
+    $("#whole_info_name").html(item.name);
+    $("#whole_info_address").html(item.address ? item.address : "");
+    $("#whole_info_ip").html(item.ip_address);
+    $("#whole_info_description").html(item.description ? item.description : "");
+    $("#whole_info_contacts").html(item.contacts ? item.contacts : "");
 
     this._set_whole_info_box_events(item);
   }
 
   _set_whole_info_box_events(item) {
-    $("#whole_box_close_button").click(() => {
-      $("#whole_info_box").remove();
-    });
-    $("#edit_device_button").click(() => {
-      let editables = $(".whole-box-editable");
-      // set editing on fields
-      editables.addClass("whole-box-editing");
-      editables.attr("contenteditable", "true");
+    // Open close right sidebar, from inspinia.js
+    $(".right-sidebar-toggle")
+      .unbind("click")
+      .on("click", function() {
+        set_whole_info_to_default();
+        $("#right-sidebar").removeClass("sidebar-open");
+      });
 
-      $("#edit_device_button").css("display", "none");
-      $("#save_changes_button").css("display", "block");
-    });
-
-    $("#save_changes_button").click(() => {
-      this.whats_up.api_communicator.change_device_info(
-        item.id,
-        {
-          description: $("#whole_box_description").html(),
-          address: $("#whole_box_address").text(),
-          contacts: $("#whole_box_contacts").html(),
-          ip_address: $("#whole_box_ip_address")
-            .text()
-            .trim(),
-          name: $("#whole_box_name").text()
-        },
-        () => {
-          let editables = $(".whole-box-editable");
-          // remove editing from fields
-          editables.removeClass("whole-box-editing");
-          editables.attr("contenteditable", "false");
-
-          $("#edit_device_button").css("display", "block");
-          $("#save_changes_button").css("display", "none");
-
-          // change ip in info box
-          $("#info_box_ip_address").html($("#whole_box_ip_address").html());
-          if ($("#info_box_name").html() != $("#whole_box_name").html()) {
-            location.reload();
+    $("#edit_device_button")
+      .unbind("click")
+      .click(() => {
+        ["whole_info_name", "whole_info_ip", "whole_info_address"].forEach(
+          field => {
+            $(`#${field}`).css("display", "none");
+            $(`#${field}`).after(
+              `<input type="text" id="${field}_input" class="form-control"></input>`
+            );
+            $(`#${field}_input`).val($(`#${field}`).text());
           }
+        );
+
+        ["whole_info_description", "whole_info_contacts"].forEach(field => {
+          $(`#${field}`).attr("contenteditable", "true");
+          $(`#${field}`).addClass("form-control");
+          $(`#${field}`).addClass("editing");
+        });
+
+        $("#edit_device_button").css("display", "none");
+        $("#save_changes_button").css("display", "inline");
+      });
+
+    const set_whole_info_to_default = () => {
+      ["whole_info_name", "whole_info_ip", "whole_info_address"].forEach(
+        field => {
+          $(`#${field}`).css("display", "block");
+          $(`#${field}`).text($(`#${field}_input`).val());
+          $(`#${field}_input`).remove();
         }
       );
-    });
+
+      ["whole_info_description", "whole_info_contacts"].forEach(field => {
+        $(`#${field}`).attr("contenteditable", "false");
+        $(`#${field}`).removeClass("form-control");
+        $(`#${field}`).removeClass("editing");
+      });
+
+      $("#edit_device_button").css("display", "inline");
+      $("#save_changes_button").css("display", "none");
+    };
+
+    $("#save_changes_button")
+      .unbind("click")
+      .click(() => {
+        this.whats_up.api_communicator.change_device_info(
+          item.id,
+          {
+            description: $("#whole_info_description").html(),
+            address: $("#whole_info_address_input").val(),
+            contacts: $("#whole_info_contacts").html(),
+            ip_address: $("#whole_info_ip_input")
+              .val()
+              .trim(),
+            name: $("#whole_info_name_input").val()
+          },
+          () => {
+            set_whole_info_to_default();
+
+            // change ip in the info box
+            $("#info_box_ip_address").html($("#whole_box_ip_address").html());
+
+            if ($("#info_box_name").html() != $("#whole_info_name").html()) {
+              location.reload();
+            }
+          }
+        );
+      });
   }
 
   //

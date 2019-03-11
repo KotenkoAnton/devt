@@ -60,11 +60,6 @@ $(document).ready(function() {
     railOpacity: 0.9
   });
 
-  // Open close right sidebar
-  $(".right-sidebar-toggle").on("click", function() {
-    $("#right-sidebar").toggleClass("sidebar-open");
-  });
-
   // Initialize slimscroll for right sidebar
   $(".sidebar-container").slimScroll({
     height: "100%",

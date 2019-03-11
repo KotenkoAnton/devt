@@ -128,91 +128,6 @@ $theme-color: #808080;
     }
   }
 
-  .whole-info {
-    position: absolute;
-    top: 5px;
-    left: 5px;
-    background-color: white;
-    border: 1px solid $theme-color;
-    box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2),
-      0 6px 20px 0 rgba(0, 0, 0, 0.19);
-    width: 420px;
-    padding: 15px;
-    min-height: 500px;
-
-    .whole-info-buttons-wrapper {
-      position: absolute;
-      right: 10px;
-      bottom: 10px;
-    }
-
-    .whole-box-editable {
-      margin-left: 2px;
-      min-height: 25px;
-    }
-
-    .whole-box-editing {
-      border: 1px solid $theme-color;
-      border-radius: 5px;
-    }
-
-    .whole-info-close-button {
-      position: absolute;
-      top: 9px;
-      right: 9px;
-      width: 15px;
-
-      &:hover {
-        cursor: pointer;
-      }
-    }
-
-    .whole-info-row {
-      width: 97%;
-      margin-bottom: 5px;
-
-      button {
-        display: none;
-        margin-right: 5px;
-        float: right;
-      }
-
-      img {
-        float: right;
-        margin-right: 5px;
-        height: 35px;
-        width: 35px;
-
-        &:hover {
-          cursor: pointer;
-        }
-      }
-
-      .whole-info-basic-content {
-        color: black;
-      }
-
-      .whole-info-contacts {
-        margin-bottom: 50px;
-      }
-
-      .whole-info-ip-address {
-        font-size: 14px;
-      }
-
-      .whole-info-title {
-        font-size: 15px;
-        font-weight: bold;
-      }
-
-      label {
-        color: $theme-color;
-        font-weight: normal;
-        font-size: 14px;
-      }
-    }
-  }
-
   .action-box {
     position: fixed;
     bottom: 22%;
@@ -470,5 +385,67 @@ $theme-color: #808080;
         }
       }
     }
+  }
+}
+
+// inspinia sidebar
+.sidebar-open {
+  min-width: 420px;
+}
+
+.whole-info {
+  position: relative;
+  height: auto;
+  min-height: 100%;
+  padding-bottom: 50px;
+  color: black;
+
+  .form-control {
+    margin-bottom: 5px;
+  }
+
+  .whole-info-buttons-wrapper {
+    position: absolute;
+    bottom: 25px;
+    right: 20px;
+
+    .save-changes-btn {
+      display: none;
+    }
+
+    img {
+      margin-right: 10px;
+      width: 35px;
+      height: 35px;
+
+      &:hover {
+        cursor: pointer;
+      }
+    }
+  }
+
+  .whole-info-content-wrapper {
+    padding: 20px;
+
+    .editing {
+      min-height: 60px;
+      height: auto;
+      &:hover {
+        cursor: text;
+      }
+    }
+
+    label {
+      color: $theme-color;
+      font-weight: normal;
+    }
+
+    textarea {
+      width: 100%;
+    }
+  }
+
+  .whole-info-ip-address {
+    font-size: 14px;
   }
 }
