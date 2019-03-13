@@ -337,8 +337,8 @@ class MouseEventHandler {
 
     let clickable_mouse_up = event => {
       if (
-        this.mouse_down_point.x == event.point.x &&
-        this.mouse_down_point.y == event.point.y
+        Math.abs(this.mouse_down_point.x - event.point.x) < 10 &&
+        Math.abs(this.mouse_down_point.y - event.point.y) < 10
       ) {
         on_mouse_click(event);
       }
