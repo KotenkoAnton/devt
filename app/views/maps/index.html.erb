@@ -5,10 +5,10 @@
 <%= render 'search' %>
 
 <% content_for :action_wrapper do %>
-  <%= image_tag "ruler.svg", id: "ruler_button", class: "btn" %>
-  <button id="delete_button" class="btn btn-success">Удалить объект</button>
-  <button id="add_button" class="btn btn-success">Добавить</button>
-  <button id="switch_mode_button" class="btn btn-success">Переключить режим</button>
+  <%= image_tag "connect_icon.svg", id: "ruler_button", class: "btn no-padding m-r-xs" %>
+  <%= image_tag "add_icon.svg", id: "add_button", class: "btn no-padding m-r-xs" %>
+  <%= image_tag "lock_icon.svg", id: "switch_mode_button", class: "btn no-padding m-r-xs" %>
+  <%= image_tag "delete_icon.svg", id: "delete_button", class: "btn no-padding m-r-xs" %>
 <% end %>
 
 <div class="ibox-content">
