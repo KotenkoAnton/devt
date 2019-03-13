@@ -1,5 +1,11 @@
 module Api
   class MapsController < ApplicationController
+    def find_items
+      items_by_name = Item.search_by_name(params[:search_str])
+      items_by_ip = Item.search_by_ip(params[:search_str])
+      render json: { items: items_by_name + items_by_ip, search_str: params[:search_str] }
+    end
+
     def fetch_device_copy
       item = Item.find(params[:item_id])
       device = item.placeable

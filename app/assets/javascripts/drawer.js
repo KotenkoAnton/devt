@@ -66,9 +66,18 @@ class Drawer {
     return _item;
   }
 
-  place_texts() {
+  place_texts(focus_item_id = null) {
     for (let item of this.item_paths) {
       this.place_text(item);
+    }
+    if (focus_item_id) {
+      let focus_item = this.item_paths.find(item => {
+        return item.id == focus_item_id;
+      });
+      focus_item.text.style.fillColor = "red";
+      setTimeout(() => {
+        focus_item.text.style.fillColor = "black";
+      }, 2500);
     }
   }
 

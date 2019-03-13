@@ -11,7 +11,7 @@ class WhatsUp {
     this.canvas_id = canvas_id;
   }
 
-  load_map(map_name) {
+  load_map(map_name, focus_item_id = null) {
     this.map_name = map_name;
     this.api_communicator.fetch_map(map_name, data => {
       // set size of the map
@@ -27,9 +27,26 @@ class WhatsUp {
           this.drawer.draw_shapes(data["shapes"]);
           this.drawer.draw_connections(data["connections"]);
           this.drawer.place_inscriptions(data["inscriptions"]);
-          this.drawer.place_texts();
+          this.drawer.place_texts(focus_item_id);
+          if (focus_item_id) {
+            let item = data["items"].find(item => {
+              return item.id == focus_item_id;
+            });
+            if (item) {
+              focus_on_item({ x: item.position_x, y: item.position_y });
+            }
+          }
         });
     });
+
+    let focus_on_item = position => {
+      $("#canvas_wrapper").scrollLeft(
+        position.x - $("#canvas_wrapper").width() / 2
+      );
+      $("#canvas_wrapper").scrollTop(
+        position.y - $("#canvas_wrapper").height() / 2
+      );
+    };
   }
 
   find_item_by_id(item_id) {

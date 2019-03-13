@@ -39,25 +39,69 @@ let set_events = () => {
 
   // search
 
+  let timeout;
   $("#search").keyup(() => {
-    let filter = $("#search")
-      .val()
-      .toLowerCase();
-    let items = whats_up.drawer.get_items();
-    if (filter.length == 0) {
-      items.forEach(item => {
-        item.text.style.fillColor = "black";
-      });
+    search();
+  });
+
+  $("#search").focus(() => {
+    if ($("#search").val().length > 2) {
+      search();
+    }
+  });
+
+  let search = () => {
+    let filter = $("#search").val();
+    if (filter.length < 3) {
       return;
     }
-    items.forEach(item => {
-      if (item.text.content.toLowerCase().includes(filter)) {
-        item.text.style.fillColor = "red";
-      } else {
-        item.text.style.fillColor = "black";
-      }
-    });
-  });
+    if (timeout) {
+      clearTimeout(timeout);
+    }
+
+    timeout = setTimeout(() => {
+      whats_up.api_communicator.find_items(filter, data => {
+        if (data.search_str != $("#search").val()) {
+          return;
+        }
+        $("#search_box").css("display", "block");
+        let html = "";
+        data.items.forEach(item => {
+          item.name += ` (${item.placeable.ip_address.ip_address})`
+          html += `
+            <div data-item-id="${item.id}" data-map-name=${
+            item.map.name
+          } class="search-row">
+              ${item.name.replace(
+                new RegExp(data.search_str, "ig"),
+                "<span>$&</span>"
+              )}
+              <svg xmlns="http://www.w3.org/2000/svg">
+                <circle cx="5" cy="5" r="5" fill=${
+                  item.placeable.ip_address.icmp_available ? "green" : "red"
+                }/>
+              </svg>
+              <hr>
+            </div>
+          `;
+        });
+        $("#search_box").html(html);
+        $(".search-row").click(event => {
+          window.location.href = `${location.origin}/maps?map=${$(
+            event.currentTarget
+          ).data("map-name")}&focus_item_id=${$(event.currentTarget).data(
+            "item-id"
+          )}`;
+        });
+      });
+    }, 600);
+  };
+
+  window.onclick = event => {
+    if (!$(event.target).closest(".search-box,.search-row").length) {
+      $("#search_box").css("display", "none");
+    }
+  };
 
   //
 
@@ -76,7 +120,7 @@ let set_events = () => {
 let init = () => {
   whats_up = new WhatsUp("canvas");
   let map_name = $("#map_name").html();
-  whats_up.load_map(map_name);
+  whats_up.load_map(map_name, new URLSearchParams(window.location.search).get("focus_item_id"));
 
   set_events();
 };
