@@ -74,9 +74,11 @@ class Drawer {
       let focus_item = this.item_paths.find(item => {
         return item.id == focus_item_id;
       });
-      focus_item.text.style.fillColor = "red";
+      focus_item.text.style.fillColor = "white";
+      focus_item.rect.style.fillColor = "#54c995";
       setTimeout(() => {
         focus_item.text.style.fillColor = "black";
+        focus_item.rect.style.fillColor = "white";
       }, 2500);
     }
   }
