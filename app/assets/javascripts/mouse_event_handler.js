@@ -320,8 +320,9 @@ class MouseEventHandler {
     // clickable:
 
     let clickable_mouse_down = event => {
+      let target = target_item(event.point);
       if (
-        !target_item(event.point) &&
+        (!target || target._type == "shape") &&
         !this.box_opened &&
         this.clickable_mode == "main_usage"
       ) {
