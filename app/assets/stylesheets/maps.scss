@@ -456,6 +456,7 @@ $theme-color: #808080;
   font-size: 14px;
   padding: 10px;
   padding-top: 15px;
+  z-index: 2;
 
   .search-row {
     span {
@@ -545,4 +546,32 @@ $theme-color: #808080;
       border: none;
     }
   }
+}
+
+.top-navbar-wrapper {
+  background-color: #f3f3f4;
+  position: fixed;
+  z-index: 2;
+}
+
+.head-wrapper {
+  position: fixed;
+  z-index: 1;
+  top: 61px;
+
+}
+
+
+.width96 {
+  transition: all 0.5s ease;
+  width: 96%;
+}
+
+.width88 {
+  transition: all 0.5s ease;
+  width: 88%;
+}
+
+.ibox-content {
+  margin-top: 127px;
 }
