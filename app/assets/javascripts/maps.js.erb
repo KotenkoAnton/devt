@@ -17,6 +17,10 @@ let set_events = () => {
     }
   });
 
+  $("#confirm_box_close_button").click(() => {
+    $("#confirm_deleting_box").css("display", "none");
+  });
+
   // switch mode
 
   $("#switch_mode_button").click(() => {

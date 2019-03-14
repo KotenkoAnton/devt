@@ -15,4 +15,20 @@
   <div id="canvas_wrapper" class="canvas-wrapper">
     <canvas id="canvas"></canvas>
   </div>
+
+  <div id="confirm_deleting_box" class="confirm-box">
+    <div class="confirm-box-message">
+      <div class="img-wrapper">
+        <%= image_tag "delete_icon_white.svg" %>
+      </div>
+      <span>Удаление объекта</span>
+    </div>
+    <div class="confim-box-confirmation-wrapper">
+      Удалить объект <span id="confirm_box_device_name"></span> ?
+    </div>
+    <div class="confirm-box-buttons-wrapper">
+      <button id="confirm_box_close_button" class="left-button">Нет, оставить</button>
+      <button id="confirm_box_delete_button" class="right-button">Да, удалить</button>
+    </div>
+  </div>
 </div>
