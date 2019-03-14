@@ -432,6 +432,16 @@ class MouseEventHandler {
           });
           break;
         }
+        case "device": {
+          whats_up.mouse_event_handler.switch_to("clickable");
+          whats_up.mouse_event_handler.switch_clickable_mode_to("main_usage");
+          $("body").css({ cursor: "auto" });
+          this.whats_up.api_communicator.fetch_item_info(item._id, data => {
+            data.id = item._id;
+            this.whats_up.dom_elements_handler.open_confirm_deleting_box(data);
+          });
+          break;
+        }
       }
     };
 

@@ -100,16 +100,6 @@ $theme-color: #808080;
     .unlink-button {
       position: absolute;
       bottom: 10px;
-      right: 120px;
-
-      &:hover {
-        cursor: pointer;
-      }
-    }
-
-    .copy-button {
-      position: absolute;
-      bottom: 10px;
       right: 70px;
 
       &:hover {
@@ -117,7 +107,7 @@ $theme-color: #808080;
       }
     }
 
-    .delete-button {
+    .copy-button {
       position: absolute;
       bottom: 10px;
       right: 20px;
