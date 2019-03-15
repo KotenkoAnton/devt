@@ -11,7 +11,8 @@ module WhatsUp
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 5.2
 
-    config.autoload_paths += Dir["#{config.root}/app/services/**/"]
+    config.enable_dependency_loading = true
+    config.autoload_paths += %W[#{config.root}/lib]
 
     config.time_zone = ENV['TIMEZONE']
     config.active_record.default_timezone = :local
