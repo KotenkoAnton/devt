@@ -1,9 +1,13 @@
 <div id="head_wrapper" class="row wrapper border-bottom white-bg page-heading head-wrapper <%= class_for('body_navbar') != '' ? 'width96' : 'width88' %>">
   <div class="col-lg-2 col-md-2">
     <h2><%= yield(:title) %></h2>
+    <div class="head-buttons-wrapper">
+      <button class="left-button"><%= image_tag('view_list_icon.svg') %> список</button>
+      <button class="right-button head-button-active"><%= image_tag('network_icon.svg') %> карта</button>
+    </div>
   </div>
   <div class="col-lg-10 col-md-10">
-    <div class="m-t-sm m-b-sm pull-right">
+    <div class="m-t-lg pull-right">
       <%= yield(:action_wrapper) %>
     </div>
   </div>
