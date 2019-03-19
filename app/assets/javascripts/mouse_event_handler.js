@@ -102,6 +102,25 @@ class MouseEventHandler {
       let x_shift = this.moving_target.position.x - event_point.x;
       let y_shift = this.moving_target.position.y - event_point.y;
       this.moving_target.position = event_point;
+
+      // expand the map if the item is near the edge
+
+      let canvas = $("#canvas");
+
+      if ($("#canvas").width() - this.moving_target.position.x < 200) {
+        canvas[0].width = canvas.width() + 500;
+        canvas.width(canvas.width() + 500);
+        paper.view.setViewSize(new paper.Size(canvas.width(), canvas.height()));
+      }
+
+      if ($("#canvas").height() - this.moving_target.position.y < 200) {
+        canvas[0].height = canvas.height() + 500;
+        canvas.height(canvas.height() + 500);
+        paper.view.setViewSize(new paper.Size(canvas.width(), canvas.height()));
+      }
+
+      //
+
       if (!this.moving_target.text) {
         return;
       }
@@ -164,12 +183,7 @@ class MouseEventHandler {
           );
           this.whats_up.api_communicator.change_item_position(
             this.moving_target._id,
-            event.point,
-            data => {
-              if (data.corrected) {
-                location.reload();
-              }
-            }
+            event.point
           );
           break;
         }

@@ -8,14 +8,6 @@ $theme-color: #808080;
   margin-top: -14px;
   position: relative;
 
-  canvas {
-    border: 1px solid #ccc;
-    border-radius: 16px;
-    height: inherit;
-    width: inherit;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  }
-
   .info-box {
     position: absolute;
     width: 300px !important;
@@ -495,7 +487,7 @@ $theme-color: #808080;
     margin-top: 55px;
 
     span {
-      color: #FF1F47;
+      color: #ff1f47;
       font-size: 19px;
     }
 
@@ -530,7 +522,7 @@ $theme-color: #808080;
       width: 190px;
       height: 45px;
       background-color: white;
-      border: 1px solid #CBCBCB;
+      border: 1px solid #cbcbcb;
       border-radius: 6px;
       margin-right: 22px;
     }
@@ -540,7 +532,7 @@ $theme-color: #808080;
       width: 190px;
       height: 45px;
       margin-left: 22px;
-      background-color: #FF1F47;
+      background-color: #ff1f47;
       border-radius: 6px;
       color: white;
       border: none;
@@ -603,7 +595,6 @@ $theme-color: #808080;
     }
   }
 }
-
 
 .width96 {
   transition: all 0.5s ease;
