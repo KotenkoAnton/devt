@@ -82,6 +82,21 @@ class MouseEventHandler {
         return;
       }
       let item = target_item(event.point);
+
+      // start scrolling
+
+      if (!item && !this.box_opened && this.clickable_mode == "main_usage") {
+        this.scrolling = true;
+        this._set_cursor("move");
+        this.scrolling_first_position = {
+          x: event.event.clientX,
+          y: event.event.clientY
+        };
+        return;
+      }
+
+      //
+
       if (!item) {
         return;
       }
@@ -335,6 +350,8 @@ class MouseEventHandler {
 
     let clickable_mouse_down = event => {
       let target = target_item(event.point);
+
+      // start scrolling
       if (
         (!target || target._type == "shape") &&
         !this.box_opened &&
