@@ -1264,6 +1264,17 @@ let Workstation_Not_Monitored = `<svg width="33" height="31" viewBox="0 0 33 31"
   </g>
 </svg>`;
 
+// shape
+
+let Shape_Not_Monitored = `<?xml version="1.0" encoding="UTF-8"?>
+  <svg style="width: 40px;" viewBox="0 0 19 18" xmlns="http://www.w3.org/2000/svg">
+  <title>my vector image</title>
+  <rect fill="#fff" />
+  <g class="currentLayer">
+  <rect class="selected" x=".5" y=".5" width="18" height="17" color="rgb(0, 0, 0)" fill="none" stroke="#b6b6b6" stroke-dashoffset="" stroke-linejoin="round"/>
+  </g>
+</svg>`;
+
 let icons = {
   Camera_Active,
   Camera_Not_Active_Warning,
@@ -1325,7 +1336,8 @@ let icons = {
   Subnet_Active: Undefined,
   Subnet_Not_Active_Warning: Undefined,
   Subnet_Not_Active: Undefined,
-  Subnet_Not_Monitored: Undefined
+  Subnet_Not_Monitored: Undefined,
+  Shape_Not_Monitored
 };
 
 get_icon = item => {
