@@ -94,7 +94,7 @@ class DomElementsHandler {
 
             // change icon if availability has changed
             if (drawed_item.status != data.icmp_available) {
-              let icon = get_icon({
+              let icon_final_type = get_icon_final_type({
                 placeable_type: "Device",
                 placeable: {
                   host_type_name: drawed_item._icon_type,
@@ -104,7 +104,9 @@ class DomElementsHandler {
                   }
                 }
               });
+              let icon = get_icon(icon_final_type);
               let _item = paper.project.importSVG(icon);
+              _item.icon_final_type = icon_final_type;
               _item._id = drawed_item._id;
               _item.position = drawed_item.position;
               _item.status = data.icmp_available;
@@ -875,11 +877,7 @@ class DomElementsHandler {
       <div class="items-row">
         <div class="item first-item">
           <span class="item-img">
-            ${get_icon_for_action_box(
-              items.first_item._icon_type
-                ? items.first_item._icon_type
-                : "Shape"
-            )}
+            ${get_icon(items.first_item.icon_final_type)}
           </span>
           <label class="item-label">
             ${
@@ -891,11 +889,7 @@ class DomElementsHandler {
         </div>
         <div class="item second-item">
           <span class="item-img">
-            ${get_icon_for_action_box(
-              items.second_item._icon_type
-                ? items.second_item._icon_type
-                : "Shape"
-            )}
+            ${get_icon(items.second_item.icon_final_type)}
           </span>
           <label class="item-label">
             ${

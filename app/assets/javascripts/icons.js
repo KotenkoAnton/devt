@@ -1340,12 +1340,14 @@ let icons = {
   Shape_Not_Monitored
 };
 
-get_icon = item => {
+get_icon = icon_final_type => icons[icon_final_type];
+
+get_icon_final_type = item => {
   let icon_type =
     item.placeable_type == "Device" ? item.placeable.host_type_name : "Map";
 
   if (icon_type == "Map" || icon_type == "Shape") {
-    return icons[icon_type];
+    return icon_type;
   }
 
   let status =
@@ -1357,11 +1359,11 @@ get_icon = item => {
       new Date(item.placeable.ip_address.changed_status_at).getTime();
     if (time_difference <= 300000) {
       // less than 5 minutes
-      return icons[`${icon_type}_Not_Active_Warning`];
+      return `${icon_type}_Not_Active_Warning`;
     }
-    return icons[`${icon_type}_Not_Active`];
+    return `${icon_type}_Not_Active`;
   }
-  return icons[`${icon_type}_Active`];
+  return `${icon_type}_Active`;
 };
 
 get_icon_for_action_box = icon_type => {

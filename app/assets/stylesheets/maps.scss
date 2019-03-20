@@ -181,6 +181,8 @@ $theme-color: #808080;
             height: 80px;
 
             .item-img {
+              min-width: 45px;
+              max-width: 50px;
               position: absolute;
               left: 43%;
               top: 5%;

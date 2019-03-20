@@ -30,6 +30,7 @@ class Drawer {
       );
       rectangle._id = shape.id;
       rectangle._type = "shape";
+      rectangle.icon_final_type = "Shape_Not_Monitored";
       this.shapes.push(rectangle);
     }
   }
@@ -51,11 +52,13 @@ class Drawer {
   }
 
   place_item(item) {
-    let icon = get_icon(item);
+    let icon_final_type = get_icon_final_type(item);
+    let icon = get_icon(icon_final_type);
 
     let text = item.name;
 
     let _item = paper.project.importSVG(icon);
+    _item.icon_final_type = icon_final_type;
     if (item.placeable_type == "Device") {
       _item.status = item.placeable.ip_address.icmp_available;
     }
