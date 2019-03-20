@@ -8,6 +8,17 @@ class IpAddress < ActiveRecord::Base
     Zabbix.remove(self)
   end
 
+  def delete_deprecated
+    return if self.devices.count > 1
+
+    self.destroy
+  end
+
+  def update_availability
+    self.icmp_available = Zabbix.available?(self)
+    self.save
+  end
+
   class << self
     def by_ip(ip)
       IpAddress.find_by(ip_address: ip) || IpAddress.create_new(ip)
@@ -16,7 +27,8 @@ class IpAddress < ActiveRecord::Base
     def create_new(ip)
       ip_address = IpAddress.new
       zbx_id = Zabbix.find_host_id(ip) || Zabbix.add_by_ip(ip)[:zbx_id]
-      ip_address.attributes = { monitored: true, ip_address: ip, zbx_id: zbx_id, icmp_available: true }
+      ip_address.attributes = { monitored: true, ip_address: ip, zbx_id: zbx_id }
+      ip_address.icmp_available = Zabbix.available?(ip_address)
       ip_address.save!
       ip_address
     end

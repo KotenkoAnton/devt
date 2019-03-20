@@ -83,22 +83,71 @@ class DomElementsHandler {
               .trim(),
             name: $("#whole_info_name_input").val()
           },
-          () => {
+          data => {
             set_whole_info_to_default();
 
-            // change ip in the info box
-            $("#info_box_ip_address").html($("#whole_box_ip_address").html());
+            const items = whats_up.drawer.get_items();
+            const drawed_item_index = items.findIndex(
+              _item => _item._id == item.id
+            );
+            let drawed_item = items[drawed_item_index];
 
-            if ($("#info_box_name").html() != $("#whole_info_name").html()) {
-              location.reload();
+            // change icon if availability has changed
+            if (drawed_item.status != data.icmp_available) {
+              let icon = get_icon({
+                placeable_type: "Device",
+                placeable: {
+                  host_type_name: drawed_item._icon_type,
+                  ip_address: {
+                    icmp_available: data.icmp_available,
+                    changed_status_at: data.changed_status_at
+                  }
+                }
+              });
+              let _item = paper.project.importSVG(icon);
+              _item._id = drawed_item._id;
+              _item.position = drawed_item.position;
+              _item.status = data.icmp_available;
+              _item._icon_type = drawed_item._icon_type;
+              _item._type = drawed_item._type;
+              _item.text = drawed_item.text;
+              _item.text_content = drawed_item.text_content;
+              _item.rect = drawed_item.rect;
+              drawed_item.remove();
+              items[drawed_item_index] = _item;
             }
+
+            // change item text
+            drawed_item.text_content = $("#whole_info_name").html();
+            drawed_item.text.content = drawed_item.text_content;
+
+            // change status in the info box
+            if ($("#info_box_status")) {
+              $("#info_box_status").html(
+                `${data.icmp_available ? "Active" : "Not active"}`
+              );
+              $("#info_box_status").removeClass(
+                `${data.icmp_available ? "red-status" : "green-status"}`
+              );
+              $("#info_box_status").addClass(
+                `${data.icmp_available ? "green-status" : "red-status"}`
+              );
+            }
+
+            // change ip in the info box
+            $("#info_box_ip_address").html($("#whole_info_ip").html());
+
+            // change name in the info box
+            $("#info_box_name").html($("#whole_info_name").html());
           }
         );
       });
 
-    $("#whole_box_delete_button").unbind("click").click(() => {
-      this.open_confirm_deleting_box(item);
-    });
+    $("#whole_box_delete_button")
+      .unbind("click")
+      .click(() => {
+        this.open_confirm_deleting_box(item);
+      });
   }
 
   //
@@ -136,7 +185,7 @@ class DomElementsHandler {
         </div>
         <div class="info-row">
           <div class='info-label'>Status:</div>
-          <div class='info-text ${
+          <div id="info_box_status" class='info-text ${
             item_data.status ? "green-status" : "red-status"
           }'>${item_data.status ? "Active" : "Not active"}</div>
         </div>
@@ -169,14 +218,13 @@ class DomElementsHandler {
   open_confirm_deleting_box(item) {
     $("#confirm_deleting_box").css("display", "block");
     $("#confirm_box_device_name").html(`${item.name} (${item.ip_address})`);
-    $("#confirm_box_delete_button").unbind("click").click(() => {
-      this.whats_up.api_communicator.delete_device_by_item_id(
-        item.id,
-        () => {
+    $("#confirm_box_delete_button")
+      .unbind("click")
+      .click(() => {
+        this.whats_up.api_communicator.delete_device_by_item_id(item.id, () => {
           location.reload();
-        }
-      );
-    });
+        });
+      });
   }
 
   _set_item_box_events(item_data) {

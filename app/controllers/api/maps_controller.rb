@@ -120,6 +120,8 @@ module Api
 
       item.name = params[:name]
       item.save
+
+      render json: { icmp_available: device.ip_address.icmp_available, changed_status_at: device.ip_address.updated_at }
     end
 
     def add_new_map

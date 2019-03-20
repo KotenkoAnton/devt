@@ -56,6 +56,9 @@ class Drawer {
     let text = item.name;
 
     let _item = paper.project.importSVG(icon);
+    if (item.placeable_type == "Device") {
+      _item.status = item.placeable.ip_address.icmp_available;
+    }
     _item.position = { x: item.position_x, y: item.position_y };
     _item.text_content = text;
     _item._id = item.id;

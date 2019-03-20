@@ -1,12 +1,15 @@
 class Device < ActiveRecord::Base
   has_one :item, as: :placeable, dependent: :destroy
   belongs_to :ip_address
-  before_destroy :destroy_ip
 
-  def destroy_ip
-    ip_address = self.ip_address
-    return if ip_address.devices.count > 1
+  before_destroy :before_destroy
+  before_update :before_update, :if => :ip_address_id_changed?
 
-    ip_address.destroy
+  def before_destroy
+    self.ip_address.delete_deprecated
+  end
+
+  def before_update
+    IpAddress.find(self.ip_address_id_was).delete_deprecated
   end
 end
