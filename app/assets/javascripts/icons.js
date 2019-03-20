@@ -1353,6 +1353,10 @@ get_icon_final_type = item => {
   let status =
     item.placeable.ip_address && item.placeable.ip_address.icmp_available;
 
+  if (!item.placeable.ip_address.monitored) {
+    return `${icon_type}_Not_Monitored`;
+  }
+
   if (!status) {
     let time_difference =
       new Date().getTime() -
