@@ -643,3 +643,21 @@ $theme-color: #808080;
 .ibox-content {
   margin-top: 166px;
 }
+
+.search-input {
+  width: 525px;
+  position: relative;
+
+  img {
+    display: none;
+    position: absolute;
+    width: 14px;
+    height: 14px;
+    right: 0;
+    bottom: 24px;
+
+    &:hover {
+      cursor: pointer;
+    }
+  }
+}

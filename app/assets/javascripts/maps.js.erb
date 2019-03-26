@@ -45,6 +45,11 @@ let set_events = () => {
 
   let timeout;
   $("#search").keyup(() => {
+    if ($("#search").val()) {
+      $("#search_empty_button").show();
+    } else {
+      $("#search_empty_button").hide();
+    }
     search();
   });
 
@@ -52,6 +57,11 @@ let set_events = () => {
     if ($("#search").val().length > 2) {
       search();
     }
+  });
+
+  $("#search_empty_button").click(() => {
+    $("#search").val("");
+    $("#search_empty_button").hide();
   });
 
   let search = () => {
@@ -116,12 +126,12 @@ let set_events = () => {
       $("#head_wrapper").removeClass("width96");
       $("#head_wrapper").addClass("width88");
       $("#topnavbar_wrapper").removeClass("width96");
-      $("#topnavbar_wrapper").addClass("width88")
+      $("#topnavbar_wrapper").addClass("width88");
     } else {
       $("#head_wrapper").removeClass("width88");
       $("#head_wrapper").addClass("width96");
       $("#topnavbar_wrapper").removeClass("width88");
-      $("#topnavbar_wrapper").addClass("width96")
+      $("#topnavbar_wrapper").addClass("width96");
     }
     $.post({
       url: location.origin + "/custom_settings/change",
@@ -133,7 +143,7 @@ let set_events = () => {
 };
 
 let init = () => {
-  $('[data-toggle="tooltip"]').tooltip()
+  $('[data-toggle="tooltip"]').tooltip();
   let url = new URLSearchParams(window.location.search);
   whats_up = new WhatsUp("canvas");
   let map_name = $("#map_name").html();
