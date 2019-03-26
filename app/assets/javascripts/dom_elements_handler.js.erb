@@ -19,6 +19,12 @@ class DomElementsHandler {
   }
 
   _set_whole_info_box_events(item) {
+    $("#close_whole_info_button")
+      .unbind("click")
+      .click(() => {
+        set_whole_info_to_default();
+        $("#right-sidebar").removeClass("sidebar-open");
+      });
     // Open close right sidebar, from inspinia.js
     $(".right-sidebar-toggle")
       .unbind("click")
