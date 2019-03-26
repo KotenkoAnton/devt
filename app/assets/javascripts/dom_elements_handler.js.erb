@@ -171,7 +171,7 @@ class DomElementsHandler {
         </div>
         <div class="info-row">
           <div class='info-label'>Address:</div>
-          <div class='info-text' id="info_box_ip_address">${
+          <div class='info-text info-box-ip-address' id="info_box_ip_address">${
             item_data.ip_address
           }</div>
         </div>
@@ -230,6 +230,9 @@ class DomElementsHandler {
   }
 
   _set_item_box_events(item_data) {
+    $("#info_box_ip_address").click(() => {
+      window.open(`http://${$("#info_box_ip_address").html()}/`, "_blank");
+    });
     $("#info_box_open_button").click(() => {
       $("#whole_info_box").remove(); // remove info box if opened
       this.open_whole_info_box(item_data);

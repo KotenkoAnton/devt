@@ -51,6 +51,15 @@ $theme-color: #808080;
       font-size: 14px;
     }
 
+    .info-box-ip-address {
+      text-decoration: underline;
+      cursor: pointer;
+
+      &:hover {
+        color: #484b48;
+      }
+    }
+
     .info-text {
       float: right;
       margin-right: 25px;
