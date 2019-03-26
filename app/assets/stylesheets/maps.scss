@@ -596,6 +596,13 @@ $theme-color: #808080;
       }
     }
   }
+
+  .head-controll-buttons {
+    margin-right: 20px;
+    div {
+      display: inline-block;
+    }
+  }
 }
 
 .width96 {
