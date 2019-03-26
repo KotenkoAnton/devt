@@ -32,6 +32,7 @@ Rails.application.routes.draw do
         post :delete_device_by_item_id
         post :add_device_and_item
         post :update_device_info
+        post :mass_update_position
         post :create_connection
         post :change_item_position
         post :change_inscription_position

@@ -74,6 +74,22 @@ module Api
       shape.save
     end
 
+    def mass_update_position
+      objects = JSON.parse(params["json_objects"])
+      objects.each do |obj|
+        object =
+          case obj["type"]
+          when "Item"
+            Item.find(obj["id"])
+          when "Shape"
+            Shape.find(obj["id"])
+          end
+        object.position_x = obj["position"]["x"]
+        object.position_y = obj["position"]["y"]
+        object.save
+      end
+    end
+
     def map_name_by_item_id
       item = Item.find(params[:item_id])
       render json: { map_name: Map.find(item.placeable_id).name }

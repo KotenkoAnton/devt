@@ -14,6 +14,7 @@ class MouseEventHandler {
     this.expanding = false;
     this.expanding_hover = false;
     this.edge = null;
+    this.selection_rectangle = {};
 
     //
 
@@ -72,7 +73,39 @@ class MouseEventHandler {
   _set_events() {
     // draggable:
 
+    let _fill_selection_rectangle_children = () => {
+      this.selection_rectangle.children = [];
+
+      let is_inside = (rectangle, item) => {
+        const rectangle_bounds = rectangle.bounds;
+        return (
+          rectangle_bounds.x < item.bounds.x &&
+          rectangle_bounds.x + rectangle_bounds.width >
+            item.bounds.x + item.bounds.width &&
+          rectangle_bounds.y < item.bounds.y &&
+          rectangle_bounds.y + rectangle_bounds.height >
+            item.bounds.y + item.bounds.height
+        );
+      };
+      this.whats_up.drawer.get_items().forEach(item => {
+        if (is_inside(this.selection_rectangle.path, item)) {
+          this.selection_rectangle.children.push(item);
+        }
+      });
+      this.whats_up.drawer.get_shapes().forEach(shape => {
+        if (is_inside(this.selection_rectangle.path, shape)) {
+          this.selection_rectangle.children.push(shape);
+        }
+      });
+    };
+
     let draggable_mouse_down = event => {
+      // start mass selection if ctrl is pressed
+      if (event.event.ctrlKey) {
+        this.selection_rectangle = { start_point: event.point, drawing: true };
+        return;
+      }
+
       if (this.expanding_hover) {
         this.expanding = true;
         this.whats_up.drawer.delete_item_connections(
@@ -82,7 +115,28 @@ class MouseEventHandler {
         return;
       }
       let item = target_item(event.point);
-
+      // remove selection rectangle if not target
+      if (!item) {
+        if (this.selection_rectangle.drawn) {
+          this.selection_rectangle.path.remove();
+        }
+        this.selection_rectangle = {};
+      } else {
+        if (
+          this.selection_rectangle.drawn &&
+          item._type != "selection_rectangle"
+        ) {
+          this.selection_rectangle.path.remove();
+        }
+        if (item._type == "selection_rectangle") {
+          this.selection_rectangle.children.forEach(child => {
+            this.whats_up.drawer.delete_item_connections(
+              child._id,
+              child._type == "shape" ? "Shape" : "Item"
+            );
+          });
+        }
+      }
       // start scrolling
 
       if (!item && !this.box_opened && this.clickable_mode == "main_usage") {
@@ -102,6 +156,10 @@ class MouseEventHandler {
       }
       this.moving = true;
       this.moving_target = item;
+      this.moving_target.point_diff = {
+        x_diff: this.moving_target.position.x - event.point.x,
+        y_diff: this.moving_target.position.y - event.point.y
+      };
       let type;
       if (item._type == "device" || item._type == "map") {
         type = "Item";
@@ -114,12 +172,30 @@ class MouseEventHandler {
     };
 
     let dragging = event_point => {
-      let x_shift = this.moving_target.position.x - event_point.x;
-      let y_shift = this.moving_target.position.y - event_point.y;
-      this.moving_target.position = event_point;
+      const x_shift =
+        this.moving_target.position.x -
+        this.moving_target.point_diff.x_diff -
+        event_point.x;
+      const y_shift =
+        this.moving_target.position.y -
+        this.moving_target.point_diff.y_diff -
+        event_point.y;
+
+      _move_target_by_shift(this.moving_target, event_point, {
+        x: x_shift,
+        y: y_shift
+      });
+
+      if (this.moving_target._type == "selection_rectangle") {
+        this.selection_rectangle.children.forEach(child => {
+          _move_target_by_shift(child, event_point, {
+            x: x_shift,
+            y: y_shift
+          });
+        });
+      }
 
       // expand the map if the item is near the edge
-
       let canvas = $("#canvas");
 
       if ($("#canvas").width() - this.moving_target.position.x < 200) {
@@ -135,17 +211,37 @@ class MouseEventHandler {
       }
 
       //
+    };
 
-      if (!this.moving_target.text) {
+    let _move_target_by_shift = (target, event_point, shift) => {
+      target.position.x -= shift.x;
+      target.position.y -= shift.y;
+      if (!target.text) {
         return;
       }
-      this.moving_target.text.position.x -= x_shift;
-      this.moving_target.text.position.y -= y_shift;
-      this.moving_target.rect.position.x -= x_shift;
-      this.moving_target.rect.position.y -= y_shift;
+      target.text.position.x -= shift.x;
+      target.text.position.y -= shift.y;
+      target.rect.position.x -= shift.x;
+      target.rect.position.y -= shift.y;
     };
 
     let draggable_mouse_move = event => {
+      // check for mass selection drawing
+      if (this.selection_rectangle.drawing) {
+        if (this.selection_rectangle.path) {
+          this.selection_rectangle.path.remove();
+        }
+        let rectangle = new paper.Rectangle(
+          this.selection_rectangle.start_point,
+          event.point
+        );
+        let path = new paper.Path.Rectangle(rectangle);
+        path.strokeColor = "blue";
+        path.dashArray = [10, 12];
+        this.selection_rectangle.path = path;
+        return;
+      }
+
       // check for dragging
       if (this.moving) {
         dragging(event.point);
@@ -163,6 +259,37 @@ class MouseEventHandler {
     };
 
     let draggable_mouse_up = event => {
+      if (this.selection_rectangle.drawing) {
+        this.selection_rectangle.drawing = false;
+        this.selection_rectangle.drawn = true;
+        this.selection_rectangle.path._type = "selection_rectangle";
+        _fill_selection_rectangle_children();
+        return;
+      }
+
+      if (this.selection_rectangle.drawn) {
+        let objects_to_update = [];
+        this.selection_rectangle.children.forEach(child => {
+          const type = child._type == "shape" ? "Shape" : "Item";
+          this.whats_up.drawer.draw_item_connections(child._id, type);
+          let position;
+          if (type == "Item") {
+            position = { x: child.position.x, y: child.position.y };
+          } else {
+            // for shape
+            position = {
+              x: Math.floor(child.position.x - child.bounds.width / 2),
+              y: Math.floor(child.position.y - child.bounds.height / 2)
+            };
+          }
+
+          objects_to_update.push({ id: child._id, type: type, position });
+        });
+        this.whats_up.api_communicator.mass_update_position(objects_to_update);
+        this.selection_rectangle.path.remove();
+        this.selection_rectangle = {};
+      }
+
       if (this.expanding) {
         this.expanding_hover = false;
         this.expanding = false;
@@ -567,6 +694,12 @@ class MouseEventHandler {
     // main logic:
 
     let target_item = event_point => {
+      if (this.selection_rectangle.drawn) {
+        if (is_target(this.selection_rectangle.path, event_point)) {
+          // this.selection_rectangle.path.type = "selection_rectangle";
+          return this.selection_rectangle.path;
+        }
+      }
       for (let item of this.whats_up.drawer.get_items()) {
         if (is_target(item, event_point)) {
           return item;

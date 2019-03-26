@@ -106,6 +106,13 @@ class ApiCommunicator {
     });
   }
 
+  mass_update_position(objects) {
+    $.post({
+      url: `${location.origin}/api/maps/mass_update_position`,
+      data: { json_objects: JSON.stringify(objects) }
+    });
+  }
+
   change_inscription_position(inscription_id, position, success = null) {
     $.post({
       url: `${location.origin}/api/maps/change_inscription_position`,
