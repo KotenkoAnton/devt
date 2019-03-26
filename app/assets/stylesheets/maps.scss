@@ -2,8 +2,8 @@ $theme-color: #808080;
 // canvas wrapper
 
 .canvas-wrapper {
-  overflow: hidden;
-  height: 99vh;
+  overflow: scroll;
+  height: 80vh;
   margin: -19px;
   margin-top: -14px;
   position: relative;
