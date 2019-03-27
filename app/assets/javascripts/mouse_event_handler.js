@@ -49,6 +49,7 @@ class MouseEventHandler {
 
   toggle_mode() {
     this.mode = this.mode == "clickable" ? "draggable" : "clickable";
+    return this.mode;
   }
 
   switch_clickable_mode_to(mode) {
@@ -545,6 +546,14 @@ class MouseEventHandler {
       if (!this.ruler_first_item) {
         this.ruler_first_item = item;
       } else if (this.ruler_first_item != item) {
+        // set button and cursor to default
+        $("body").css({ cursor: "default" });
+        const buttons = ["add_button", "switch_mode_button", "delete_button"];
+        buttons.forEach(btn => {
+          $(`#${btn}_active_img`).show();
+          $(`#${btn}_inactive_img`).hide();
+        });
+        //
         this.ruler_second_item = item;
         this.whats_up.api_communicator.check_connection_existence(
           this.whats_up.map_name,

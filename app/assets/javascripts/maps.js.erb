@@ -2,18 +2,44 @@
 let whats_up;
 
 let set_events = () => {
+  let select_button = button => {
+    const buttons = ["ruler_button", "add_button", "switch_mode_button", "delete_button"];
+    $(`#${button}_active_img`).show();
+    $(`#${button}_inactive_img`).hide();
+    buttons.forEach(btn => {
+      if (btn == button) {
+        return;
+      }
+      $(`#${btn}_active_img`).hide();
+      $(`#${btn}_inactive_img`).show();
+    });
+  }
+
+  let activate_all_buttons = () => {
+    const buttons = ["ruler_button", "add_button", "switch_mode_button", "delete_button"];
+    buttons.forEach(btn => {
+      $(`#${btn}_active_img`).show();
+      $(`#${btn}_inactive_img`).hide();
+    });
+  }
+
   $("#add_button").click(() => {
+    activate_all_buttons();
+    whats_up.mouse_event_handler.switch_to("clickable");
+    whats_up.mouse_event_handler.switch_clickable_mode_to("main_usage");
     whats_up.dom_elements_handler.open_action_box("add_object");
   });
 
   $("#ruler_button").click(() => {
     if (whats_up.mouse_event_handler.get_clickable_mode() == "ruler") {
       whats_up.mouse_event_handler.switch_clickable_mode_to("main_usage");
-      $("#ruler_img").prop("src", "<%= asset_path('ruler.svg') %>");
+      $("body").css({ cursor: "default" });
+      activate_all_buttons();
     } else {
       whats_up.mouse_event_handler.switch_to("clickable");
       whats_up.mouse_event_handler.switch_clickable_mode_to("ruler");
-      $("#ruler_img").prop("src", "<%= asset_path('active_ruler.svg') %>");
+      $("body").css({ cursor: "crosshair" });
+      select_button("ruler_button");
     }
   });
 
@@ -24,7 +50,12 @@ let set_events = () => {
   // switch mode
 
   $("#switch_mode_button").click(() => {
-    whats_up.mouse_event_handler.toggle_mode();
+    let mode = whats_up.mouse_event_handler.toggle_mode();
+    if (mode == "clickable") {
+      activate_all_buttons();
+    } else {
+      select_button("switch_mode_button");
+    }
   });
 
   //
@@ -33,10 +64,12 @@ let set_events = () => {
     if ($("body").css("cursor") == "crosshair") {
       whats_up.mouse_event_handler.switch_to("clickable");
       whats_up.mouse_event_handler.switch_clickable_mode_to("main_usage");
+      activate_all_buttons();
       $("body").css({ cursor: "auto" });
     } else {
       whats_up.mouse_event_handler.switch_to("clickable");
       whats_up.mouse_event_handler.switch_clickable_mode_to("deleting");
+      select_button("delete_button");
       $("body").css({ cursor: "crosshair" });
     }
   });

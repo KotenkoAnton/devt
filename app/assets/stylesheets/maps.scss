@@ -627,6 +627,10 @@ $theme-color: #808080;
     div {
       display: inline-block;
     }
+
+    .control-button-inactive {
+      display: none;
+    }
   }
 }
 
