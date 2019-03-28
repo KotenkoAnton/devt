@@ -8,6 +8,54 @@ $theme-color: #808080;
   margin-top: -14px;
   position: relative;
 
+  %info-box-left-arrow-after {
+    content: " ";
+    position: absolute;
+    left: -13px;
+    border-top: 8px solid transparent;
+    border-right: 13px solid white;
+    border-left: none;
+    border-bottom: 8px solid transparent;
+  }
+
+  %info-box-right-arrow-after {
+    content: " ";
+    position: absolute;
+    right: -13px;
+    border-top: 8px solid transparent;
+    border-right: none;
+    border-left: 13px solid white;
+    border-bottom: 8px solid transparent;
+  }
+
+  .info-box-up-left-arrow {
+    &:after {
+      @extend %info-box-left-arrow-after;
+      top: 60px;
+    }
+  }
+
+  .info-box-down-left-arrow {
+    &:after {
+      @extend %info-box-left-arrow-after;
+      bottom: 60px;
+    }
+  }
+
+  .info-box-up-right-arrow {
+    &:after {
+      @extend %info-box-right-arrow-after;
+      top: 60px;
+    }
+  }
+
+  .info-box-down-right-arrow {
+    &:after {
+      @extend %info-box-right-arrow-after;
+      bottom: 60px;
+    }
+  }
+
   .info-box {
     position: absolute;
     width: 300px !important;
@@ -15,17 +63,6 @@ $theme-color: #808080;
     background-color: white;
     box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2),
       0 6px 20px 0 rgba(0, 0, 0, 0.19);
-
-    &:after {
-      content: " ";
-      position: absolute;
-      left: -13px;
-      top: 60px;
-      border-top: 8px solid transparent;
-      border-right: 13px solid white;
-      border-left: none;
-      border-bottom: 8px solid transparent;
-    }
 
     .item-name {
       margin-left: 20px;

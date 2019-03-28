@@ -21,6 +21,7 @@ Rails.application.routes.draw do
         get :map_name_by_item_id
         get :check_connection_existence
         get :find_items
+        get :fetch_devices_for_list_view
         post :add_new_inscription
         post :delete_shape
         post :add_shape

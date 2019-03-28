@@ -163,12 +163,24 @@ class DomElementsHandler {
   // info box
 
   open_item_box(item, item_data) {
+    const actual_item_position_y =
+      item.position.y - $("#canvas_wrapper").scrollTop();
+    const info_box_y_arrow_position =
+      $("#canvas_wrapper").height() - actual_item_position_y > 350
+        ? "up"
+        : "down";
+    const actual_item_position_x =
+      item.position.x - $("#canvas_wrapper").scrollLeft();
+    let info_box_x_arrow_position =
+      $("#canvas_wrapper").width() - actual_item_position_x > 330
+        ? "left"
+        : "right";
     let logs = "";
     item_data.logs.forEach(log => {
       logs += `<div class='info-label'>${log.date} ${log.status}</div>`;
     });
     let info_box_html = `
-      <div id='info_box' class='info-box container'>
+      <div id='info_box' class='info-box info-box-${info_box_y_arrow_position}-${info_box_x_arrow_position}-arrow container'>
         <div class='item-name' id="info_box_name">${item_data.name}</div>
         <hr class='info-box-delimiter'>
         <div class="info-row">
@@ -212,8 +224,8 @@ class DomElementsHandler {
     `;
     $("#canvas").after(info_box_html);
     $("#info_box").css({
-      top: item.position.y - 60,
-      left: item.position.x + 35
+      top: item.position.y - (info_box_y_arrow_position == "up" ? 65 : 327),
+      left: item.position.x + (info_box_x_arrow_position == "right" ? -340 : 35)
     });
 
     this._set_item_box_events(item_data);
