@@ -173,6 +173,52 @@ let set_events = () => {
   });
 
   //
+
+
+  // change view buttons
+
+  $("#list_view_button").click(() => {
+    $("#canvas_wrapper").hide();
+    $("#devices_list_view_wrapper").show();
+    $("#map_view_active").hide();
+    $("#map_view_not_active").show();
+    $("#list_view_not_active").hide();
+    $("#list_view_active").show();
+    $("#map_view_button").removeClass("head-button-active");
+    $("#list_view_button").addClass("head-button-active");
+
+    whats_up.api_communicator.fetch_devices_for_list_view(
+      whats_up.map_name,
+      data => {
+        let html_for_table_body = "";
+        data["devices"].forEach(device => {
+          html_for_table_body += `
+            <tr>
+              <td>${device.icmp_available}</td>
+              <td>${device.name}</td>
+              <td>${device.ip}</td>
+              <td>${device.type}</td>
+              <td>${device.changed_status_at}</td>
+            </tr>
+          `
+        });
+        $("#list_view_table_body").html(html_for_table_body);
+      }
+    );
+  });
+
+  $("#map_view_button").click(() => {
+    $("#canvas_wrapper").show();
+    $("#devices_list_view_wrapper").hide();
+    $("#map_view_active").show();
+    $("#map_view_not_active").hide();
+    $("#list_view_not_active").show();
+    $("#list_view_active").hide();
+    $("#map_view_button").addClass("head-button-active");
+    $("#list_view_button").removeClass("head-button-active");
+  });
+
+  //
 };
 
 let init = () => {

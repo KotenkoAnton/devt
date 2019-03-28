@@ -596,6 +596,14 @@ $theme-color: #808080;
         width: 15px;
         height: 15px;
       }
+
+      .list-view-active {
+        display: none;
+      }
+
+      .map-view-not-active {
+        display: none;
+      }
     }
 
     .head-button-active {
@@ -664,4 +672,12 @@ $theme-color: #808080;
       cursor: pointer;
     }
   }
+}
+
+.no-bottom-pudding {
+  padding-bottom: 0 !important;
+}
+
+.devices-list-view-wrapper {
+  display: none;
 }

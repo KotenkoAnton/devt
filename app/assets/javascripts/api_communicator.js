@@ -7,6 +7,14 @@ class ApiCommunicator {
     });
   }
 
+  fetch_devices_for_list_view(map_name, success = null) {
+    $.get({
+      url: `${location.origin}/api/maps/fetch_devices_for_list_view`,
+      data: { map_name },
+      success: success
+    });
+  }
+
   delete_zone_item(item_id, success = null) {
     $.post({
       url: `${location.origin}/api/maps/delete_zone_item`,
