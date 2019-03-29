@@ -447,6 +447,10 @@ $head-height: 12vh;
     margin-bottom: 5px;
   }
 
+  .whole-info-name {
+    overflow-wrap: break-word;
+  }
+
   .close-whole-info-button {
     position: absolute;
     right: 15px;
