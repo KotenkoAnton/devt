@@ -1,6 +1,5 @@
 <div id="head_wrapper" class="row wrapper border-bottom white-bg page-heading head-wrapper <%= class_for('body_navbar') != '' ? 'width96' : 'width88' %>">
-  <div class="col-lg-2 col-md-2">
-    <h2><%= yield(:title) %></h2>
+  <div class="col-lg-6 col-md-6">
     <div class="head-buttons-wrapper">
       <button id="list_view_button" class="left-button">
         <span id="list_view_not_active" class="list-view-not-active"><%= image_tag('view_list_icon_not_active.svg') %></span>
@@ -13,9 +12,10 @@
         карта
       </button>
     </div>
+    <h2 class="map-title"><%= yield(:title) %></h2>
   </div>
-  <div class="col-lg-10 col-md-10">
-    <div class="m-t-lg pull-right">
+  <div class="col-lg-6 col-md-6">
+    <div class="m-t-md pull-right">
       <div class="head-controll-buttons">
       <%= yield(:action_wrapper) %>
       </div>

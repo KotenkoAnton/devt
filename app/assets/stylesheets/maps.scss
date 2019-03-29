@@ -1,9 +1,10 @@
 $theme-color: #808080;
+$head-height: 12vh;
 // canvas wrapper
 
 .canvas-wrapper {
   overflow: scroll;
-  height: 80vh;
+  height: 85vh;
   margin: -19px;
   margin-top: -14px;
   position: relative;
@@ -626,11 +627,17 @@ $theme-color: #808080;
   z-index: 1;
   top: 61px;
 
+  .map-title {
+    float: left;
+    margin-left: 10px;
+  }
+
   .head-buttons-wrapper {
     border: 1px solid #e4e4e4;
     width: 202px;
     border-radius: 7px;
     margin-top: 20px;
+    float: left;
 
     button {
       background: white;
@@ -701,8 +708,8 @@ $theme-color: #808080;
 }
 
 .ibox-content {
-  margin-top: 160px;
-  margin-left: -20px;
+  margin-top: $head-height;
+  margin-left: -23px;
   margin-right: -20px;
 }
 
