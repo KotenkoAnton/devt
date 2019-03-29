@@ -34,11 +34,15 @@ let set_events = () => {
   };
 
   $("#add_button").click(() => {
+    add_button_click();
+  });
+
+  const add_button_click = () => {
     activate_all_buttons();
     whats_up.mouse_event_handler.switch_to("clickable");
     whats_up.mouse_event_handler.switch_clickable_mode_to("main_usage");
     whats_up.dom_elements_handler.open_action_box("add_object");
-  });
+  }
 
   $("#ruler_button").click(() => {
     if (whats_up.mouse_event_handler.get_clickable_mode() == "ruler") {
@@ -281,6 +285,14 @@ let set_events = () => {
     $("#list_view_active").hide();
     $("#map_view_button").addClass("head-button-active");
     $("#list_view_button").removeClass("head-button-active");
+  });
+
+  //
+
+  // navigation panel
+
+  $("#navigation_add_button").click(() => {
+    add_button_click();
   });
 
   //
