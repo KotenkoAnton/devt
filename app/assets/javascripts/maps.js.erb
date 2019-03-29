@@ -3,7 +3,12 @@ let whats_up;
 
 let set_events = () => {
   let select_button = button => {
-    const buttons = ["ruler_button", "add_button", "switch_mode_button", "delete_button"];
+    const buttons = [
+      "ruler_button",
+      "add_button",
+      "switch_mode_button",
+      "delete_button"
+    ];
     $(`#${button}_active_img`).show();
     $(`#${button}_inactive_img`).hide();
     buttons.forEach(btn => {
@@ -13,15 +18,20 @@ let set_events = () => {
       $(`#${btn}_active_img`).hide();
       $(`#${btn}_inactive_img`).show();
     });
-  }
+  };
 
   let activate_all_buttons = () => {
-    const buttons = ["ruler_button", "add_button", "switch_mode_button", "delete_button"];
+    const buttons = [
+      "ruler_button",
+      "add_button",
+      "switch_mode_button",
+      "delete_button"
+    ];
     buttons.forEach(btn => {
       $(`#${btn}_active_img`).show();
       $(`#${btn}_inactive_img`).hide();
     });
-  }
+  };
 
   $("#add_button").click(() => {
     activate_all_buttons();
@@ -174,7 +184,6 @@ let set_events = () => {
 
   //
 
-
   // change view buttons
 
   $("#list_view_button").click(() => {
@@ -194,17 +203,73 @@ let set_events = () => {
         data["devices"].forEach(device => {
           html_for_table_body += `
             <tr>
-              <td>${device.icmp_available}</td>
-              <td>${device.name}</td>
-              <td>${device.ip}</td>
+              <td>
+                <span class="list-view-availability-${
+                  device.icmp_available ? "green" : "red"
+                }">
+                  ${device.icmp_available ? "Active" : "Not Active"}
+                  <svg xmlns="http://www.w3.org/2000/svg">
+                    <circle cx="5" cy="5" r="5" fill=${
+                      device.icmp_available ? "green" : "red"
+                    }/>
+                  </svg>
+                </span>
+              </td>
+              <td>
+                <span class="link-span" id="list_view_item_name" data-item-id="${
+                  device.item_id
+                }">${device.name}</span>
+                <i id="list_view_copy_name_button" data-item-id="${
+                  device.item_id
+                }" class="fa fa-copy"></i>
+              </td>
+              <td>
+                <span class="link-span" id="list_view_item_ip" data-item-id="${
+                  device.item_id
+                }">${device.ip}</span>
+                <i id="list_view_copy_ip_button" data-item-id="${
+                  device.item_id
+                }" class="fa fa-copy"></i>
+              </td>
               <td>${device.type}</td>
               <td>${device.changed_status_at}</td>
             </tr>
-          `
+          `;
         });
         $("#list_view_table_body").html(html_for_table_body);
+        $("#list_view_table_body")
+          .promise()
+          .done(set_list_view_events());
       }
     );
+
+    const set_list_view_events = () => {
+      $("[id=list_view_item_name]").click(event => {
+        window.location.href = `${location.origin}/maps?map=${
+          whats_up.map_name
+        }&focus_item_id=${$(event.target).data("item-id")}`;
+      });
+
+      $("[id=list_view_item_ip]").click(event => {
+        window.open(`http://${$(event.target).html()}/`, "_blank");
+      });
+
+      $("[id=list_view_copy_name_button]").click(event => {
+        const target = $(event.target);
+        const name_target = $(
+          `[id=list_view_item_name][data-item-id=${target.data("item-id")}]`
+        );
+        whats_up.copy_to_clipboard(name_target.html());
+      });
+
+      $("[id=list_view_copy_ip_button]").click(event => {
+        const target = $(event.target);
+        const ip_target = $(
+          `[id=list_view_item_ip][data-item-id=${target.data("item-id")}]`
+        );
+        whats_up.copy_to_clipboard(ip_target.html());
+      });
+    };
   });
 
   $("#map_view_button").click(() => {

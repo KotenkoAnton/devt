@@ -730,4 +730,38 @@ $theme-color: #808080;
 
 .devices-list-view-wrapper {
   display: none;
+
+  svg {
+    float: right;
+    width: 10px;
+    height: 10px;
+    margin-right: 10px;
+    margin-top: 5px;
+  }
+
+  .list-view-availability-green {
+    color: green;
+  }
+
+  .list-view-availability-red {
+    color: red;
+  }
+
+  .link-span {
+    text-decoration: underline;
+
+    &:hover {
+      cursor: pointer;
+      color: #484b48;
+    }
+  }
+
+  i {
+    margin-left: 10px;
+
+    &:hover {
+      cursor: pointer;
+      color: #484b48;
+    }
+  }
 }
