@@ -58,7 +58,7 @@ class WhatsUp {
   copy_to_clipboard(text) {
     const text_input = $("<input></input>");
     text_input.val(text);
-    $("body").append(text_input);
+    $("#map_name").append(text_input);
     text_input.focus();
     text_input.select();
     document.execCommand("copy");
