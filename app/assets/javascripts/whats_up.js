@@ -54,4 +54,14 @@ class WhatsUp {
       return item._id == item_id;
     });
   }
+
+  copy_to_clipboard(text) {
+    const text_input = $("<input></input>");
+    text_input.val(text);
+    $("body").append(text_input);
+    text_input.focus();
+    text_input.select();
+    document.execCommand("copy");
+    text_input.remove();
+  }
 }

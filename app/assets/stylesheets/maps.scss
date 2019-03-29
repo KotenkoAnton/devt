@@ -89,11 +89,22 @@ $theme-color: #808080;
     }
 
     .info-box-ip-address {
-      text-decoration: underline;
       cursor: pointer;
 
-      &:hover {
-        color: #484b48;
+      span {
+        text-decoration: underline;
+        &:hover {
+          color: #484b48;
+        }
+      }
+
+      i {
+        margin-left: 1px;
+        margin-right: -19px;
+
+        &:hover {
+          color: #484b48;
+        }
       }
     }
 

@@ -189,9 +189,10 @@ class DomElementsHandler {
         </div>
         <div class="info-row">
           <div class='info-label'>Address:</div>
-          <div class='info-text info-box-ip-address' id="info_box_ip_address">${
-            item_data.ip_address
-          }</div>
+          <div class='info-text info-box-ip-address'>
+            <span id="info_box_ip_address">${item_data.ip_address}</span>
+            <i class="fa fa-copy" id="info_box_copy_ip_button"></i>
+          </div>
         </div>
         <div class="info-row">
           <div class='info-label'>${
@@ -248,6 +249,9 @@ class DomElementsHandler {
   }
 
   _set_item_box_events(item_data) {
+    $("#info_box_copy_ip_button").click(() => {
+      this.whats_up.copy_to_clipboard($("#info_box_ip_address").html());
+    });
     $("#info_box_ip_address").click(() => {
       window.open(`http://${$("#info_box_ip_address").html()}/`, "_blank");
     });
