@@ -28,6 +28,8 @@ let set_events = () => {
   $("#edit_map_button").click(() => {
     whats_up.mouse_event_handler.switch_to("draggable");
     whats_up.mouse_event_handler.switch_clickable_mode_to("main_usage");
+    $("#info_box").remove();
+    $("#right-sidebar").removeClass("sidebar-open");
     $("#edit_map_button").hide();
     $(".control-edit-button").css("display", "inline-block");
   });
