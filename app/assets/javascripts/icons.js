@@ -589,63 +589,122 @@ let Printer_Not_Monitored = `<svg width="30" height="30" viewBox="0 0 30 30" fil
 
 // radio
 
-let Radio_Active = `<?xml version="1.0" encoding="UTF-8"?>
-  <svg fill="none" viewBox="0 0 40 35" xmlns="http://www.w3.org/2000/svg">
-  <rect y="5" width="30" height="30" rx="3" fill="#15B6FC"/>
-  <g filter="url(#a)">
-  <circle cx="30.5" cy="5.5" r="5.5" fill="#43B05C"/>
-  </g>
-  <defs>
-  <filter id="a" x="21" y="0" width="19" height="19" color-interpolation-filters="sRGB" filterUnits="userSpaceOnUse">
-  <feFlood flood-opacity="0" result="BackgroundImageFix"/>
-  <feColorMatrix in="SourceAlpha" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"/>
-  <feOffset dy="4"/>
-  <feGaussianBlur stdDeviation="2"/>
-  <feColorMatrix values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.25 0"/>
-  <feBlend in2="BackgroundImageFix" result="effect1_dropShadow"/>
-  <feBlend in="SourceGraphic" in2="effect1_dropShadow" result="shape"/>
-  </filter>
-  </defs>
-</svg>`;
-let Radio_Not_Active_Warning = `<?xml version="1.0" encoding="UTF-8"?>
-  <svg fill="none" viewBox="0 0 40 35" xmlns="http://www.w3.org/2000/svg">
-  <rect y="5" width="30" height="30" rx="3" fill="#15B6FC"/>
-  <g filter="url(#a)">
-  <circle cx="30.5" cy="5.5" r="5.5" fill="#F8A33F"/>
-  </g>
-  <defs>
-  <filter id="a" x="21" y="0" width="19" height="19" color-interpolation-filters="sRGB" filterUnits="userSpaceOnUse">
-  <feFlood flood-opacity="0" result="BackgroundImageFix"/>
-  <feColorMatrix in="SourceAlpha" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"/>
-  <feOffset dy="4"/>
-  <feGaussianBlur stdDeviation="2"/>
-  <feColorMatrix values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.25 0"/>
-  <feBlend in2="BackgroundImageFix" result="effect1_dropShadow"/>
-  <feBlend in="SourceGraphic" in2="effect1_dropShadow" result="shape"/>
-  </filter>
-  </defs>
-</svg>`;
-let Radio_Not_Active = `<?xml version="1.0" encoding="UTF-8"?>
-  <svg fill="none" viewBox="0 0 40 35" xmlns="http://www.w3.org/2000/svg">
-  <rect y="5" width="30" height="30" rx="3" fill="#15B6FC"/>
-  <g filter="url(#a)">
-  <circle cx="30.5" cy="5.5" r="5.5" fill="#DE4C3C"/>
-  </g>
-  <defs>
-  <filter id="a" x="21" y="0" width="19" height="19" color-interpolation-filters="sRGB" filterUnits="userSpaceOnUse">
-  <feFlood flood-opacity="0" result="BackgroundImageFix"/>
-  <feColorMatrix in="SourceAlpha" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"/>
-  <feOffset dy="4"/>
-  <feGaussianBlur stdDeviation="2"/>
-  <feColorMatrix values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.25 0"/>
-  <feBlend in2="BackgroundImageFix" result="effect1_dropShadow"/>
-  <feBlend in="SourceGraphic" in2="effect1_dropShadow" result="shape"/>
-  </filter>
-  </defs>
-</svg>`;
-let Radio_Not_Monitored = `<svg width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
-  <rect width="30" height="30" rx="3" fill="#9A9A9A"/>
-</svg>`;
+let Radio_Active = `<svg width="38" height="37" viewBox="0 0 38 37" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g clip-path="url(#clip0)">
+<path d="M8.65906 27.1315H7.56812V30.7963H8.65906V27.1315Z" fill="#463836"/>
+<path d="M4.96116 30.6577L6.01611 30.9358L7.24562 26.2715L6.19067 25.9934L4.96116 30.6577Z" fill="#463836"/>
+<path d="M9.15796 26.9109L10.2104 30.9337L11.2658 30.6576L10.2133 26.6348L9.15796 26.9109Z" fill="#463836"/>
+<path d="M4.76011 30.796L3.02197 37H13.2039L11.4657 30.796H4.76011Z" fill="#8B7E7F"/>
+<path d="M6.67506 23.7998C5.82586 24.7701 5.86387 26.2465 6.78894 27.1715C7.71401 28.0966 9.19033 28.1346 10.1607 27.2853L6.67506 23.7998Z" fill="#605353"/>
+<path d="M8.28023 6.1554C2.8838 11.5518 2.8838 20.301 8.28023 25.6975C13.6767 31.0939 22.4259 31.0939 27.8223 25.6975L8.28023 6.1554Z" fill="#C2B8B9"/>
+<path d="M27.822 25.6973C30.5202 22.9992 28.3329 16.4374 22.9366 11.0411C17.5404 5.64487 10.9786 3.4576 8.28042 6.15574C5.58229 8.85387 7.76956 15.4157 13.1658 20.8119C18.5621 26.2082 25.1239 28.3955 27.822 25.6973Z" fill="#ECE7EA"/>
+<path d="M17.6656 15.5408C17.4526 15.7538 17.4526 16.0992 17.6656 16.3123C17.8786 16.5253 18.2239 16.5253 18.4371 16.3123L25.3796 9.36971L24.6082 8.59827L17.6656 15.5408Z" fill="#D6CED1"/>
+<path d="M12.5788 31.1817C12.4801 31.2804 12.3438 31.3415 12.1931 31.3415H4.03299C3.73174 31.3415 3.48755 31.0973 3.48755 30.7961C3.48755 30.4948 3.73174 30.2506 4.03299 30.2506H12.1932C12.4944 30.2506 12.7386 30.4948 12.7386 30.7961C12.7386 30.9467 12.6776 31.0831 12.5788 31.1817Z" fill="#605353"/>
+<path d="M25.2509 9.81789C25.8534 9.81789 26.3418 9.32945 26.3418 8.72694C26.3418 8.12442 25.8534 7.63599 25.2509 7.63599C24.6483 7.63599 24.1599 8.12442 24.1599 8.72694C24.1599 9.32945 24.6483 9.81789 25.2509 9.81789Z" fill="#FFD24D"/>
+</g>
+<g filter="url(#filter0_d)">
+<circle cx="28.5" cy="5.5" r="5.5" fill="#43B05C"/>
+</g>
+<defs>
+<filter id="filter0_d" x="19" y="0" width="19" height="19" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+<feFlood flood-opacity="0" result="BackgroundImageFix"/>
+<feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"/>
+<feOffset dy="4"/>
+<feGaussianBlur stdDeviation="2"/>
+<feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.25 0"/>
+<feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow"/>
+<feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow" result="shape"/>
+</filter>
+<clipPath id="clip0">
+<rect width="32" height="32" fill="white" transform="translate(0 5)"/>
+</clipPath>
+</defs>
+</svg>
+`;
+let Radio_Not_Active_Warning = `<svg width="37" height="37" viewBox="0 0 37 37" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g clip-path="url(#clip0)">
+<path d="M8.65906 27.1315H7.56812V30.7963H8.65906V27.1315Z" fill="#463836"/>
+<path d="M4.96116 30.6577L6.01611 30.9358L7.24562 26.2715L6.19067 25.9934L4.96116 30.6577Z" fill="#463836"/>
+<path d="M9.15796 26.9109L10.2104 30.9337L11.2658 30.6576L10.2133 26.6348L9.15796 26.9109Z" fill="#463836"/>
+<path d="M4.76011 30.796L3.02197 37H13.2039L11.4657 30.796H4.76011Z" fill="#8B7E7F"/>
+<path d="M6.67506 23.7998C5.82586 24.7701 5.86387 26.2465 6.78894 27.1715C7.71401 28.0966 9.19033 28.1346 10.1607 27.2853L6.67506 23.7998Z" fill="#605353"/>
+<path d="M8.28023 6.1554C2.8838 11.5518 2.8838 20.301 8.28023 25.6975C13.6767 31.0939 22.4259 31.0939 27.8223 25.6975L8.28023 6.1554Z" fill="#C2B8B9"/>
+<path d="M27.822 25.6973C30.5202 22.9992 28.3329 16.4374 22.9366 11.0411C17.5404 5.64487 10.9786 3.4576 8.28042 6.15574C5.58229 8.85387 7.76956 15.4157 13.1658 20.8119C18.5621 26.2082 25.1239 28.3955 27.822 25.6973Z" fill="#ECE7EA"/>
+<path d="M17.6656 15.5408C17.4526 15.7538 17.4526 16.0992 17.6656 16.3123C17.8786 16.5253 18.2239 16.5253 18.4371 16.3123L25.3796 9.36971L24.6082 8.59827L17.6656 15.5408Z" fill="#D6CED1"/>
+<path d="M12.5788 31.1817C12.4801 31.2804 12.3438 31.3415 12.1931 31.3415H4.03299C3.73174 31.3415 3.48755 31.0973 3.48755 30.7961C3.48755 30.4948 3.73174 30.2506 4.03299 30.2506H12.1932C12.4944 30.2506 12.7386 30.4948 12.7386 30.7961C12.7386 30.9467 12.6776 31.0831 12.5788 31.1817Z" fill="#605353"/>
+<path d="M25.2509 9.81789C25.8534 9.81789 26.3418 9.32945 26.3418 8.72694C26.3418 8.12442 25.8534 7.63599 25.2509 7.63599C24.6483 7.63599 24.1599 8.12442 24.1599 8.72694C24.1599 9.32945 24.6483 9.81789 25.2509 9.81789Z" fill="#FFD24D"/>
+</g>
+<g filter="url(#filter0_d)">
+<circle cx="27.5" cy="5.5" r="5.5" fill="#F8A33F"/>
+</g>
+<defs>
+<filter id="filter0_d" x="18" y="0" width="19" height="19" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+<feFlood flood-opacity="0" result="BackgroundImageFix"/>
+<feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"/>
+<feOffset dy="4"/>
+<feGaussianBlur stdDeviation="2"/>
+<feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.25 0"/>
+<feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow"/>
+<feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow" result="shape"/>
+</filter>
+<clipPath id="clip0">
+<rect width="32" height="32" fill="white" transform="translate(0 5)"/>
+</clipPath>
+</defs>
+</svg>
+`;
+let Radio_Not_Active = `<svg width="41" height="37" viewBox="0 0 41 37" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g clip-path="url(#clip0)">
+<path d="M8.65906 27.1315H7.56812V30.7963H8.65906V27.1315Z" fill="#463836"/>
+<path d="M4.96116 30.6577L6.01611 30.9358L7.24562 26.2715L6.19067 25.9934L4.96116 30.6577Z" fill="#463836"/>
+<path d="M9.15796 26.9109L10.2104 30.9337L11.2658 30.6576L10.2133 26.6348L9.15796 26.9109Z" fill="#463836"/>
+<path d="M4.76011 30.796L3.02197 37H13.2039L11.4657 30.796H4.76011Z" fill="#8B7E7F"/>
+<path d="M6.67506 23.7998C5.82586 24.7701 5.86387 26.2465 6.78894 27.1715C7.71401 28.0966 9.19033 28.1346 10.1607 27.2853L6.67506 23.7998Z" fill="#605353"/>
+<path d="M8.28023 6.1554C2.8838 11.5518 2.8838 20.301 8.28023 25.6975C13.6767 31.0939 22.4259 31.0939 27.8223 25.6975L8.28023 6.1554Z" fill="#C2B8B9"/>
+<path d="M27.822 25.6973C30.5202 22.9992 28.3329 16.4374 22.9366 11.0411C17.5404 5.64487 10.9786 3.4576 8.28042 6.15574C5.58229 8.85387 7.76956 15.4157 13.1658 20.8119C18.5621 26.2082 25.1239 28.3955 27.822 25.6973Z" fill="#ECE7EA"/>
+<path d="M17.6656 15.5408C17.4526 15.7538 17.4526 16.0992 17.6656 16.3123C17.8786 16.5253 18.2239 16.5253 18.4371 16.3123L25.3796 9.36971L24.6082 8.59827L17.6656 15.5408Z" fill="#D6CED1"/>
+<path d="M12.5788 31.1817C12.4801 31.2804 12.3438 31.3415 12.1931 31.3415H4.03299C3.73174 31.3415 3.48755 31.0973 3.48755 30.7961C3.48755 30.4948 3.73174 30.2506 4.03299 30.2506H12.1932C12.4944 30.2506 12.7386 30.4948 12.7386 30.7961C12.7386 30.9467 12.6776 31.0831 12.5788 31.1817Z" fill="#605353"/>
+<path d="M25.2509 9.81789C25.8534 9.81789 26.3418 9.32945 26.3418 8.72694C26.3418 8.12442 25.8534 7.63599 25.2509 7.63599C24.6483 7.63599 24.1599 8.12442 24.1599 8.72694C24.1599 9.32945 24.6483 9.81789 25.2509 9.81789Z" fill="#FFD24D"/>
+</g>
+<g filter="url(#filter0_d)">
+<circle cx="31.5" cy="5.5" r="5.5" fill="#DE4C3C"/>
+</g>
+<defs>
+<filter id="filter0_d" x="22" y="0" width="19" height="19" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+<feFlood flood-opacity="0" result="BackgroundImageFix"/>
+<feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"/>
+<feOffset dy="4"/>
+<feGaussianBlur stdDeviation="2"/>
+<feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.25 0"/>
+<feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow"/>
+<feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow" result="shape"/>
+</filter>
+<clipPath id="clip0">
+<rect width="32" height="32" fill="white" transform="translate(0 5)"/>
+</clipPath>
+</defs>
+</svg>
+`;
+let Radio_Not_Monitored = `<svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g opacity="0.8" clip-path="url(#clip0)">
+<path d="M8.65906 22.1315H7.56812V25.7963H8.65906V22.1315Z" fill="#463836"/>
+<path d="M4.96116 25.6577L6.01611 25.9358L7.24562 21.2715L6.19067 20.9934L4.96116 25.6577Z" fill="#463836"/>
+<path d="M9.15796 21.9109L10.2104 25.9337L11.2658 25.6576L10.2133 21.6348L9.15796 21.9109Z" fill="#463836"/>
+<path d="M4.76011 25.796L3.02197 32H13.2039L11.4657 25.796H4.76011Z" fill="#8B7E7F"/>
+<path d="M6.67506 18.7998C5.82586 19.7701 5.86387 21.2465 6.78894 22.1715C7.71401 23.0966 9.19033 23.1346 10.1607 22.2853L6.67506 18.7998Z" fill="#605353"/>
+<path d="M8.28023 1.1554C2.8838 6.55182 2.8838 15.301 8.28023 20.6975C13.6767 26.0939 22.4259 26.0939 27.8223 20.6975L8.28023 1.1554Z" fill="#C2B8B9"/>
+<path d="M27.822 20.6973C30.5202 17.9992 28.3329 11.4374 22.9366 6.04114C17.5404 0.644872 10.9786 -1.5424 8.28042 1.15574C5.58229 3.85387 7.76956 10.4157 13.1658 15.8119C18.5621 21.2082 25.1239 23.3955 27.822 20.6973Z" fill="#ECE7EA"/>
+<path d="M17.6656 10.5408C17.4526 10.7538 17.4526 11.0992 17.6656 11.3123C17.8786 11.5253 18.2239 11.5253 18.4371 11.3123L25.3796 4.36971L24.6082 3.59827L17.6656 10.5408Z" fill="#D6CED1"/>
+<path d="M12.5788 26.1817C12.4801 26.2804 12.3438 26.3415 12.1931 26.3415H4.03299C3.73174 26.3415 3.48755 26.0973 3.48755 25.7961C3.48755 25.4948 3.73174 25.2506 4.03299 25.2506H12.1932C12.4944 25.2506 12.7386 25.4948 12.7386 25.7961C12.7386 25.9467 12.6776 26.0831 12.5788 26.1817Z" fill="#605353"/>
+<path d="M25.2509 4.81789C25.8534 4.81789 26.3418 4.32945 26.3418 3.72694C26.3418 3.12442 25.8534 2.63599 25.2509 2.63599C24.6483 2.63599 24.1599 3.12442 24.1599 3.72694C24.1599 4.32945 24.6483 4.81789 25.2509 4.81789Z" fill="#FFD24D"/>
+</g>
+<defs>
+<clipPath id="clip0">
+<rect width="32" height="32" fill="white"/>
+</clipPath>
+</defs>
+</svg>
+`;
 
 // router
 
