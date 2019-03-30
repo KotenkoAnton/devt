@@ -5,23 +5,23 @@
 <%= render 'search' %>
 
 <% content_for :action_wrapper do %>
-  <div data-toggle="tooltip" data-placement="bottom" title="Редактировать карту" id="edit_map_button" class="m-r-lg">
+  <div data-toggle="tooltip" data-placement="bottom" title="Редактировать карту" id="edit_map_button" class="edit-map-button">
     <%= image_tag "edit_icon.svg", class: "btn no-padding" %>
-  </div>
-  <div data-toggle="tooltip" data-placement="bottom" title="Завершить редактирование" id="complete_editing" class="control-edit-button">
-    <%= image_tag "save_icon.svg", class: "btn no-padding m-r-xs" %>
-  </div>
-  <div data-toggle="tooltip" data-placement="bottom" title="Создать связь" id="ruler_button" class="control-edit-button">
-    <%= image_tag "connect_icon.svg", class: "btn no-padding m-r-xs", id: "ruler_button_active_img" %>
-    <%= image_tag "connect_icon_grey.svg", class: "btn no-padding m-r-xs control-button-inactive", id: "ruler_button_inactive_img" %>
   </div>
   <div data-toggle="tooltip" data-placement="bottom" title="Добавить объект" id="add_button" class="control-edit-button">
     <%= image_tag "add_icon.svg", class: "btn no-padding m-r-xs", id: "add_button_active_img" %>
     <%= image_tag "add_icon_grey.svg", class: "btn no-padding m-r-xs control-button-inactive", id: "add_button_inactive_img" %>
   </div>
+  <div data-toggle="tooltip" data-placement="bottom" title="Создать связь" id="ruler_button" class="control-edit-button">
+    <%= image_tag "connect_icon.svg", class: "btn no-padding m-r-xs", id: "ruler_button_active_img" %>
+    <%= image_tag "connect_icon_grey.svg", class: "btn no-padding m-r-xs control-button-inactive", id: "ruler_button_inactive_img" %>
+  </div>
   <div data-toggle="tooltip" data-placement="bottom" title="Удалить объект" id="delete_button" class="control-edit-button">
     <%= image_tag "delete_icon.svg", class: "btn no-padding m-r-xs", id: "delete_button_active_img" %>
     <%= image_tag "delete_icon_grey.svg", class: "btn no-padding m-r-xs control-button-inactive", id: "delete_button_inactive_img" %>
+  </div>
+  <div data-toggle="tooltip" data-placement="bottom" title="Завершить редактирование" id="complete_editing" class="control-edit-button">
+    <%= image_tag "save_icon.svg", class: "btn no-padding m-r-xs" %>
   </div>
 <% end %>
 

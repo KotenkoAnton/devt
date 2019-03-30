@@ -691,7 +691,12 @@ $head-height: 12vh;
   }
 
   .head-controll-buttons {
-    margin-right: 20px;
+    margin-right: 14px;
+
+    .edit-map-button {
+      margin-right: 3px;
+    }
+
     div {
       display: inline-block;
     }
