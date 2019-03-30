@@ -541,7 +541,7 @@ class DomElementsHandler {
 
     $("#canvas").after(action_box_html);
     $("#action_box_close_button").click(() => {
-      this.whats_up.mouse_event_handler.switch_clickable_mode_to("main_usage");
+      this.whats_up.mouse_event_handler.switch_to("draggable");
       this.whats_up.mouse_event_handler.set_adding_object(null);
       $("#action_box").remove();
     });
