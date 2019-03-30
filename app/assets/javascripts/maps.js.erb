@@ -1,8 +1,17 @@
 "use strict";
 let whats_up;
+let control_buttons_state = "main";
 
 let set_events = () => {
   // control buttons
+
+  $(document).keyup(e => {
+    if (e.key === "Escape" && control_buttons_state == "editing") {
+      whats_up.mouse_event_handler.switch_to("draggable");
+      whats_up.mouse_event_handler.switch_clickable_mode_to("main_usage");
+      activate_all_buttons();
+    }
+  });
 
   let select_button = button => {
     const buttons = ["ruler_button", "add_button", "delete_button"];
@@ -26,6 +35,7 @@ let set_events = () => {
   };
 
   $("#edit_map_button").click(() => {
+    control_buttons_state = "editing";
     whats_up.mouse_event_handler.switch_to("draggable");
     whats_up.mouse_event_handler.switch_clickable_mode_to("main_usage");
     $("#info_box").remove();
@@ -35,6 +45,7 @@ let set_events = () => {
   });
 
   $("#complete_editing").click(() => {
+    control_buttons_state = "main";
     whats_up.mouse_event_handler.switch_to("clickable");
     whats_up.mouse_event_handler.switch_clickable_mode_to("main_usage");
     $("#edit_map_button").show();
