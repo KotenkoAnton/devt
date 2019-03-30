@@ -7,6 +7,7 @@ class WhatsUp {
     this.mouse_event_handler = new MouseEventHandler(this, new paper.Tool());
     // this.mouse_event_handler.switch_to("draggable");
     this.dom_elements_handler = new DomElementsHandler(this);
+    this.control_buttons_state_handler = new ControlButtonsStateHandler(this);
     this.map_name = undefined;
     this.canvas_id = canvas_id;
   }

@@ -705,8 +705,12 @@ $head-height: 12vh;
       display: none;
     }
 
-    .control-button-inactive {
+    .control-button {
       display: none;
+    }
+
+    .control-button-neutral {
+      display: inline-block;
     }
   }
 }
