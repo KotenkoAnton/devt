@@ -165,6 +165,7 @@ class DomElementsHandler {
   // info box
 
   open_item_box(item, item_data) {
+    $(".ibox-content").css("background-color", "#ECECEC");
     const actual_item_position_y =
       item.position.y - $("#canvas_wrapper").scrollTop();
     const info_box_y_arrow_position =
@@ -235,6 +236,7 @@ class DomElementsHandler {
   }
 
   close_item_box() {
+    $(".ibox-content").css("background-color", "white");
     $("#info_box").remove();
   }
 

@@ -145,7 +145,7 @@ class ControlButtonsStateHandler {
       this.state = "editing";
       this.whats_up.mouse_event_handler.switch_to("draggable");
       this.whats_up.mouse_event_handler.switch_clickable_mode_to("main_usage");
-      $("#info_box").remove();
+      this.whats_up.dom_elements_handler.close_item_box();
       $("#right-sidebar").removeClass("sidebar-open");
       $("#edit_map_button").hide();
       $(".control-edit-button").css("display", "inline-block");
