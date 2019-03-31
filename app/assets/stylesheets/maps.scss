@@ -635,6 +635,10 @@ $head-height: 12vh;
   .map-title {
     float: left;
     margin-left: 10px;
+
+    .map-name {
+      margin-top: 2px;
+    }
   }
 
   .head-buttons-wrapper {
@@ -729,6 +733,10 @@ $head-height: 12vh;
   margin-top: $head-height;
   margin-left: -23px;
   margin-right: -20px;
+}
+
+.page-heading {
+  padding-bottom: 15px !important;
 }
 
 .search-input {
