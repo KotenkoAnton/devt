@@ -19,7 +19,7 @@ class DomElementsHandler {
   }
 
   _set_whole_info_box_events(item) {
-    $("#close_whole_info_button")
+    $("#close_whole_info_button_top, #close_whole_info_button_bottom")
       .unbind("click")
       .click(() => {
         set_whole_info_to_default();
@@ -36,6 +36,7 @@ class DomElementsHandler {
     $("#edit_device_button")
       .unbind("click")
       .click(() => {
+        $("#close_whole_info_button_top").hide();
         ["whole_info_name", "whole_info_ip", "whole_info_address"].forEach(
           field => {
             $(`#${field}`).css("display", "none");
@@ -57,6 +58,7 @@ class DomElementsHandler {
       });
 
     const set_whole_info_to_default = () => {
+      $("#close_whole_info_button_top").show();
       ["whole_info_name", "whole_info_ip", "whole_info_address"].forEach(
         field => {
           $(`#${field}`).css("display", "block");
@@ -213,7 +215,7 @@ class DomElementsHandler {
         <hr class='info-box-delimiter'>
         ${logs}
         <div id="info_box_open_button" class='open-button'>
-          <div class='open-button-text'>Открыть</div>
+          <div>Открыть</div>
         </div>
         <div id="info_box_unlink_button" class='unlink-button'>
           <img src="<%= asset_path('unlink_button.svg') %>">

@@ -1,7 +1,7 @@
 <div id="right-sidebar">
   <div class="sidebar-container">
     <div class="tab-content whole-info">
-      <div id="close_whole_info_button" class="close-whole-info-button">
+      <div id="close_whole_info_button_top" class="close-whole-info-button-top">
         <%= image_tag "close_button.svg" %>
       </div>
       <div id="tab-1" class="tab-pane active">
@@ -25,11 +25,13 @@
         </div>
 
         <div class="whole-info-buttons-wrapper">
+          <div id="close_whole_info_button_bottom" class="close-whole-info-button-bottom">
+            <div>Закрыть</div>
+          </div>
           <img id="whole_box_delete_button" src="<%= asset_path('delete_icon.svg') %>">
           <img id="edit_device_button" src="<%= asset_path('edit_icon.svg') %>">
-          <button id="save_changes_button" class="btn btn-success save-changes-btn">Сохранить</div>
+          <button id="save_changes_button" class="btn btn-success save-changes-btn">Сохранить</button>
         </div>
-
       </div>
     </div>
   </div>

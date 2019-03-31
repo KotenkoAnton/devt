@@ -2,6 +2,26 @@ $theme-color: #808080;
 $head-height: 12vh;
 // canvas wrapper
 
+%custom-button {
+  border-radius: 4px;
+  width: 100px;
+  height: 35px;
+  background-color: #43b05c;
+  color: #d9eede;
+  text-align: center;
+  font-size: 17px;
+
+  &:hover {
+    cursor: pointer;
+    box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2),
+      0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  }
+
+  div {
+    margin-top: 4px;
+  }
+}
+
 .canvas-wrapper {
   overflow: scroll;
   height: 85vh;
@@ -126,25 +146,9 @@ $head-height: 12vh;
 
     .open-button {
       position: absolute;
-      border-radius: 4px;
-      width: 100px;
-      height: 35px;
       left: 20px;
       bottom: 12px;
-      background-color: #43b05c;
-      color: #d9eede;
-      text-align: center;
-      font-size: 17px;
-
-      &:hover {
-        cursor: pointer;
-        box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2),
-          0 6px 20px 0 rgba(0, 0, 0, 0.19);
-      }
-
-      .open-button-text {
-        margin-top: 4px;
-      }
+      @extend %custom-button;
     }
 
     .unlink-button {
@@ -451,10 +455,10 @@ $head-height: 12vh;
     overflow-wrap: break-word;
   }
 
-  .close-whole-info-button {
+  .close-whole-info-button-top {
     position: absolute;
     right: 15px;
-    top: 10px;
+    top: 20px;
     color: $theme-color;
 
     &:hover {
@@ -462,9 +466,15 @@ $head-height: 12vh;
     }
 
     img {
-      width: 15px;
-      height: 15px;
+      width: 10px;
+      height: 10px;
     }
+  }
+
+  .close-whole-info-button-bottom {
+    @extend %custom-button;
+    display: inline-block;
+    margin-right: 10px;
   }
 
   .whole-info-buttons-wrapper {
@@ -474,10 +484,12 @@ $head-height: 12vh;
 
     .save-changes-btn {
       display: none;
+      margin-bottom: 6px;
     }
 
     img {
       margin-right: 10px;
+      margin-bottom: 5px;
       width: 35px;
       height: 35px;
 
