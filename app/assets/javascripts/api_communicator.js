@@ -47,6 +47,14 @@ class ApiCommunicator {
     });
   }
 
+  set_monitoring(ip_address, to, success = null) {
+    $.post({
+      url: `${location.origin}/api/maps/set_monitoring`,
+      data: { ip_address, to },
+      success: success
+    });
+  }
+
   fetch_all_maps_names(success = null) {
     $.get({
       url: `${location.origin}/api/maps/fetch_all_maps_names`,

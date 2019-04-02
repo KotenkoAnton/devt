@@ -72,6 +72,34 @@ class Drawer {
     return _item;
   }
 
+  get_item(item_id) {
+    return this.item_paths.find(item => {
+      return item._id == item_id;
+    });
+  }
+
+  update_icon(item) {
+    const drawed_item_index = this.item_paths.findIndex(
+      __item => __item._id == item.id
+    );
+
+    let icon_final_type = get_icon_final_type(item);
+
+    const drawed_item = this.item_paths[drawed_item_index];
+    let _item = paper.project.importSVG(get_icon(icon_final_type));
+    _item.icon_final_type = icon_final_type;
+    _item._id = drawed_item._id;
+    _item.position = drawed_item.position;
+    _item.status = item.placeable.ip_address.icmp_available;
+    _item._icon_type = drawed_item._icon_type;
+    _item._type = drawed_item._type;
+    _item.text = drawed_item.text;
+    _item.text_content = drawed_item.text_content;
+    _item.rect = drawed_item.rect;
+    drawed_item.remove();
+    this.item_paths[drawed_item_index] = _item;
+  }
+
   place_texts(focus_item_id = null) {
     for (let item of this.item_paths) {
       this.place_text(item);

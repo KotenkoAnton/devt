@@ -14,11 +14,40 @@ class DomElementsHandler {
     $("#whole_info_ip").html(item.ip_address);
     $("#whole_info_description").html(item.description ? item.description : "");
     $("#whole_info_contacts").html(item.contacts ? item.contacts : "");
+    $("#whole_info_monitored_checkbox").prop(
+      "checked",
+      item.monitored ? true : false
+    );
 
     this._set_whole_info_box_events(item);
   }
 
   _set_whole_info_box_events(item) {
+    $("#whole_info_monitored_checkbox")
+      .unbind("change")
+      .change(e => {
+        this.whats_up.api_communicator.set_monitoring(
+          item.ip_address,
+          e.target.checked ? true : false,
+          data => {
+            item.monitored = data.monitored;
+            item.status = data.icmp_available;
+            this.whats_up.drawer.update_icon({
+              id: item.id,
+              placeable_type: "Device",
+              placeable: {
+                host_type_name: item.host_type_name,
+                ip_address: {
+                  icmp_available: data.icmp_available,
+                  monitored: data.monitored,
+                  changed_status_at: data.changed_status_at
+                }
+              }
+            });
+          }
+        );
+      });
+
     $("#close_whole_info_button_top, #close_whole_info_button_bottom")
       .unbind("click")
       .click(() => {
@@ -93,38 +122,22 @@ class DomElementsHandler {
           },
           data => {
             set_whole_info_to_default();
-
-            const items = whats_up.drawer.get_items();
-            const drawed_item_index = items.findIndex(
-              _item => _item._id == item.id
-            );
-            let drawed_item = items[drawed_item_index];
-
+            let drawed_item = this.whats_up.drawer.get_item(item.id);
+            item.ip_address = data.ip_address;
             // change icon if availability has changed
             if (drawed_item.status != data.icmp_available) {
-              let icon_final_type = get_icon_final_type({
+              this.whats_up.drawer.update_icon({
+                id: item.id,
                 placeable_type: "Device",
                 placeable: {
                   host_type_name: drawed_item._icon_type,
                   ip_address: {
                     icmp_available: data.icmp_available,
+                    monitored: item.monitored,
                     changed_status_at: data.changed_status_at
                   }
                 }
               });
-              let icon = get_icon(icon_final_type);
-              let _item = paper.project.importSVG(icon);
-              _item.icon_final_type = icon_final_type;
-              _item._id = drawed_item._id;
-              _item.position = drawed_item.position;
-              _item.status = data.icmp_available;
-              _item._icon_type = drawed_item._icon_type;
-              _item._type = drawed_item._type;
-              _item.text = drawed_item.text;
-              _item.text_content = drawed_item.text_content;
-              _item.rect = drawed_item.rect;
-              drawed_item.remove();
-              items[drawed_item_index] = _item;
             }
 
             // change item text

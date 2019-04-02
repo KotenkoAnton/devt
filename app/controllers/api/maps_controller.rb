@@ -34,9 +34,18 @@ module Api
 
       render json: { name: item.name, host_name: placeable.host_name,
                      ip_address: placeable.ip_address[:ip_address], status: placeable.ip_address[:icmp_available],
-                     description: placeable.description, address: placeable.address,
-                     contacts: placeable.contacts, logs: ip_logs,
+                     description: placeable.description, address: placeable.address, host_type_name: item.placeable.host_type_name,
+                     contacts: placeable.contacts, logs: ip_logs, monitored: placeable.ip_address[:monitored],
                      changed_status_at: placeable.ip_address[:changed_status_at]&.strftime("%d/%m/%y %H:%M:%S") }
+    end
+
+    def set_monitoring
+      ip_address = IpAddress.find_by(ip_address: params[:ip_address])
+      ip_address.monitored = params[:to]
+      ip_address.save
+      render json: { icmp_available: ip_address[:icmp_available],
+                     monitored: ip_address[:monitored],
+                     changed_status_at: ip_address[:changed_status_at]&.strftime("%d/%m/%y %H:%M:%S") }
     end
 
     def fetch_devices_for_list_view
@@ -149,7 +158,9 @@ module Api
       item.name = params[:name]
       item.save
 
-      render json: { icmp_available: device.ip_address.icmp_available, changed_status_at: device.ip_address.updated_at }
+      render json: { icmp_available: device.ip_address.icmp_available,
+                     changed_status_at: device.ip_address.updated_at,
+                     ip_address: device.ip_address.ip_address }
     end
 
     def add_new_map

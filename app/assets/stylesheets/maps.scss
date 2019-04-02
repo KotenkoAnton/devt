@@ -515,6 +515,16 @@ $head-height: 12vh;
       font-weight: normal;
     }
 
+    .checkbox-input-wrapper {
+      float: right;
+      margin-right: 260px;
+
+      input {
+        margin: 0;
+        margin-top: 1px;
+      }
+    }
+
     textarea {
       width: 100%;
     }
