@@ -212,7 +212,9 @@ let init = () => {
   let map_name = $("#map_name").html();
   whats_up.load_map(map_name, url.get("focus_item_id"));
   url.delete("focus_item_id");
-  window.history.pushState(null, "", `/maps?${url}`);
+  if (url != "") {
+    window.history.replaceState(null, "", `/maps?${url}`);
+  }
   set_events();
 };
 
