@@ -20,4 +20,5 @@
 //= require jasny/jasny-bootstrap.min.js
 //= require metisMenu/jquery.metisMenu.js
 //= require slimscroll/jquery.slimscroll.min.js
+//= stub maps/maps.js
 //= require_tree .

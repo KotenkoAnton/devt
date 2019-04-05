@@ -1,17 +1,6 @@
 <div id="head_wrapper" class="row wrapper border-bottom white-bg page-heading head-wrapper <%= class_for('body_navbar') != '' ? 'width96' : 'width88' %>">
   <div class="col-lg-6 col-md-6">
-    <div class="head-buttons-wrapper">
-      <button id="list_view_button" class="left-button">
-        <span id="list_view_not_active" class="list-view-not-active"><%= image_tag('view_list_icon_not_active.svg') %></span>
-        <span id="list_view_active" class="list-view-active"><%= image_tag('view_list_icon_active.svg') %></span>
-        список
-      </button>
-      <button id="map_view_button" class="right-button head-button-active">
-        <span id="map_view_not_active" class="map-view-not-active"><%= image_tag('network_icon_not_active.svg') %></span>
-        <span id="map_view_active" class="map-view-active"><%= image_tag('network_icon_active.svg') %></span>
-        карта
-      </button>
-    </div>
+    <%= yield(:head_buttons) %>
     <h2 class="map-title"><%= yield(:title) %></h2>
   </div>
   <div class="col-lg-6 col-md-6">
