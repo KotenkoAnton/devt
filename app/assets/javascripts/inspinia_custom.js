@@ -2,11 +2,19 @@
 $(document).ready(() => {
   // routing
 
-  $("#logs_link").click(() => {
-    location.href = `${location.origin}/ip_logs`;
+  const perfrom_link = (e, link) => {
+    if (e.ctrlKey) {
+      window.open(`${location.origin}/${link}`, "_blank");
+    } else {
+      location.href = `${location.origin}/${link}`;
+    }
+  };
+
+  $("#logs_link").click(e => {
+    perfrom_link(e, "ip_logs");
   });
-  $("[id=origin_page_link]").click(() => {
-    location.href = location.origin;
+  $("[id=origin_page_link]").click(e => {
+    perfrom_link(e, "");
   });
 
   // minimize button
