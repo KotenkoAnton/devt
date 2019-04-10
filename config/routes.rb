@@ -22,7 +22,7 @@ Rails.application.routes.draw do
         get :map_name_by_item_id
         get :check_connection_existence
         get :find_items
-        get :fetch_devices_for_list_view
+        get :fetch_items_for_list_view
         post :set_monitoring
         post :add_new_inscription
         post :delete_shape

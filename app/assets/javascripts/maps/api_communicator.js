@@ -7,9 +7,9 @@ class ApiCommunicator {
     });
   }
 
-  fetch_devices_for_list_view(map_name, success = null) {
+  fetch_items_for_list_view(map_name, success = null) {
     $.get({
-      url: `${location.origin}/api/maps/fetch_devices_for_list_view`,
+      url: `${location.origin}/api/maps/fetch_items_for_list_view`,
       data: { map_name },
       success: success
     });

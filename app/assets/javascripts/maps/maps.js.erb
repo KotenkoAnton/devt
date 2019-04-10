@@ -91,46 +91,66 @@ let set_events = () => {
     $("#map_view_button").removeClass("head-button-active");
     $("#list_view_button").addClass("head-button-active");
 
-    whats_up.api_communicator.fetch_devices_for_list_view(
+    whats_up.api_communicator.fetch_items_for_list_view(
       whats_up.map_name,
       data => {
         let html_for_table_body = "";
-        data["devices"].forEach(device => {
-          html_for_table_body += `
-            <tr>
-              <td>
-                <span class="list-view-availability-${
-                  device.icmp_available ? "green" : "red"
-                }">
-                  ${device.icmp_available ? "Active" : "Not Active"}
-                  <svg xmlns="http://www.w3.org/2000/svg">
-                    <circle cx="5" cy="5" r="5" fill=${
-                      device.icmp_available ? "green" : "red"
-                    }/>
-                  </svg>
-                </span>
-              </td>
-              <td>
-                <span class="link-span" id="list_view_item_name" data-item-id="${
-                  device.item_id
-                }">${device.name}</span>
-                <i id="list_view_copy_name_button" data-item-id="${
-                  device.item_id
-                }" class="fa fa-copy"></i>
-              </td>
-              <td>
-                <span class="link-span" id="list_view_item_ip" data-item-id="${
-                  device.item_id
-                }">${device.ip}</span>
-                <i id="list_view_copy_ip_button" data-item-id="${
-                  device.item_id
-                }" class="fa fa-copy"></i>
-              </td>
-              <td>${device.type}</td>
-              <td>${device.changed_status_at}</td>
-              <td>${device.icmp_available ? "UP" : "DOWN"}</td>
-            </tr>
-          `;
+        data["items"].forEach(item => {
+          if (item.type != "Zone") {
+            html_for_table_body += `
+              <tr>
+                <td>
+                  <span class="list-view-availability-${
+                    item.icmp_available ? "green" : "red"
+                  }">
+                    ${item.icmp_available ? "Active" : "Not Active"}
+                    <svg xmlns="http://www.w3.org/2000/svg">
+                      <circle cx="5" cy="5" r="5" fill=${
+                        item.icmp_available ? "green" : "red"
+                      }/>
+                    </svg>
+                  </span>
+                </td>
+                <td>
+                  <span class="link-span" id="list_view_item_name" data-item-id="${
+                    item.item_id
+                  }">${item.name}</span>
+                  <i id="list_view_copy_name_button" data-item-id="${
+                    item.item_id
+                  }" class="fa fa-copy"></i>
+                </td>
+                <td>
+                  <span class="link-span" id="list_view_item_ip" data-item-id="${
+                    item.item_id
+                  }">${item.ip}</span>
+                  <i id="list_view_copy_ip_button" data-item-id="${
+                    item.item_id
+                  }" class="fa fa-copy"></i>
+                </td>
+                <td>${item.type}</td>
+                <td>${item.changed_status_at}</td>
+                <td>${item.icmp_available ? "UP" : "DOWN"}</td>
+              </tr>
+            `;
+          } else {
+            html_for_table_body += `
+              <tr>
+                <td></td>
+                <td>
+                  <span class="link-span" id="list_view_item_name" data-item-id="${
+                    item.item_id
+                  }">${item.name}</span>
+                  <i id="list_view_copy_name_button" data-item-id="${
+                    item.item_id
+                  }" class="fa fa-copy"></i>
+                </td>
+                <td></td>
+                <td>Zone</td>
+                <td></td>
+                <td></td>
+              </tr>
+            `;
+          }
         });
         $("#list_view_table_body").html(html_for_table_body);
         $("#list_view_table_body")

@@ -48,16 +48,22 @@ module Api
                      changed_status_at: ip_address[:changed_status_at]&.strftime("%d/%m/%y %H:%M:%S") }
     end
 
-    def fetch_devices_for_list_view
-      items = Item.where(map: Map.find_by(name: params[:map_name]), placeable_type: "Device")
-                  .includes(placeable: :ip_address).order(:name)
-      devices = items.map do |item|
+    def fetch_items_for_list_view
+      map = Map.find_by(name: params[:map_name])
+      devices_items = Item.where(map: map, placeable_type: "Device").includes(placeable: :ip_address).order(:name)
+      zones_items = Item.where(map: map, placeable_type: "Map")
+
+      devices = devices_items.map do |item|
         { ip: item.placeable.ip_address.ip_address, icmp_available: item.placeable.ip_address.icmp_available,
           name: item.name, type: item.placeable.host_type_name,
           changed_status_at: item.placeable.ip_address[:changed_status_at]&.strftime("%d/%m/%y %H:%M:%S"),
           item_id: item.id }
       end
-      render json: { devices: devices }
+      zones = zones_items.map do |item|
+        { name: item.name, type: "Zone", item_id: item.id }
+      end
+      all = (devices + zones).sort_by { |item| item[:name] }
+      render json: { items: all }
     end
 
     def change_item_position
