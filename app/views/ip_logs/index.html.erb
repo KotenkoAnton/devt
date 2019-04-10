@@ -1,0 +1,59 @@
+<div class="ibox-content">
+  <div class="ip-logs-wrapper">
+    <table class="table table-bordered table-striped">
+      <thead>
+        <tr>
+          <th>Имя</th>
+          <th>IP</th>
+          <th>Статус</th>
+          <th>Событие</th>
+          <th>Время изменения состояния</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @ip_logs.each do |ip_log| %>
+          <tr>
+            <td>
+              <% ip_log.ip_address.devices.each do |device| %>
+                <span class="log-link-wrapper">
+                  <span id="item_name" class="log-link" data-item-id="<%= device.item.id %>" data-map-name="<%= device.item.map.name %>">
+                    <%= device.item.name %>
+                  </span>
+                  <i id="item_name_copy_button" class="fa fa-copy copy-btn" data-item-name="<%= device.item.name %>"></i>
+                </span>
+              <% end %>
+            </td>
+            <td>
+              <span class="log-link-wrapper">
+                <span id="ip_address" class="log-link">
+                  <%= ip_log.ip_address.ip_address %>
+                </span>
+                <i id="ip_address_copy_button" class="fa fa-copy copy-btn" data-ip-address="<%= ip_log.ip_address.ip_address %>"></i>
+              </span>
+            </td>
+            <td>
+              <span class="status-wrapper">
+                <% if ip_log.status == "up" %>
+                  <span class="ip-active">Active</span>
+                  <svg xmlns="http://www.w3.org/2000/svg">
+                    <circle cx="5" cy="5" r="5" fill="green"/>
+                  </svg>
+                <% else %>
+                  <span class="ip-not-active">Not active</span>
+                  <svg xmlns="http://www.w3.org/2000/svg">
+                    <circle cx="5" cy="5" r="5" fill="red"/>
+                  </svg>
+                <% end %>
+              </span>
+            </td>
+            <td><%= ip_log.status %></td>
+            <td><%= ip_log.created_at %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+    <div class="text-center">
+      <%= paginate @ip_logs %>
+    </div>
+  </div>
+</div>

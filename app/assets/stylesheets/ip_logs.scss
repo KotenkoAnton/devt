@@ -1,0 +1,38 @@
+.ip-logs-wrapper {
+  .status-wrapper {
+    .ip-active {
+      color: green;
+    }
+
+    .ip-not-active {
+      color: red;
+    }
+
+    svg {
+      width: 10px;
+      height: 10px;
+      float: right;
+    }
+  }
+
+  .log-link-wrapper {
+    margin-right: 10px;
+    .log-link {
+      text-decoration: underline;
+
+      &:hover {
+        cursor: pointer;
+        color: #484b48;
+      }
+    }
+
+    .copy-btn {
+      margin-left: 5px;
+
+      &:hover {
+        cursor: pointer;
+        color: #484b48;
+      }
+    }
+  }
+}

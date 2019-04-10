@@ -17,6 +17,7 @@ gem 'figaro'
 gem 'font-awesome-rails'
 gem 'jbuilder', '~> 2.5'
 gem 'jquery-rails'
+gem 'kaminari'
 gem 'rest-client'
 gem 'turbolinks', '~> 5'
 

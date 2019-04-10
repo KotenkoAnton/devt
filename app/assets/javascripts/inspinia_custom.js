@@ -2,20 +2,22 @@
 $(document).ready(() => {
   // routing
 
-  const perfrom_link = (e, link) => {
-    if (e.ctrlKey) {
-      window.open(`${location.origin}/${link}`, "_blank");
-    } else {
-      location.href = `${location.origin}/${link}`;
-    }
-  };
+  // links logic, need to find where ajax fires and fix it
 
-  $("#logs_link").click(e => {
-    perfrom_link(e, "ip_logs");
+  $("a").click(e => {
+    if (!$(e.currentTarget).data("remote")) {
+      e.preventDefault();
+      if (e.currentTarget.href) {
+        if (e.ctrlKey) {
+          window.open(e.currentTarget.href, "_blank");
+        } else {
+          location.href = e.currentTarget.href;
+        }
+      }
+    }
   });
-  $("[id=origin_page_link]").click(e => {
-    perfrom_link(e, "");
-  });
+
+  //
 
   // minimize button
 
