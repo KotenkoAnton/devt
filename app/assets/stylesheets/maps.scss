@@ -479,6 +479,7 @@ $head-height: 12vh;
 
   .whole-info-buttons-wrapper {
     position: absolute;
+    width: 380px;
     bottom: 25px;
     right: 20px;
 
@@ -487,9 +488,14 @@ $head-height: 12vh;
       margin-bottom: 6px;
     }
 
+    button {
+      float: right;
+    }
+
     img {
       margin-right: 10px;
       margin-bottom: 5px;
+      float: right;
       width: 35px;
       height: 35px;
 
