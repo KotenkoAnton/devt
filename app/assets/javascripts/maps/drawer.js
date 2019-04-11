@@ -127,7 +127,9 @@ class Drawer {
     text.content = inscription.content;
     text.style = {
       fontSize: inscription.font_size,
-      fillColor: inscription.font_color
+      fillColor: inscription.font_color,
+      fontFamily: inscription.font_family,
+      fontWeight: inscription.font_weight
     };
     text._type = "inscription";
     text.ext_id = inscription.id;

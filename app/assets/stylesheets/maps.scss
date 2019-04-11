@@ -317,6 +317,44 @@ $head-height: 12vh;
           }
         }
 
+        .inscription-editor-wrapper {
+          padding-right: 20px;
+
+          .inscription-input {
+            width: 100%;
+            height: auto;
+            font-size: 20px;
+            font-family: Arial;
+          }
+
+          .inscription-editor-control-wrapper {
+            width: 100%;
+            margin-bottom: 10px;
+
+            button {
+              margin-bottom: 4px;
+            }
+
+            .font-size-input {
+              margin-right: 2px;
+              width: 70px;
+              display: inline;
+            }
+
+            .color-picker-input {
+              display: inline;
+              margin-right: 2px;
+              width: 100px;
+            }
+
+            .font-picker-input {
+              display: inline;
+              margin-right: 2px;
+              width: 150px;
+            }
+          }
+        }
+
         .with-no-right-margin {
           margin-right: 0;
         }

@@ -181,7 +181,8 @@ module Api
 
     def add_new_inscription
       inscription = Inscription.create(content: params[:content], font_size: params[:font_size],
-                                       font_color: params[:font_color], position_x: params[:position_x],
+                                       font_color: params[:font_color], font_weight: params[:font_weight],
+                                       font_family: params[:font_family], position_x: params[:position_x],
                                        position_y: params[:position_y], map: Map.find_by(name: params[:map_name]))
       render json: { id: inscription&.id }
     end

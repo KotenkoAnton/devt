@@ -509,14 +509,52 @@ class DomElementsHandler {
         });
       }
       case "add_object inscription": {
+        $("#inscription_editor_italic_btn").click(() => {
+          if ($("#new_inscription_input").css("font-style") == "italic") {
+            $("#new_inscription_input").css("font-style", "normal");
+          } else {
+            $("#new_inscription_input").css("font-style", "italic");
+          }
+        });
+
+        $("#inscription_editor_bold_btn").click(() => {
+          if ($("#new_inscription_input").css("font-weight") == 700) {
+            $("#new_inscription_input").css("font-weight", 400);
+          } else {
+            $("#new_inscription_input").css("font-weight", 700);
+          }
+        });
+
+        $("#inscription_editor_font_size_input").change(e => {
+          $("#new_inscription_input").css(
+            "font-size",
+            `${$(e.currentTarget).val()}px`
+          );
+        });
+
+        $("#inscription_editor_color_picker").change(e => {
+          $("#new_inscription_input").css("color", e.currentTarget.value);
+        });
+
+        $("#inscription_editor_font").change(e => {
+          $("#new_inscription_input").css(
+            "font-family",
+            $(e.currentTarget).val()
+          );
+        });
+
         $("#add_new_inscription_button").click(() => {
           this.whats_up.mouse_event_handler.switch_clickable_mode_to(
             "adding_object"
           );
           this.whats_up.mouse_event_handler.set_adding_object({
             placeable_type: "Inscription",
-            font_size: 13,
-            font_color: "black",
+            font_size: $("#new_inscription_input").css("font-size"),
+            font_color: $("#new_inscription_input").css("color"),
+            font_weight: `${$("#new_inscription_input").css("font-weight")} ${$(
+              "#new_inscription_input"
+            ).css("font-style")}`.trim(),
+            font_family: $("#new_inscription_input").css("font-family"),
             content: $("#new_inscription_input").val()
           });
         });
@@ -829,8 +867,21 @@ class DomElementsHandler {
         breadcrumb = "Надписи";
 
         html += `
-          <input id="new_inscription_input" placeholder="Текст"><br><br>
-          <button id="add_new_inscription_button" class="btn btn-success">Добавить текст</button>
+          <div class="inscription-editor-wrapper">
+            <div class="inscription-editor-control-wrapper">
+              <button id="inscription_editor_italic_btn" class="btn fa fa-italic"></button>
+              <button id="inscription_editor_bold_btn" class="btn fa fa-bold"></button>
+              <input id="inscription_editor_font_size_input" class="form-control font-size-input" type="number" value="20"></input>
+              <input id="inscription_editor_color_picker" type="color" value="#676A6C" />
+              <select id="inscription_editor_font" class="form-control font-picker-input">
+                <option>Arial</option>
+                <option>Roboto</option>
+                <option>Ubuntu</option>
+              </select>
+            </div>
+            <input id="new_inscription_input" placeholder="Текст" class="form-control inscription-input"><br><br>
+            <button id="add_new_inscription_button" class="btn btn-success">Добавить текст</button>
+          </div>
         `;
         break;
       }
