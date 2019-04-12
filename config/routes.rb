@@ -1,5 +1,11 @@
 Rails.application.routes.draw do
-  resources :ip_logs, only: :index
+  resources :ip_logs do
+    collection do
+      get :index
+      get :fetch_page
+    end
+  end
+
   resources :maps, only: :index
   resources :custom_settings do
     collection do

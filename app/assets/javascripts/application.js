@@ -21,4 +21,5 @@
 //= require metisMenu/jquery.metisMenu.js
 //= require slimscroll/jquery.slimscroll.min.js
 //= stub maps/maps.js
+//= stub ip_logs.js
 //= require_tree .
