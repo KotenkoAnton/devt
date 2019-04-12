@@ -175,10 +175,28 @@ class DomElementsHandler {
 
   //
 
+  _set_map_to_grey() {
+    $(".ibox-content").css("background-color", "#ECECEC");
+    const items = this.whats_up.drawer.get_items();
+    items.forEach(item => {
+      item.rect.style.fillColor = "#ECECEC";
+      item.rect.style.strokeColor = "#ECECEC";
+    });
+  }
+
+  _set_map_to_white() {
+    $(".ibox-content").css("background-color", "white");
+    const items = this.whats_up.drawer.get_items();
+    items.forEach(item => {
+      item.rect.style.fillColor = "white";
+      item.rect.style.strokeColor = "white";
+    });
+  }
+
   // info box
 
   open_item_box(item, item_data) {
-    $(".ibox-content").css("background-color", "#ECECEC");
+    this._set_map_to_grey();
     const actual_item_position_y =
       item.position.y - $("#canvas_wrapper").scrollTop();
     const info_box_y_arrow_position =
@@ -249,7 +267,7 @@ class DomElementsHandler {
   }
 
   close_item_box() {
-    $(".ibox-content").css("background-color", "white");
+    this._set_map_to_white();
     $("#info_box").remove();
   }
 
