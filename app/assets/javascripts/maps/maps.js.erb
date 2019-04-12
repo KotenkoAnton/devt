@@ -135,7 +135,11 @@ let set_events = () => {
           } else {
             html_for_table_body += `
               <tr>
-                <td></td>
+                <td>
+                  <div class="text-center">
+                    <img class="cloud-img" src="<%= asset_path('cloud.svg') %>">
+                  </div>
+                </td>
                 <td>
                   <span class="link-span" id="list_view_item_name" data-item-id="${
                     item.item_id
