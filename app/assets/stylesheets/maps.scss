@@ -509,7 +509,12 @@ $head-height: 12vh;
   .close-whole-info-button-bottom {
     @extend %custom-button;
     display: inline-block;
+    background-color: #34bcee;
     margin-right: 10px;
+
+    &:hover {
+      background-color: #1398c2;
+    }
   }
 
   .whole-info-buttons-wrapper {
@@ -520,7 +525,6 @@ $head-height: 12vh;
 
     .save-changes-btn {
       display: none;
-      margin-bottom: 6px;
     }
 
     button {
