@@ -8,6 +8,7 @@ class DomElementsHandler {
   // whole info
 
   open_whole_info_box(item) {
+    $("#device_type_input").val(item.host_type_name);
     $("#right-sidebar").addClass("sidebar-open");
     $("#whole_info_name").html(item.name);
     $("#whole_info_address").html(item.address ? item.address : "");
@@ -105,6 +106,30 @@ class DomElementsHandler {
       $("#edit_device_button").css("display", "inline");
       $("#save_changes_button").css("display", "none");
     };
+
+    $("#device_type_input")
+      .unbind("change")
+      .change(() => {
+        this.whats_up.api_communicator.change_device_host_type_by_item_id(
+          item.id,
+          $("#device_type_input").val(),
+          data => {
+            item.host_type_name = $("#device_type_input").val();
+            this.whats_up.drawer.update_icon({
+              id: item.id,
+              placeable_type: "Device",
+              placeable: {
+                host_type_name: $("#device_type_input").val(),
+                ip_address: {
+                  icmp_available: item.status,
+                  monitored: item.monitored,
+                  changed_status_at: data.changed_status_at
+                }
+              }
+            });
+          }
+        );
+      });
 
     $("#save_changes_button")
       .unbind("click")

@@ -7,6 +7,14 @@ class ApiCommunicator {
     });
   }
 
+  change_device_host_type_by_item_id(item_id, host_type_name, success = null) {
+    $.post({
+      url: `${location.origin}/api/maps/change_device_host_type_by_item_id`,
+      data: { item_id, host_type_name },
+      success: success
+    });
+  }
+
   fetch_items_for_list_view(map_name, success = null) {
     $.get({
       url: `${location.origin}/api/maps/fetch_items_for_list_view`,

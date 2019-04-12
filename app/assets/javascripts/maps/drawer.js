@@ -91,7 +91,7 @@ class Drawer {
     _item._id = drawed_item._id;
     _item.position = drawed_item.position;
     _item.status = item.placeable.ip_address.icmp_available;
-    _item._icon_type = drawed_item._icon_type;
+    _item._icon_type = item.placeable.host_type_name;
     _item._type = drawed_item._type;
     _item.text = drawed_item.text;
     _item.text_content = drawed_item.text_content;

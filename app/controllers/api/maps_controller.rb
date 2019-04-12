@@ -66,6 +66,13 @@ module Api
       render json: { items: all }
     end
 
+    def change_device_host_type_by_item_id
+      device = Item.find(params[:item_id]).placeable
+      device.host_type_name = params[:host_type_name]
+      device.save
+      render json: { changed_status_at: device.ip_address[:changed_status_at]&.strftime("%d/%m/%y %H:%M:%S") }
+    end
+
     def change_item_position
       position_x = params[:position_x]
       position_y = params[:position_y]
