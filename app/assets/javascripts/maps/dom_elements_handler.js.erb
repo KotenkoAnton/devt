@@ -249,15 +249,16 @@ class DomElementsHandler {
         <div id="info_box_open_button" class='open-button'>
           <div>Открыть</div>
         </div>
-        <div id="info_box_unlink_button" class='unlink-button'>
+        <div id="info_box_unlink_button" class='unlink-button info-box-button' data-toggle="tooltip" data-placement="bottom" title="Удалить все связи">
           <img src="<%= asset_path('unlink_button.svg') %>">
         </div>
-        <div id="info_box_copy_button" class='copy-button'>
+        <div id="info_box_copy_button" class='copy-button info-box-button' data-toggle="tooltip" data-placement="bottom" title="Скопировать прибор">
           <img src="<%= asset_path('copy_button.svg') %>">
         </div>
       </div>
     `;
     $("#canvas").after(info_box_html);
+    $(".info-box-button").tooltip();
     $("#info_box").css({
       top: item.position.y - (info_box_y_arrow_position == "up" ? 65 : 327),
       left: item.position.x + (info_box_x_arrow_position == "right" ? -340 : 35)
