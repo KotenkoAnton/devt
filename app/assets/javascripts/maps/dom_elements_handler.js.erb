@@ -275,10 +275,12 @@ class DomElementsHandler {
           <div>Открыть</div>
         </div>
         <div id="info_box_unlink_button" class='unlink-button info-box-button' data-toggle="tooltip" data-placement="bottom" title="Удалить все связи">
-          <img src="<%= asset_path('unlink_button.svg') %>">
+          <img class="unlink-img" src="<%= asset_path('unlink_button.svg') %>">
+          <img class="unlink-img-hover" src="<%= asset_path('unlink_button_hover.svg') %>">
         </div>
         <div id="info_box_copy_button" class='copy-button info-box-button' data-toggle="tooltip" data-placement="bottom" title="Скопировать прибор">
-          <img src="<%= asset_path('copy_button.svg') %>">
+          <img class="copy-img" src="<%= asset_path('copy_button.svg') %>">
+          <img class="copy-img-hover" src="<%= asset_path('copy_button_hover.svg') %>">
         </div>
       </div>
     `;
