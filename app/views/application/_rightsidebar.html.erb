@@ -51,9 +51,18 @@
           <div id="close_whole_info_button_bottom" class="close-whole-info-button-bottom">
             <div>Закрыть</div>
           </div>
-          <img id="edit_device_button" src="<%= asset_path('edit_icon.svg') %>" data-toggle="tooltip" data-placement="top" title="Редактировать прибор">
-          <img id="save_changes_button" class="save-changes-btn" src="<%= asset_path('save_icon_disk.svg') %>" data-toggle="tooltip" data-placement="top" title="Сохранить изменения">
-          <img id="whole_box_delete_button" src="<%= asset_path('delete_icon.svg') %>" data-toggle="tooltip" data-placement="top" title="Удалить прибор">
+          <div id="edit_device_button" class="whole-info-icon-button" data-toggle="tooltip" data-placement="top" title="Редактировать прибор">
+            <img class="neutral-icon" src="<%= asset_path('edit_icon_neutral.svg') %>">
+            <img class="hover-icon" src="<%= asset_path('edit_icon_hover.svg') %>">
+          </div>
+          <div id="save_changes_button" class="whole-info-icon-button save-changes-btn" data-toggle="tooltip" data-placement="top" title="Сохранить изменения">
+            <img class="neutral-icon" src="<%= asset_path('save_icon_disk_neutral.svg') %>">
+            <img class="hover-icon" src="<%= asset_path('save_icon_disk_hover.svg') %>">
+          </div>
+          <div id="whole_box_delete_button" class="whole-info-icon-button" data-toggle="tooltip" data-placement="top" title="Удалить прибор">
+            <img class="neutral-icon" src="<%= asset_path('delete_icon_neutral.svg') %>">
+            <img class="hover-icon" src="<%= asset_path('delete_icon_hover.svg') %>">
+          </div>
         </div>
       </div>
     </div>
