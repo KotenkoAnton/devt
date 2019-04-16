@@ -6,13 +6,20 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :maps, only: :index
   resources :custom_settings do
     collection do
       post :change
     end
   end
 
+  resources :extended_search do
+    collection do
+      get :index
+      get :fetch_devices
+    end
+  end
+
+  resources :maps, only: :index
   namespace :api do
     resources :devices do
       collection do

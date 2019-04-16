@@ -1,0 +1,70 @@
+<%= javascript_include_tag "extended_search.js" %>
+
+<div class="ibox-content">
+  <div class="search-params-wrapper">
+    <div class="row">
+      <div class="col-lg-3 col-md-3 col-sm-6">
+        <div class="form-group">
+          <label>Имя</label>
+          <input id="extended_search_name" class="form-control" type="text" placeholder="Имя" autocomplete="off">
+        </div>
+      </div>
+      <div class="col-lg-3 col-md-3 col-sm-6">
+        <div class="form-group">
+          <label>IP</label>
+          <input id="extended_search_ip" class="form-control" type="text" placeholder="IP" autocomplete="off">
+        </div>
+      </div>
+      <div class="col-lg-3 col-md-3 col-sm-6">
+        <div class="form-group">
+          <label>Тип</label><br>
+          <select id="extended_search_type" multiple="multiple" autocomplete="off">
+            <option>Radio</option>
+            <option>Switch</option>
+            <option>Workstation</option>
+            <option>Server</option>
+            <option>Subnet</option>
+            <option>Printer</option>
+            <option>Camera</option>
+            <option>L3</option>
+            <option>Router</option>
+            <option>Scanner</option>
+            <option>Fax</option>
+          </select>
+        </div>
+      </div>
+      <div class="col-lg-3 col-md-3 col-sm-6">
+        <div class="form-group">
+          <label>Адрес</label>
+          <input id="extended_search_address" class="form-control" type="text" placeholder="Адрес" autocomplete="off">
+        </div>
+      </div>
+    </div>
+    <button id="extended_search_btn" class="btn btn-success">Поиск</button>
+  </div>
+</div>
+
+<div class="ibox-content m-t-sm">
+  <div class="extended-search-wrapper">
+    <table id="extended_search_table" class="table table-bordered table-striped">
+      <thead>
+        <tr>
+          <th>
+            Имя
+          </th>
+          <th>
+            IP
+          </th>
+          <th>
+            Тип
+          </th>
+          <th>
+            Адрес
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+      </tbody>
+    </table>
+  </div>
+</div>

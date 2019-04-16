@@ -12,8 +12,11 @@
  *
  *= require ip_logs.scss
  *= require maps.scss
+ *= require extended_search.scss
  *= require style
  *= require font-awesome
  *= require jasny/jasny-bootstrap.min.css
+ *= require dataTables/datatables.min.css
+ *= require bootstrapMultiselect/bootstrap-multiselect.css
  *= require_self
  */

@@ -1,0 +1,15 @@
+%link {
+  text-decoration: underline;
+
+  &:hover {
+    cursor: pointer;
+    color: #484b48;
+  }
+}
+
+.extended-search-wrapper {
+  .name-link,
+  .ip-link {
+    @extend %link;
+  }
+}

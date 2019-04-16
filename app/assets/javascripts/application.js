@@ -20,6 +20,9 @@
 //= require jasny/jasny-bootstrap.min.js
 //= require metisMenu/jquery.metisMenu.js
 //= require slimscroll/jquery.slimscroll.min.js
+//= require dataTables/datatables.min.js
+//= require bootstrapMultiselect/bootstrap-multiselect.min.js
 //= stub maps/maps.js
 //= stub ip_logs.js
+//= stub extended_search.js
 //= require_tree .
