@@ -271,7 +271,7 @@ class Drawer {
             this._point_for(second_object_type, second_bounds, first_border)
           ];
     let path = new paper.Path({
-      strokeColor: "blue",
+      strokeColor: "#61AFE3",
       strokeWidth: 2
     });
     path.moveTo(first_point);

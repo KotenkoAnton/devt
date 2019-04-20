@@ -19,6 +19,16 @@
   <div id="map_name" class="map-name"><%= @map_name %></div>
 <% end %>
 
+<% content_for :scaling_buttons do %>
+  <div class="scale-wrapper">
+    <%= image_tag "zoom_out.svg", id: "scale_minus", class: "zoom-out-img" %>
+    <div class="scale-line">
+      <div id="scale_circle" class="scale-line-circle"></div>
+    </div>
+    <%= image_tag "zoom_in.svg", id: "scale_plus", class: "zoom-in-img" %>
+  </div>
+<% end %>
+
 <%= render 'search' %>
 
 <% content_for :action_wrapper do %>

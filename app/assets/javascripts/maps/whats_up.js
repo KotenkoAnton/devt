@@ -10,6 +10,7 @@ class WhatsUp {
     this.control_buttons_state_handler = new ControlButtonsStateHandler(this);
     this.map_name = undefined;
     this.canvas_id = canvas_id;
+    this.scale = 1;
   }
 
   load_map(map_name, focus_item_id = null) {
@@ -64,5 +65,20 @@ class WhatsUp {
     text_input.select();
     document.execCommand("copy");
     text_input.remove();
+  }
+
+  perform_scale(scale_change) {
+    if (
+      (this.scale > 0.9 && scale_change > 0) ||
+      (this.scale < 0.1 && scale_change < 0)
+    ) {
+      return;
+    }
+    this.scale += scale_change;
+
+    paper.project.view.scale(1 + scale_change, { x: 0, y: 0 });
+    $("#scale_circle").css({
+      left: $("#scale_circle").position().left + scale_change * 120
+    });
   }
 }

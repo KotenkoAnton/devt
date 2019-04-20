@@ -513,7 +513,11 @@ class MouseEventHandler {
           case "device": {
             this.whats_up.api_communicator.fetch_item_info(item._id, data => {
               data.id = item._id;
-              this.whats_up.dom_elements_handler.open_item_box(item, data);
+              this.whats_up.dom_elements_handler.open_item_box(
+                item,
+                data,
+                event.event
+              );
               this.box_opened = true;
             });
             break;
@@ -630,14 +634,17 @@ class MouseEventHandler {
 
     let add_object = event => {
       this.switch_clickable_mode_to("main_usage");
-      this.adding_object.position_x = event.event.layerX;
-      this.adding_object.position_y = event.event.layerY;
+      let reverse_scale = 1 + (1 - paper.project.view.scaling.x);
+      this.adding_object.position_x =
+        event.event.layerX * reverse_scale +
+        ((reverse_scale * 10) % 10) * 4 +
+        event.event.layerX / 50;
+      this.adding_object.position_y =
+        event.event.layerY * reverse_scale + ((reverse_scale * 10) % 10) * 16;
 
       this.adding_object.map_name = this.whats_up.map_name;
       switch (this.adding_object.placeable_type) {
         case "Device": {
-          this.adding_object.position_x += 18;
-          this.adding_object.position_y -= 10;
           this.whats_up.api_communicator.add_device_and_item(
             this.adding_object,
             data => {
@@ -648,8 +655,6 @@ class MouseEventHandler {
           break;
         }
         case "Map": {
-          this.adding_object.position_x += 18;
-          this.adding_object.position_y -= 10;
           this.whats_up.api_communicator.add_map_item(
             this.adding_object,
             data => {
@@ -660,8 +665,10 @@ class MouseEventHandler {
           break;
         }
         case "Shape": {
-          this.adding_object.position_x += 1;
-          this.adding_object.position_y -= 5;
+          this.adding_object.position_x =
+            (this.adding_object.position_x + 1) * reverse_scale;
+          this.adding_object.position_y =
+            (this.adding_object.position_y - 5) * reverse_scale;
           this.whats_up.api_communicator.add_shape(this.adding_object, data => {
             this.adding_object.id = data.shape_id;
             this.adding_object.height = data.height;
@@ -672,6 +679,8 @@ class MouseEventHandler {
           break;
         }
         case "Inscription": {
+          this.adding_object.position_x *= reverse_scale;
+          this.adding_object.position_y *= reverse_scale;
           this.whats_up.api_communicator.add_new_inscription(
             this.adding_object,
             data => {

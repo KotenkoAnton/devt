@@ -220,7 +220,7 @@ class DomElementsHandler {
 
   // info box
 
-  open_item_box(item, item_data) {
+  open_item_box(item, item_data, event) {
     this._set_map_to_grey();
     const actual_item_position_y =
       item.position.y - $("#canvas_wrapper").scrollTop();
@@ -286,9 +286,10 @@ class DomElementsHandler {
     `;
     $("#canvas").after(info_box_html);
     $(".info-box-button").tooltip();
+
     $("#info_box").css({
-      top: item.position.y - (info_box_y_arrow_position == "up" ? 65 : 327),
-      left: item.position.x + (info_box_x_arrow_position == "right" ? -340 : 35)
+      left: event.layerX + (info_box_x_arrow_position == "left" ? 35 : -325),
+      top: event.layerY - (info_box_y_arrow_position == "up" ? 70 : 330)
     });
 
     this._set_item_box_events(item_data);

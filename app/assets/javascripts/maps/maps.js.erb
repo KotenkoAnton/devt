@@ -5,6 +5,14 @@ let whats_up;
 let set_events = () => {
   // search
 
+  $("#scale_plus").click(() => {
+    whats_up.perform_scale(0.1);
+  });
+
+  $("#scale_minus").click(() => {
+    whats_up.perform_scale(-0.1);
+  });
+
   let timeout;
   $("#search").keyup(() => {
     if ($("#search").val()) {
