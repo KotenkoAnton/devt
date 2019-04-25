@@ -25,8 +25,8 @@ class WhatsUp {
         .promise()
         .done(() => {
           paper.setup(this.canvas_id); // initialize paper after map size setting
-          this.drawer.place_items(data["items"]);
           this.drawer.draw_shapes(data["shapes"]);
+          this.drawer.place_items(data["items"]);
           this.drawer.draw_connections(data["connections"]);
           this.drawer.place_inscriptions(data["inscriptions"]);
           this.drawer.place_texts(focus_item_id);
