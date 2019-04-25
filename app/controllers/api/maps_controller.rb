@@ -66,6 +66,114 @@ module Api
       render json: { items: all }
     end
 
+    # rubocop:disable all
+    # complex method, it is not worth stylizing under rubokop
+
+    def fetch_items_for_pasting
+      map = Map.find_by(name: params[:map_name])
+      devices = []
+      maps = []
+      shapes = []
+      items_ids = []
+      shapes_ids = []
+      params[:children].each do |child|
+        object_info = child.second.permit(%i[id position_x position_y type]).to_h
+        # if item
+        if object_info[:type] != "shape"
+          original_item = Item.find(object_info[:id])
+          case original_item.placeable_type
+          when "Device"
+            new_placeable = Device.new
+            original_device = original_item.placeable
+            new_placeable.attributes = { display_name: original_device.display_name,
+                                         host_type_name: original_device.host_type_name,
+                                         host_name: original_device.host_name,
+                                         description: original_device.description,
+                                         contacts: original_device.contacts,
+                                         address: original_device.address,
+                                         ip_address: original_device.ip_address }
+
+            new_item = Item.new
+            new_item.attributes = { name: original_item.name,
+                                    position_x: object_info[:position_x],
+                                    position_y: object_info[:position_y],
+                                    placeable: new_placeable,
+                                    map: map }
+            new_item.save!
+            devices << new_item
+            items_ids << { original: original_item.id, new: new_item.id }
+          when "Map"
+            new_item = Item.new
+            new_item.attributes = { name: original_item.name,
+                                    position_x: object_info[:position_x],
+                                    position_y: object_info[:position_y],
+                                    placeable: original_item.placeable,
+                                    map: map }
+            new_item.save!
+            maps << new_item
+            items_ids << { original: original_item.id, new: new_item.id }
+          end
+        else
+          # if shape
+          original_shape = Shape.find(object_info[:id])
+          new_shape = Shape.new
+          new_shape.attributes = { shape: original_shape.shape,
+                                   map: map,
+                                   position_x: object_info[:position_x],
+                                   position_y: object_info[:position_y],
+                                   width: original_shape.width,
+                                   height: original_shape.height,
+                                   radius: original_shape.radius,
+                                   rays_amount: original_shape.rays_amount,
+                                   outside_diameter: original_shape.outside_diameter,
+                                   inside_diameter: original_shape.inside_diameter }
+          new_shape.save!
+          shapes << new_shape
+          shapes_ids << { original: original_shape.id, new: new_shape.id }
+        end
+      end
+
+      original_connections = Connection.between_each_other(items_ids.map { |items_id| items_id[:original] },
+                                                           shapes_ids.map { |shape_id| shape_id[:original] })
+      connections = []
+      original_connections.each do |original_connection|
+        new_connection = Connection.new
+        first_object = Item.find(items_ids.find { |item_id| item_id[:original] == original_connection.first_object_id }[:new]) if original_connection.first_object_type == "Item"
+        first_object = Shape.find(shapes_ids.find { |shape_id| shape_id[:original] == original_connection.first_object_id }[:new]) if original_connection.first_object_type == "Shape"
+        second_object = Item.find(items_ids.find { |item_id| item_id[:original] == original_connection.second_object_id }[:new]) if original_connection.second_object_type == "Item"
+        second_object = Shape.find(shapes_ids.find { |shape_id| shape_id[:original] == original_connection.second_object_id }[:new]) if original_connection.second_object_type == "Shape"
+        new_connection.attributes = { map: map, first_object: first_object, second_object: second_object }
+        connections << new_connection if new_connection.save!
+      end
+      devices_json = devices.as_json(except: %i[created_at updated_at],
+                                     include: {
+                                       placeable: {
+                                         except: %i[created_at updated_at],
+                                         include: {
+                                           ip_address: { except: %i[created_at updated_at] }
+                                         }
+                                       }
+                                     })
+      maps_json = maps.as_json(except: %i[created_at updated_at],
+                               include: {
+                                 placeable: { except: %i[created_at updated_at] }
+                               })
+
+      if params[:user_action] == "cut"
+        params[:children].each do |child|
+          object_info = child.second.permit(%i[id position_x position_y type]).to_h
+          Item.find(object_info[:id]).destroy if object_info[:type] != "shape"
+          Shape.find(object_info[:id]).destroy if object_info[:type] == "shape"
+        end
+      end
+
+      render json: { items: devices_json + maps_json,
+                     shapes: shapes.as_json(except: %i[created_at updated_at]),
+                     connections: connections.as_json(except: %i[created_at updated_at]) }
+    end
+
+    # rubocop:enable all
+
     def change_device_host_type_by_item_id
       device = Item.find(params[:item_id]).placeable
       device.host_type_name = params[:host_type_name]

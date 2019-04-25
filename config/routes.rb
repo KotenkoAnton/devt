@@ -32,6 +32,7 @@ Rails.application.routes.draw do
         get :fetch_all_maps_names
         get :fetch_map
         get :fetch_item_info
+        get :fetch_items_for_pasting
         get :map_name_by_item_id
         get :check_connection_existence
         get :find_items

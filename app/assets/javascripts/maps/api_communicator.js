@@ -23,6 +23,14 @@ class ApiCommunicator {
     });
   }
 
+  fetch_items_for_pasting(map_name, children, action, success = null) {
+    $.get({
+      url: `${location.origin}/api/maps/fetch_items_for_pasting`,
+      data: { map_name, children, user_action: action },
+      success: success
+    });
+  }
+
   delete_zone_item(item_id, success = null) {
     $.post({
       url: `${location.origin}/api/maps/delete_zone_item`,
