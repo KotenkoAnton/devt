@@ -10,7 +10,7 @@ class Drawer {
   }
 
   draw_connections(connections) {
-    this.connections = connections;
+    this.connections = this.connections.concat(connections);
     for (let connection of connections) {
       this._draw_connection(connection);
     }
@@ -143,6 +143,9 @@ class Drawer {
   }
 
   place_text(item) {
+    if (item.text) {
+      return;
+    }
     item.text = new paper.PointText(
       this._point_for_text(item, item.text_content)
     );

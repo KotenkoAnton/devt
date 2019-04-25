@@ -37,7 +37,6 @@ class MouseEventHandler {
     // adding object:
 
     this.adding_object;
-    this.v_pressed = false;
 
     //
 
@@ -86,15 +85,62 @@ class MouseEventHandler {
       return "";
     }
 
-    $(document).keyup(e => {
-      if (e.key == "v") {
-        this.v_pressed = false;
-      }
-    });
-
     $(document).keydown(e => {
-      if (e.key == "v") {
-        this.v_pressed = true;
+      if (e.key == "v" && e.ctrlKey) {
+        let selection_rectangle_json = getCookie("selection_rectangle");
+        if (selection_rectangle_json != "") {
+          let selection_rectangle = JSON.parse(selection_rectangle_json);
+          const max_y = Math.max.apply(
+            Math,
+            this.whats_up.drawer.get_items().map(o => o.position.y)
+          );
+          let start_point = new paper.Point(20, max_y + 100);
+          let end_point = new paper.Point(
+            100 + selection_rectangle.width,
+            max_y + 100 + selection_rectangle.height
+          );
+
+          selection_rectangle.children.forEach(child => {
+            child.position_x = Math.floor(start_point.x + child.offset.x);
+            child.position_y = Math.floor(start_point.y + child.offset.y);
+            child.offset = undefined;
+          });
+
+          const fetch_success = data => {
+            this.whats_up.drawer.place_items(data["items"]);
+            this.whats_up.drawer.draw_shapes(data["shapes"]);
+            this.whats_up.drawer.draw_connections(data["connections"]);
+            this.whats_up.drawer.place_texts();
+            selection_rectangle.path = draw_selection_rectangle(
+              start_point,
+              end_point
+            );
+            selection_rectangle.path._type = "selection_rectangle";
+            if (this.selection_rectangle.path) {
+              this.selection_rectangle.path.remove();
+            }
+            this.selection_rectangle = {
+              children: [],
+              drawing: false,
+              drawn: true,
+              path: selection_rectangle.path,
+              start_point
+            };
+            $("#canvas_wrapper").scrollTop(max_y);
+            $("#canvas_wrapper").scrollLeft(10);
+            _fill_selection_rectangle_children();
+          };
+
+          this.whats_up.api_communicator.fetch_items_for_pasting(
+            this.whats_up.map_name,
+            selection_rectangle.children,
+            selection_rectangle.action,
+            fetch_success
+          );
+          document.cookie =
+            "selection_rectangle=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+        }
+        return;
       }
       if (
         e.ctrlKey &&
@@ -166,58 +212,6 @@ class MouseEventHandler {
     };
 
     let draggable_mouse_down = event => {
-      // pasting
-      if (event.event.ctrlKey && this.v_pressed) {
-        let selection_rectangle_json = getCookie("selection_rectangle");
-        if (selection_rectangle_json != "") {
-          let selection_rectangle = JSON.parse(selection_rectangle_json);
-          let start_point = new paper.Point(event.point.x, event.point.y);
-          let end_point = new paper.Point(
-            event.point.x + selection_rectangle.width,
-            event.point.y + selection_rectangle.height
-          );
-
-          selection_rectangle.children.forEach(child => {
-            child.position_x = Math.floor(start_point.x + child.offset.x);
-            child.position_y = Math.floor(start_point.y + child.offset.y);
-            child.offset = undefined;
-          });
-
-          const fetch_success = data => {
-            this.whats_up.drawer.place_items(data["items"]);
-            this.whats_up.drawer.draw_shapes(data["shapes"]);
-            this.whats_up.drawer.draw_connections(data["connections"]);
-            this.whats_up.drawer.place_texts();
-            selection_rectangle.path = draw_selection_rectangle(
-              start_point,
-              end_point
-            );
-            selection_rectangle.path._type = "selection_rectangle";
-            if (this.selection_rectangle.path) {
-              this.selection_rectangle.path.remove();
-            }
-            this.selection_rectangle = {
-              children: [],
-              drawing: false,
-              drawn: true,
-              path: selection_rectangle.path,
-              start_point
-            };
-            _fill_selection_rectangle_children();
-          };
-
-          this.whats_up.api_communicator.fetch_items_for_pasting(
-            this.whats_up.map_name,
-            selection_rectangle.children,
-            selection_rectangle.action,
-            fetch_success
-          );
-          document.cookie =
-            "selection_rectangle=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
-        }
-        return;
-      }
-
       // start mass selection if ctrl is pressed
       if (event.event.shiftKey) {
         this.selection_rectangle = { start_point: event.point, drawing: true };
