@@ -218,7 +218,7 @@ class MouseEventHandler {
         return;
       }
 
-      if (this.expanding_hover) {
+      if (this.expanding_hover && !event.event.altKey) {
         this.expanding = true;
         this.whats_up.drawer.delete_item_connections(
           this.moving_target._id,
@@ -250,8 +250,11 @@ class MouseEventHandler {
         }
       }
       // start scrolling
-
-      if (!item && !this.box_opened && this.clickable_mode == "main_usage") {
+      if (
+        event.event.altKey &&
+        !this.box_opened &&
+        this.clickable_mode == "main_usage"
+      ) {
         this.scrolling = true;
         this._set_cursor("move");
         this.scrolling_first_position = {
