@@ -776,16 +776,17 @@ $head-height: 16vh;
     }
 
     .zoom-out-img {
-      float: left;
+      margin-left: -76px;
       margin-right: 70px;
     }
 
     .percentage_label {
       position: absolute;
-      font-size: 20px;
+      font-size: 15px;
       font-weight: normal;
       color: $theme-color;
-      top: -2px;
+      top: 1px;
+      left: 41px;
     }
   }
 
