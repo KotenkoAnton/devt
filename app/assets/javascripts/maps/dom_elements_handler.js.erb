@@ -8,6 +8,7 @@ class DomElementsHandler {
   // whole info
 
   open_whole_info_box(item) {
+    $("#whole_info_monitored_text").html(item.monitored ? "Да" : "Нет");
     $("#device_type_input").val(item.host_type_name);
     $("#whole_info_device_type").html(item.host_type_name);
     $("#right-sidebar").addClass("sidebar-open");
@@ -28,12 +29,7 @@ class DomElementsHandler {
     $("#whole_info_monitored_checkbox")
       .unbind("click")
       .click(e => {
-        if ($("#close_whole_info_button_top").css("display") == "block") {
-          // check if we editing or not
-          e.preventDefault();
-          e.stopPropagation();
-          return;
-        }
+        $("#whole_info_monitored_text").html(e.target.checked ? "Да" : "Нет");
         this.whats_up.api_communicator.set_monitoring(
           item.ip_address,
           e.target.checked ? true : false,
@@ -73,6 +69,8 @@ class DomElementsHandler {
     $("#edit_device_button")
       .unbind("click")
       .click(() => {
+        $("#whole_info_monitored_text").hide();
+        $("#whole_info_monitored_checkbox").show();
         $("#whole_info_device_type").hide();
         $("#device_type_input").show();
         $("#close_whole_info_button_top").hide();
@@ -97,6 +95,8 @@ class DomElementsHandler {
       });
 
     const set_whole_info_to_default = () => {
+      $("#whole_info_monitored_text").show();
+      $("#whole_info_monitored_checkbox").hide();
       $("#whole_info_device_type").show();
       $("#device_type_input").hide();
       $("#close_whole_info_button_top").show();
