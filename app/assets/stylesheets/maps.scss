@@ -514,6 +514,12 @@ $head-height: 16vh;
     overflow-wrap: break-word;
   }
 
+  .whole-info-device-type {
+    margin-top: 5px;
+    padding-left: 2px;
+    font-size: 14px;
+  }
+
   .close-whole-info-button-top {
     position: absolute;
     right: 15px;
@@ -551,6 +557,7 @@ $head-height: 16vh;
     .save-changes-btn {
       display: none;
     }
+
     .whole-info-icon-button {
       width: 35px;
       height: 35px;
@@ -588,6 +595,10 @@ $head-height: 16vh;
       &:hover {
         cursor: text;
       }
+    }
+
+    .device-type-input {
+      display: none;
     }
 
     label {

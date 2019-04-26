@@ -9,6 +9,7 @@ class DomElementsHandler {
 
   open_whole_info_box(item) {
     $("#device_type_input").val(item.host_type_name);
+    $("#whole_info_device_type").html(item.host_type_name);
     $("#right-sidebar").addClass("sidebar-open");
     $("#whole_info_name").html(item.name);
     $("#whole_info_address").html(item.address ? item.address : "");
@@ -25,8 +26,14 @@ class DomElementsHandler {
 
   _set_whole_info_box_events(item) {
     $("#whole_info_monitored_checkbox")
-      .unbind("change")
-      .change(e => {
+      .unbind("click")
+      .click(e => {
+        if ($("#close_whole_info_button_top").css("display") == "block") {
+          // check if we editing or not
+          e.preventDefault();
+          e.stopPropagation();
+          return;
+        }
         this.whats_up.api_communicator.set_monitoring(
           item.ip_address,
           e.target.checked ? true : false,
@@ -66,6 +73,8 @@ class DomElementsHandler {
     $("#edit_device_button")
       .unbind("click")
       .click(() => {
+        $("#whole_info_device_type").hide();
+        $("#device_type_input").show();
         $("#close_whole_info_button_top").hide();
         ["whole_info_name", "whole_info_ip", "whole_info_address"].forEach(
           field => {
@@ -88,6 +97,8 @@ class DomElementsHandler {
       });
 
     const set_whole_info_to_default = () => {
+      $("#whole_info_device_type").show();
+      $("#device_type_input").hide();
       $("#close_whole_info_button_top").show();
       ["whole_info_name", "whole_info_ip", "whole_info_address"].forEach(
         field => {
@@ -110,6 +121,7 @@ class DomElementsHandler {
     $("#device_type_input")
       .unbind("change")
       .change(() => {
+        $("#whole_info_device_type").html($("#device_type_input").val());
         this.whats_up.api_communicator.change_device_host_type_by_item_id(
           item.id,
           $("#device_type_input").val(),
