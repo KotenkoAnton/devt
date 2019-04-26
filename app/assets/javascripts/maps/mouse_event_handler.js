@@ -52,7 +52,7 @@ class MouseEventHandler {
     this.ruler_second_item = undefined;
     this.clickable_mode = mode;
     if (mode == "adding_object") {
-      this._set_cursor("crosshair");
+      this._set_cursor("pointer");
     } else {
       this._set_cursor("auto");
     }
