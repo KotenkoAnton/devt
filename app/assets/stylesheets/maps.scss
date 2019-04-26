@@ -770,25 +770,21 @@ $head-height: 16vh;
       }
     }
 
-    .scale-line {
-      border: 2px solid #c1c6c1;
-      border-radius: 2px;
-      float: right;
-      width: 138px;
-      margin-right: 4px;
-
-      .scale-line-circle {
-        width: 10px;
-        border: 9px solid #3f5462;
-        border-radius: 50%;
-        position: absolute;
-        bottom: 5px;
-        left: 148px;
-      }
-    }
-
     .zoom-in-img {
       float: right;
+    }
+
+    .zoom-out-img {
+      float: left;
+      margin-right: 70px;
+    }
+
+    .percentage_label {
+      position: absolute;
+      font-size: 20px;
+      font-weight: normal;
+      color: $theme-color;
+      top: -2px;
     }
   }
 

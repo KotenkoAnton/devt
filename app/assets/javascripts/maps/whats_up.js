@@ -75,10 +75,7 @@ class WhatsUp {
       return;
     }
     this.scale += scale_change;
-
+    $("#scale_percentage_label").html(`${Math.floor(this.scale * 100)}%`);
     paper.project.view.scale(1 + scale_change, { x: 0, y: 0 });
-    $("#scale_circle").css({
-      left: $("#scale_circle").position().left + scale_change * 120
-    });
   }
 }
