@@ -86,7 +86,7 @@ class MouseEventHandler {
     }
 
     $(document).keydown(e => {
-      if (e.key == "v" && e.ctrlKey) {
+      if (e.key == "v" && e.ctrlKey && $("#complete_editing").is(":visible")) {
         let selection_rectangle_json = getCookie("selection_rectangle");
         if (selection_rectangle_json != "") {
           let selection_rectangle = JSON.parse(selection_rectangle_json);
