@@ -13,3 +13,9 @@
     @extend %link;
   }
 }
+
+.search-params-wrapper {
+  .search-button {
+    margin-top: 23px;
+  }
+}
