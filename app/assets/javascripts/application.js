@@ -22,6 +22,7 @@
 //= require slimscroll/jquery.slimscroll.min.js
 //= require dataTables/datatables.min.js
 //= require bootstrapMultiselect/bootstrap-multiselect.min.js
+//= require common.js
 //= stub maps/maps.js
 //= stub ip_logs.js
 //= stub extended_search.js

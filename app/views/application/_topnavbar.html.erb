@@ -4,7 +4,14 @@
       <a class="navbar-minimalize minimalize-styl-2 btn btn-primary" id='minimize_navbar_btn'>
         <i class="fa fa-bars"></i>
       </a>
-      <%= yield(:navbar) %>
+      <form class="navbar-form-custom">
+        <div class="form-group search-input">
+          <%= image_tag "close_button.svg", id: "search_empty_button" %>
+          <input type="text" placeholder="Поиск..." class="form-control" autocomplete="off" name="search" id="search"/>
+        </div>
+      </form>
+
+      <div id="search_box" class="search-box"></div>
     </div>
     <ul class="nav navbar-top-links navbar-right">
   </nav>

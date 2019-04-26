@@ -1,12 +1,4 @@
 class ApiCommunicator {
-  find_items(search_str, success = null) {
-    $.get({
-      url: `${location.origin}/api/maps/find_items`,
-      data: { search_str },
-      success: success
-    });
-  }
-
   change_device_host_type_by_item_id(item_id, host_type_name, success = null) {
     $.post({
       url: `${location.origin}/api/maps/change_device_host_type_by_item_id`,
