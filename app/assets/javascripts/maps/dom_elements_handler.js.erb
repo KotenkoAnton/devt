@@ -386,6 +386,7 @@ class DomElementsHandler {
       case "add_object": {
         return this._add_object_content();
       }
+      case "add_object ups":
       case "add_object inscription":
       case "add_object workstation":
       case "add_object camera":
@@ -509,6 +510,12 @@ class DomElementsHandler {
       case "add_object routers": {
         $(".item").click(event => {
           set_adding("Router");
+        });
+        break;
+      }
+      case "add_object ups": {
+        $(".item").click(event => {
+          set_adding("Ups");
         });
         break;
       }
@@ -922,6 +929,11 @@ class DomElementsHandler {
         ];
         break;
       }
+      case "add_object ups": {
+        breadcrumb = "Оповещалки";
+        items = [{ label: "Ups", img_src: "<%= asset_path('ups.svg') %>" }];
+        break;
+      }
       case "add_object inscription": {
         breadcrumb = "Надписи";
 
@@ -1011,6 +1023,10 @@ class DomElementsHandler {
       }
       case "Надписи": {
         this._reset_action_box(prefix + " inscription");
+        break;
+      }
+      case "Оповещалки": {
+        this._reset_action_box(prefix + " ups");
         break;
       }
     }
