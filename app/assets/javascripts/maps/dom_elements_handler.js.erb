@@ -635,7 +635,6 @@ class DomElementsHandler {
     }
 
     let set_adding = host_type_name => {
-      console.log("here");
       this.whats_up.mouse_event_handler.switch_clickable_mode_to(
         "adding_object"
       );
@@ -706,6 +705,7 @@ class DomElementsHandler {
             });
           });
           $("#map_selecting_list_group a").click(e => {
+            $("#zone_name").val(e.target.text);
             $("#map_selecting_list_group a.active").removeClass("active");
             $(e.target).addClass("active");
           });
