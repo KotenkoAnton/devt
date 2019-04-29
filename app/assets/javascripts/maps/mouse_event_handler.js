@@ -213,7 +213,10 @@ class MouseEventHandler {
 
     let draggable_mouse_down = event => {
       // start mass selection if ctrl is pressed
-      if (event.event.shiftKey) {
+      if (
+        event.event.shiftKey &&
+        this.selection_rectangle.start_point == undefined
+      ) {
         this.selection_rectangle = { start_point: event.point, drawing: true };
         return;
       }
