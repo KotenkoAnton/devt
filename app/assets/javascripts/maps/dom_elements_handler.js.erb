@@ -386,6 +386,7 @@ class DomElementsHandler {
       case "add_object": {
         return this._add_object_content();
       }
+      case "add_object converter":
       case "add_object ups":
       case "add_object inscription":
       case "add_object workstation":
@@ -519,6 +520,12 @@ class DomElementsHandler {
         });
         break;
       }
+      case "add_object converter": {
+        $(".item").click(event => {
+          set_adding("Converter");
+        });
+        break;
+      }
       case "add_object L3": {
         $(".item").click(event => {
           set_adding("L3");
@@ -628,6 +635,7 @@ class DomElementsHandler {
     }
 
     let set_adding = host_type_name => {
+      console.log("here");
       this.whats_up.mouse_event_handler.switch_clickable_mode_to(
         "adding_object"
       );
@@ -873,6 +881,13 @@ class DomElementsHandler {
         ];
         break;
       }
+      case "add_object converter": {
+        breadcrumb = "Ковертеры";
+        items = [
+          { label: "Конвертер", img_src: "<%= asset_path('converter.svg') %>" }
+        ];
+        break;
+      }
       case "add_object ups": {
         breadcrumb = "Оповещалки";
         items = [{ label: "Ups", img_src: "<%= asset_path('ups.svg') %>" }];
@@ -967,6 +982,10 @@ class DomElementsHandler {
       }
       case "Надписи": {
         this._reset_action_box(prefix + " inscription");
+        break;
+      }
+      case "Конвертеры": {
+        this._reset_action_box(prefix + " converter");
         break;
       }
       case "Оповещалки": {
