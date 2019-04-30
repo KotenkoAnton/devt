@@ -530,7 +530,12 @@ class MouseEventHandler {
         point = new paper.Point(event_point.x, this.moving_target.bounds.y);
       }
       this.whats_up.drawer.delete_rectangle(this.moving_target._id);
-      let rect = this.whats_up.drawer.draw_rectangle(point, size);
+      let rect = this.whats_up.drawer.draw_rectangle(
+        point,
+        size,
+        this.moving_target.dotted,
+        this.moving_target.radius
+      );
       rect._type = "shape";
       rect._id = this.moving_target._id;
       this.moving_target = rect;

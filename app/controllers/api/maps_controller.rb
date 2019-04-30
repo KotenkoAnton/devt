@@ -323,9 +323,11 @@ module Api
     def add_shape
       shape = Shape.new
       shape.attributes = { map: Map.find_by(name: params[:map_name]), position_x: params[:position_x],
-                           position_y: params[:position_y], width: 100, height: 100, shape: "rectangle" }
+                           position_y: params[:position_y], width: 100, height: 100, shape: "rectangle",
+                           dotted: params[:dotted], radius: params[:radius] }
       shape.save
-      render json: { shape_id: shape&.id, shape: shape&.shape, height: shape&.height, width: shape&.width }
+      render json: { shape_id: shape&.id, shape: shape&.shape, height: shape&.height,
+                     width: shape&.width, dotted: shape&.dotted, radius: shape&.radius }
     end
 
     def delete_device_by_item_id
