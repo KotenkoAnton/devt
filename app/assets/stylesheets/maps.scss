@@ -319,6 +319,20 @@ $head-height: 16vh;
         padding-top: 24px;
         padding-right: 0;
 
+        .new-map-wrapper {
+          margin-top: 200px;
+
+          .add-map-button {
+            margin-left: 7px;
+            margin-top: 20px;
+          }
+
+          input {
+            width: 140px;
+            margin-left: 8px;
+          }
+        }
+
         .rectangle {
           width: 45px;
           height: 45px;

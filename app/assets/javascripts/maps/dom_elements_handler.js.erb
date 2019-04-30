@@ -394,7 +394,6 @@ class DomElementsHandler {
       case "add_object L3":
       case "add_object switch":
       case "add_object shapes":
-      case "add_object maps":
       case "add_object zones":
       case "add_object routers":
       case "add_object radio":
@@ -533,6 +532,28 @@ class DomElementsHandler {
         break;
       }
       case "add_object zones": {
+        $("#add_map_button").click(() => {
+          this.whats_up.api_communicator.add_new_map(
+            $("#new_map_name").val(),
+            data => {
+              if (data.added) {
+                $("#new_map_name").val("");
+                $("#new_map_info_label").html("Карта добавлена");
+                $("#new_map_info_label").css({
+                  display: "block",
+                  color: "green"
+                });
+                this._set_adding_zones();
+              } else {
+                $("#new_map_info_label").html("Карта не добавлена");
+                $("#new_map_info_label").css({
+                  display: "block",
+                  color: "red"
+                });
+              }
+            }
+          );
+        });
         $("#add_zone_button").click(() => {
           this.whats_up.mouse_event_handler.switch_clickable_mode_to(
             "adding_object"
@@ -545,30 +566,6 @@ class DomElementsHandler {
             destination_map_name: zone_map_name
           });
         });
-      }
-      case "add_object maps": {
-        $("#add_map_button").click(() => {
-          this.whats_up.api_communicator.add_new_map(
-            $("#new_map_name").val(),
-            data => {
-              if (data.added) {
-                $("#new_map_name").val("");
-                $("#new_map_info_label").html("Карта добавлена");
-                $("#new_map_info_label").css({
-                  display: "block",
-                  color: "green"
-                });
-              } else {
-                $("#new_map_info_label").html("Карта не добавлена");
-                $("#new_map_info_label").css({
-                  display: "block",
-                  color: "red"
-                });
-              }
-            }
-          );
-        });
-        break;
       }
       case "add_object shapes": {
         $("#rectangle").click(() => {
@@ -768,10 +765,6 @@ class DomElementsHandler {
           <img src="<%= asset_path('cloud.svg') %>" class="object-type-img">
           <span>Зоны</span>
         </div>
-        <div class="add-item">
-          <img src="<%= asset_path('radio.svg') %>" class="object-type-img uncentered-img">
-          <span class="uncentered-text">Карты<span>
-        </div>
       </div>
     `;
   }
@@ -847,16 +840,11 @@ class DomElementsHandler {
             <div id="map_selecting_list_group" class="list-group">
             </div>
           </div>
-        `;
-        break;
-      }
-      case "add_object maps": {
-        breadcrumb = "Карты";
-
-        html += `
-          <input id="new_map_name" placeholder="Имя карты"><br>
-          <label id="new_map_info_label" class="info-label">check</label>
-          <div id="add_map_button" class="btn btn-success add-map-button">Добавить карту</div>
+          <div class="new-map-wrapper">
+            <input id="new_map_name" placeholder="Имя карты"><br>
+            <label id="new_map_info_label" class="info-label">check</label>
+            <div id="add_map_button" class="btn btn-success add-map-button">Добавить карту</div>
+          </div>
         `;
         break;
       }
@@ -954,10 +942,6 @@ class DomElementsHandler {
       }
       case "Зоны": {
         this._reset_action_box(prefix + " zones");
-        break;
-      }
-      case "Карты": {
-        this._reset_action_box(prefix + " maps");
         break;
       }
       case "Фигуры": {
