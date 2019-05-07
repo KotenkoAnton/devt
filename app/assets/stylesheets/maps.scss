@@ -319,6 +319,11 @@ $head-height: 16vh;
         padding-top: 24px;
         padding-right: 0;
 
+        .shape-color-picker {
+          position: absolute;
+          top: 260px;
+        }
+
         .new-map-wrapper {
           margin-top: 200px;
 

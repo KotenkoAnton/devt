@@ -393,7 +393,7 @@ class DomElementsHandler {
       case "add_object camera":
       case "add_object L3":
       case "add_object switch":
-      // case "add_object shapes":
+      case "add_object shapes":
       case "add_object zones":
       case "add_object frames":
       case "add_object routers":
@@ -589,18 +589,28 @@ class DomElementsHandler {
         });
         break;
       }
-      // case "add_object shapes": {
-      //   $("#rectangle").click(() => {
-      //     this.whats_up.mouse_event_handler.switch_clickable_mode_to(
-      //       "adding_object"
-      //     );
-      //     this.whats_up.mouse_event_handler.set_adding_object({
-      //       placeable_type: "Shape",
-      //       shape_type: "Rectangle"
-      //     });
-      //   });
-      //   break;
-      // }
+      case "add_object shapes": {
+        $(".item").click(e => {
+          const fill_color = $("#shape_color_picker").val();
+          const radius =
+            e.target.nextElementSibling.offsetParent.innerText == "Закругленная"
+              ? 7
+              : 0;
+          const dotted =
+            e.target.nextElementSibling.offsetParent.innerText == "Пунктирная";
+          this.whats_up.mouse_event_handler.switch_clickable_mode_to(
+            "adding_object"
+          );
+          this.whats_up.mouse_event_handler.set_adding_object({
+            placeable_type: "Shape",
+            shape_type: "Rectangle",
+            radius,
+            dotted,
+            fill_color
+          });
+        });
+        break;
+      }
       case "add_object inscription": {
         $("#inscription_editor_italic_btn").click(() => {
           if ($("#new_inscription_input").css("font-style") == "italic") {
@@ -890,16 +900,30 @@ class DomElementsHandler {
         ];
         break;
       }
-      // case "add_object shapes": {
-      //   breadcrumb = "Фигуры";
-      //
-      //   html += `
-      //     <div id="rectangle" class="rectangle">
-      //       <span>Прямоугольник</span>
-      //     </div>
-      //   `;
-      //   break;
-      // }
+      case "add_object shapes": {
+        breadcrumb = "Фигуры";
+        items = [
+          {
+            label: "Обычная",
+            img_src: "<%= asset_path('regular_frame.svg') %>"
+          },
+          {
+            label: "Закругленная",
+            img_src: "<%= asset_path('round_frame.svg') %>"
+          },
+          {
+            label: "Пунктирная",
+            img_src: "<%= asset_path('dotted_frame.svg') %>"
+          }
+        ];
+        html += `
+          <div class="shape-color-picker">
+            <span>Цвет фигуры<span>
+            <input id="shape_color_picker" type="color" value="#676A6C" />
+          </div>
+        `;
+        break;
+      }
       case "add_object L3": {
         breadcrumb = "L3-устройства";
         items = [
@@ -990,10 +1014,10 @@ class DomElementsHandler {
         this._reset_action_box(prefix + " frames");
         break;
       }
-      // case "Фигуры": {
-      //   this._reset_action_box(prefix + " shapes");
-      //   break;
-      // }
+      case "Фигуры": {
+        this._reset_action_box(prefix + " shapes");
+        break;
+      }
       case "L3-устройства": {
         this._reset_action_box(prefix + " L3");
         break;

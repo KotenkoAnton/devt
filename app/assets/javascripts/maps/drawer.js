@@ -63,7 +63,8 @@ class Drawer {
         new paper.Point(shape.position_x, shape.position_y),
         new paper.Size(shape.width, shape.height),
         shape.dotted,
-        shape.radius
+        shape.radius,
+        shape.fill_color
       );
 
       rectangle._id = shape.id;
@@ -73,7 +74,7 @@ class Drawer {
     }
   }
 
-  draw_rectangle(point, size, dotted, radius) {
+  draw_rectangle(point, size, dotted, radius, fill_color) {
     let rectangle = new paper.Path.Rectangle(point, size);
     if (radius > 0) {
       rectangle = this._roundCorners(rectangle, radius);
@@ -81,9 +82,17 @@ class Drawer {
     if (dotted) {
       rectangle.dashArray = [7, 10];
     }
+
+    if (fill_color) {
+      rectangle.fillColor = fill_color;
+      rectangle.strokeColor = fill_color;
+    } else {
+      rectangle.strokeColor = "#808080";
+    }
+
     rectangle.dotted = dotted;
     rectangle.radius = radius;
-    rectangle.strokeColor = "#808080";
+    rectangle.fill_color = fill_color;
     return rectangle;
   }
 

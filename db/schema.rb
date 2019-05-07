@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_04_30_100214) do
+ActiveRecord::Schema.define(version: 2019_05_07_071146) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -103,6 +103,7 @@ ActiveRecord::Schema.define(version: 2019_04_30_100214) do
     t.integer "outside_diameter"
     t.integer "inside_diameter"
     t.boolean "dotted"
+    t.string "fill_color"
   end
 
 end

@@ -324,7 +324,7 @@ module Api
       shape = Shape.new
       shape.attributes = { map: Map.find_by(name: params[:map_name]), position_x: params[:position_x],
                            position_y: params[:position_y], width: 100, height: 100, shape: "rectangle",
-                           dotted: params[:dotted], radius: params[:radius] }
+                           dotted: params[:dotted], radius: params[:radius], fill_color: params[:fill_color] }
       shape.save
       render json: { shape_id: shape&.id, shape: shape&.shape, height: shape&.height,
                      width: shape&.width, dotted: shape&.dotted, radius: shape&.radius }
