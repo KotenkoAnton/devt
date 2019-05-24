@@ -527,6 +527,21 @@ $head-height: 4vh;
   padding-bottom: 50px;
   color: black;
 
+  .sidebar-title {
+    label {
+      display: none;
+    }
+  }
+
+  .sidebar-title-editing {
+    label {
+      display: block;
+      color: $theme-color;
+      font-weight: normal;
+      font-size: 13px;
+    }
+  }
+
   .form-control {
     margin-bottom: 5px;
   }

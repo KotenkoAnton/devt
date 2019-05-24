@@ -69,6 +69,7 @@ class DomElementsHandler {
     $("#edit_device_button")
       .unbind("click")
       .click(() => {
+        $("#sidebar_title").addClass("sidebar-title-editing");
         $("#whole_info_monitored_text").hide();
         $("#whole_info_monitored_checkbox").show();
         $("#whole_info_device_type").hide();
@@ -95,6 +96,7 @@ class DomElementsHandler {
       });
 
     const set_whole_info_to_default = () => {
+      $("#sidebar_title").removeClass("sidebar-title-editing");
       $("#whole_info_monitored_text").show();
       $("#whole_info_monitored_checkbox").hide();
       $("#whole_info_device_type").show();
