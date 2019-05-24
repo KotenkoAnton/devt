@@ -55,6 +55,9 @@ $(document).ready(() => {
                 new RegExp(data.search_str, "ig"),
                 "<span>$&</span>"
               )}
+              <div class="host-type-name-icon-wrapper">
+                ${get_icon_for_action_box(item.placeable.host_type_name)}
+              </div>
               <svg xmlns="http://www.w3.org/2000/svg">
                 <circle cx="5" cy="5" r="5" fill=${
                   item.placeable.ip_address.icmp_available ? "green" : "red"

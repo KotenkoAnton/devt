@@ -23,7 +23,7 @@ class Item < ActiveRecord::Base
                                                                           include: {
                                                                             map: { only: :name },
                                                                             placeable: {
-                                                                              only: :id,
+                                                                              only: %i[id host_type_name],
                                                                               include: {
                                                                                 ip_address: { only: %i[icmp_available ip_address] }
                                                                               }
@@ -38,7 +38,8 @@ class Item < ActiveRecord::Base
           items << { id: device.item.id,
                      name: device.item.name,
                      map: { name: device.item.map.name },
-                     placeable: { ip_address: { ip_address: ip_address.ip_address, icmp_available: ip_address.icmp_available } } }
+                     placeable: { host_type_name: device.host_type_name,
+                                  ip_address: { ip_address: ip_address.ip_address, icmp_available: ip_address.icmp_available } } }
         end
       end
       items
