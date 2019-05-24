@@ -73,7 +73,7 @@ $(document).ready(() => {
             event.currentTarget
           ).data("map-name")}&focus_item_id=${$(event.currentTarget).data(
             "item-id"
-          )}`;
+          )}&search_str=${data.search_str}`;
         });
       });
     }, 600);

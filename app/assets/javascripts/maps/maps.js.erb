@@ -141,9 +141,15 @@ let set_events = () => {
 let init = () => {
   $('[data-toggle="tooltip"]').tooltip();
   let url = new URLSearchParams(window.location.search);
+  let search_str = url.get("search_str");
+  if (search_str) {
+    $("#search").val(search_str);
+    $("#search_empty_button").show();
+  }
   whats_up = new WhatsUp("canvas");
   let map_name = $("#map_name").html();
   whats_up.load_map(map_name, url.get("focus_item_id"));
+  url.delete("search_str");
   url.delete("focus_item_id");
   if (url != "") {
     window.history.replaceState(null, "", `/maps?${url}`);
