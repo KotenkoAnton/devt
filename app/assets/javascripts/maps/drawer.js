@@ -155,11 +155,11 @@ class Drawer {
     this.item_paths[drawed_item_index] = _item;
   }
 
-  place_texts(focus_item_id = null) {
+  place_texts(focus_item_id = null, open = null) {
     for (let item of this.item_paths) {
       this.place_text(item);
     }
-    if (focus_item_id) {
+    if (focus_item_id && !open) {
       let focus_item = this.item_paths.find(item => {
         return item.id == focus_item_id;
       });

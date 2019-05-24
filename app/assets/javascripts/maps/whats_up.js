@@ -13,7 +13,7 @@ class WhatsUp {
     this.scale = 1;
   }
 
-  load_map(map_name, focus_item_id = null) {
+  load_map(map_name, focus_item_id = null, open = false) {
     this.map_name = map_name;
     this.api_communicator.fetch_map(map_name, data => {
       // set size of the map
@@ -29,13 +29,25 @@ class WhatsUp {
           this.drawer.place_items(data["items"]);
           this.drawer.draw_connections(data["connections"]);
           this.drawer.place_inscriptions(data["inscriptions"]);
-          this.drawer.place_texts(focus_item_id);
+          this.drawer.place_texts(focus_item_id, open);
           if (focus_item_id) {
             let item = data["items"].find(item => {
               return item.id == focus_item_id;
             });
             if (item) {
               focus_on_item({ x: item.position_x, y: item.position_y });
+              if (open) {
+                item.position = { x: item.position_x, y: item.position_y };
+                this.api_communicator.fetch_item_info(item.id, data => {
+                  data.id = item.id;
+                  this.mouse_event_handler.box_opened = true;
+                  this.dom_elements_handler.open_item_box(item, data, {
+                    layerX: item.position_x,
+                    layerY: item.position_y
+                  });
+                  this.dom_elements_handler.open_whole_info_box(data);
+                });
+              }
             }
           }
         });
