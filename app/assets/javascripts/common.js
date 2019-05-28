@@ -69,11 +69,12 @@ $(document).ready(() => {
         });
         $("#search_box").html(html);
         $(".search-row").click(event => {
+          const is_list = $("#list_view_button").hasClass("head-button-active");
           window.location.href = `${location.origin}/maps?map=${$(
             event.currentTarget
           ).data("map-name")}&focus_item_id=${$(event.currentTarget).data(
             "item-id"
-          )}&search_str=${data.search_str}`;
+          )}&search_str=${data.search_str}&list_view=${is_list}`;
         });
       });
     }, 600);

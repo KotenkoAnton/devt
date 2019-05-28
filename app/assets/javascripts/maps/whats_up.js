@@ -13,7 +13,7 @@ class WhatsUp {
     this.scale = 1;
   }
 
-  load_map(map_name, focus_item_id = null, open = false) {
+  load_map(map_name, focus_item_id = null, open = false, list_view = false) {
     this.map_name = map_name;
     this.api_communicator.fetch_map(map_name, data => {
       // set size of the map
@@ -30,7 +30,31 @@ class WhatsUp {
           this.drawer.draw_connections(data["connections"]);
           this.drawer.place_inscriptions(data["inscriptions"]);
           this.drawer.place_texts(focus_item_id, open);
-          if (focus_item_id) {
+          if (focus_item_id && list_view) {
+            this.open_list_view().then(() => {
+              const drawn_item_row = $(`[data-item-id=${focus_item_id}]`);
+              const blink = drawn_item_row => {
+                return new Promise(resolve => {
+                  $(drawn_item_row).css("color", "#ff8550");
+                  setTimeout(() => {
+                    $(drawn_item_row).css("color", "#676a6c");
+                    resolve("success");
+                  }, 1000);
+                });
+              };
+              $(document).scrollTop($(drawn_item_row).offset().top - 200);
+              blink(drawn_item_row).then(() => {
+                setTimeout(() => {
+                  blink(drawn_item_row).then(() => {
+                    setTimeout(() => {
+                      blink(drawn_item_row);
+                    }, 500);
+                  });
+                }, 500);
+              });
+            });
+          }
+          if (focus_item_id && !list_view) {
             let item = data["items"].find(item => {
               return item.id == focus_item_id;
             });
