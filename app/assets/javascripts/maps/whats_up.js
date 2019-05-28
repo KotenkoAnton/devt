@@ -70,7 +70,7 @@ class WhatsUp {
   }
 
   copy_to_clipboard(text) {
-    const text_input = $("<input></input>");
+    const text_input = $("<textarea></textarea>");
     text_input.val(text);
     $("#map_name").append(text_input);
     text_input.focus();

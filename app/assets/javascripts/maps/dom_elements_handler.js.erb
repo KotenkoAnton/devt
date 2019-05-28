@@ -205,6 +205,21 @@ class DomElementsHandler {
         );
       });
 
+    $("#whole_box_copy_info_button")
+      .unbind("click")
+      .click(() => {
+        let to_copy = "";
+        to_copy += `Имя: ${item.name}`;
+        to_copy += `\nIP: ${item.ip_address}`;
+        to_copy += `\nТип: ${item.host_type_name}`;
+        to_copy += `\nСтатус: ${item.status}`;
+        to_copy += `\nАдрес: ${item.address}`;
+        to_copy += `\nКонтакты: ${item.contacts}`;
+        to_copy += `\nОписание: ${item.description}`;
+        to_copy += `\nСсылка: ${location}&focus_item_id=${item.id}&open=true`;
+        this.whats_up.copy_to_clipboard(to_copy);
+      });
+
     $("#whole_box_delete_button")
       .unbind("click")
       .click(() => {
