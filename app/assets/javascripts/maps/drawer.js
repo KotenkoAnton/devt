@@ -160,15 +160,30 @@ class Drawer {
       this.place_text(item);
     }
     if (focus_item_id && !open) {
+      const blink = focus_item => {
+        return new Promise(resolve => {
+          focus_item.text.style.fillColor = "white";
+          focus_item.rect.style.fillColor = "#ff8550";
+          setTimeout(() => {
+            focus_item.text.style.fillColor = "black";
+            focus_item.rect.style.fillColor = "white";
+            resolve("success");
+          }, 1000);
+        });
+      };
+
       let focus_item = this.item_paths.find(item => {
         return item.id == focus_item_id;
       });
-      focus_item.text.style.fillColor = "white";
-      focus_item.rect.style.fillColor = "#ff8550";
-      setTimeout(() => {
-        focus_item.text.style.fillColor = "black";
-        focus_item.rect.style.fillColor = "white";
-      }, 2500);
+      blink(focus_item).then(() => {
+        setTimeout(() => {
+          blink(focus_item).then(() => {
+            setTimeout(() => {
+              blink(focus_item);
+            }, 500);
+          });
+        }, 500);
+      });
     }
   }
 
