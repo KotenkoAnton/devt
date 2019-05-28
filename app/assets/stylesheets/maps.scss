@@ -104,6 +104,12 @@ $head-height: 4vh;
       position: absolute;
       bottom: 54px;
       left: 20px;
+
+      a {
+        &:hover {
+          color: #484b48;
+        }
+      }
     }
 
     .info-label {
