@@ -212,7 +212,7 @@ class DomElementsHandler {
         to_copy += `Имя: ${item.name}`;
         to_copy += `\nIP: ${item.ip_address}`;
         to_copy += `\nТип: ${item.host_type_name}`;
-        to_copy += `\nСтатус: ${item.status}`;
+        to_copy += `\nСтатус: ${item.status ? 'Active' : 'Not active'}`;
         to_copy += `\nАдрес: ${item.address}`;
         to_copy += `\nКонтакты: ${item.contacts}`;
         to_copy += `\nОписание: ${item.description}`;
