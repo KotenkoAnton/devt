@@ -51,10 +51,10 @@ $(document).ready(() => {
             <div data-item-id="${item.id}" data-map-name=${
             item.map.name
           } class="search-row">
-              ${item.name.replace(
+              <span class='device-text'>${item.name.replace(
                 new RegExp(data.search_str, "ig"),
-                "<span>$&</span>"
-              )}
+                "<span class='found-substr'>$&</span>"
+              )}</span>
               <div class="host-type-name-icon-wrapper">
                 ${get_icon_for_action_box(item.placeable.host_type_name)}
               </div>

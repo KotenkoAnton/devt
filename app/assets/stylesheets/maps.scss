@@ -691,7 +691,11 @@ $head-height: 4vh;
   z-index: 2;
 
   .search-row {
-    span {
+    .device-text {
+      margin-left: 5px;
+    }
+
+    .found-substr {
       color: white;
       background-color: #54c995;
     }
@@ -711,12 +715,12 @@ $head-height: 4vh;
     }
 
     .host-type-name-icon-wrapper {
-      width: 28px;
-      height: 28px;
-      float: right;
+      width: 20px;
+      height: 20px;
+      float: left;
       svg {
-        width: 28px;
-        height: 28px;
+        width: 20px;
+        height: 20px;
         float: none;
         margin: 0;
       }
