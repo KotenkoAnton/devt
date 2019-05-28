@@ -164,7 +164,7 @@ class Drawer {
         return item.id == focus_item_id;
       });
       focus_item.text.style.fillColor = "white";
-      focus_item.rect.style.fillColor = "#54c995";
+      focus_item.rect.style.fillColor = "#ff8550";
       setTimeout(() => {
         focus_item.text.style.fillColor = "black";
         focus_item.rect.style.fillColor = "white";
