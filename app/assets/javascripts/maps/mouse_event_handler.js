@@ -63,6 +63,8 @@ class MouseEventHandler {
   }
 
   set_adding_object(adding_object) {
+    $("#action_box").remove();
+    this._set_cursor("crosshair");
     this.adding_object = adding_object;
   }
 
@@ -530,7 +532,6 @@ class MouseEventHandler {
         point = new paper.Point(event_point.x, this.moving_target.bounds.y);
       }
       this.whats_up.drawer.delete_rectangle(this.moving_target._id);
-      console.log(this.moving_target);
       let rect = this.whats_up.drawer.draw_rectangle(
         point,
         size,
@@ -767,6 +768,7 @@ class MouseEventHandler {
 
     let add_object = event => {
       this.switch_clickable_mode_to("main_usage");
+      this.switch_to("draggable");
       let reverse_scale = 1 + (1 - paper.project.view.scaling.x);
       this.adding_object.position_x =
         event.event.layerX * reverse_scale +

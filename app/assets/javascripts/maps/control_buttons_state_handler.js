@@ -103,6 +103,7 @@ class ControlButtonsStateHandler {
         this.whats_up.mouse_event_handler.switch_clickable_mode_to(
           "main_usage"
         );
+        this.whats_up.mouse_event_handler.set_adding_object(null);
         this.set_all_buttons_to_neutral();
       }
     });
