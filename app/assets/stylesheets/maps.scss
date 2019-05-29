@@ -91,6 +91,13 @@ $head-height: 4vh;
       overflow-wrap: break-word;
     }
 
+    .logs-wrapper {
+      overflow: hidden;
+
+      box-shadow: 0px 1px 0px 1px rgba(0, 0, 0, 0.01),
+        1px 1px 1px 1px rgba(0, 0, 0, 0.01);
+    }
+
     .info-box-delimiter {
       margin-top: 5px;
     }
