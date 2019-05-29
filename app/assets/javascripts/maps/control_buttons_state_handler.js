@@ -183,7 +183,7 @@ class ControlButtonsStateHandler {
         this.whats_up.mouse_event_handler.switch_to("clickable");
         this.whats_up.mouse_event_handler.switch_clickable_mode_to("ruler");
         this._activate_button("ruler_button");
-        $("body").css({ cursor: "pointer" });
+        $("body").css({ cursor: "crosshair" });
       }
     });
 
@@ -213,7 +213,7 @@ class ControlButtonsStateHandler {
         this.whats_up.mouse_event_handler.switch_to("clickable");
         this.whats_up.mouse_event_handler.switch_clickable_mode_to("deleting");
 
-        $("body").css({ cursor: "pointer" });
+        $("body").css({ cursor: "crosshair" });
       }
     });
   }
