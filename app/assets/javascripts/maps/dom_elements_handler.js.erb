@@ -21,8 +21,21 @@ class DomElementsHandler {
       "checked",
       item.monitored ? true : false
     );
+    this._whole_info_select_first_tab();
 
     this._set_whole_info_box_events(item);
+  }
+
+  _whole_info_select_first_tab() {
+    $("#rightside_bar_tab_1").show();
+    $("#rightside_bar_tab_2").hide();
+    $("#rightside_bar_tab_3").hide();
+    $("#rightside_bar_tab_4").hide();
+    $("#rightside_bar_info_button").addClass("active");
+    $("#rightside_bar_logs_button").removeClass("active");
+    $("#whole_info_logs_wrapper").html("");
+    $("#rightside_bar_tasks_button").removeClass("active");
+    $("#rightside_bar_photos_button").removeClass("active");
   }
 
   _set_whole_info_box_events(item) {
@@ -114,6 +127,7 @@ class DomElementsHandler {
     const set_whole_info_to_default = () => {
       $("#sidebar_title").removeClass("sidebar-title-editing");
       $("#whole_info_monitored_text").show();
+      this._whole_info_select_first_tab();
       $("#whole_info_monitored_checkbox").hide();
       $("#whole_info_device_type").show();
       $("#device_type_input").hide();
