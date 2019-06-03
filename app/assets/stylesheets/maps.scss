@@ -551,9 +551,56 @@ $head-height: 4vh;
   padding-bottom: 50px;
   color: black;
 
+  .logs-wrapper {
+    margin-top: 20px;
+    margin-left: 20px;
+    max-height: 63vh;
+    overflow-y: scroll;
+    .log-row {
+      color: $theme-color;
+      font-size: 14px;
+    }
+  }
+
   .sidebar-title {
     label {
       display: none;
+    }
+  }
+
+  table {
+    thead {
+      color: #676a6c;
+    }
+  }
+
+  .inside-tabs {
+    .custom-tab {
+      width: 25%;
+      a {
+        background: white !important;
+        background-color: white !important;
+        border: 0 !important;
+        color: #a7b1c2 !important;
+        border-bottom: 1px solid #eeeeee !important;
+
+        i {
+          font-size: 15px;
+        }
+      }
+
+      &:hover {
+        a {
+          color: #676a6c !important;
+        }
+      }
+    }
+
+    .active {
+      a {
+        color: #676a6c !important;
+        border-bottom: 2px solid #a7b1c2 !important;
+      }
     }
   }
 

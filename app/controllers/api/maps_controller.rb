@@ -66,6 +66,16 @@ module Api
       render json: { items: all }
     end
 
+    def fetch_item_logs
+      item = Item.find(params[:item_id])
+      ip_address = item.placeable.ip_address
+      logs = IpLog.where(ip_address: ip_address).order(created_at: :desc).map do |log|
+        { status: log[:status], created_at: log[:created_at].strftime("%d/%m/%y %H:%M:%S") }
+      end
+
+      render json: { logs: logs }
+    end
+
     # rubocop:disable all
     # complex method, it is not worth stylizing under rubokop
 

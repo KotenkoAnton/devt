@@ -23,6 +23,14 @@ class ApiCommunicator {
     });
   }
 
+  fetch_item_logs(item_id, success = null) {
+    $.get({
+      url: `${location.origin}/api/maps/fetch_item_logs`,
+      data: { item_id },
+      success: success
+    });
+  }
+
   delete_zone_item(item_id, success = null) {
     $.post({
       url: `${location.origin}/api/maps/delete_zone_item`,

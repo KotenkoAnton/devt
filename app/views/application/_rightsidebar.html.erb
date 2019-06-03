@@ -14,44 +14,84 @@
           <div id="whole_info_device_type" class="whole-info-device-type"></div>
         </div>
 
-        <div class="popup-window-body">
-          <div class="whole-info-content-wrapper">
-            <label>Адрес:</label>
-            <div id="whole_info_address"></div>
-            <hr>
-            <label>Описание:</label>
-            <div id="whole_info_description"></div>
-            <hr>
-            <label>Контакты:</label>
-            <div id="whole_info_contacts"></div>
-            <hr>
-            <div id="device_type_wrapper">
-              <select id="device_type_input" class="form-control device-type-input">
-                <option>Radio</option>
-                <option>Switch</option>
-                <option>Workstation</option>
-                <option>Server</option>
-                <option>Subnet</option>
-                <option>Printer</option>
-                <option>Camera</option>
-                <option>L3</option>
-                <option>Router</option>
-                <option>Scanner</option>
-                <option>Fax</option>
-                <option>Ups</option>
-                <option>Converter</option>
-              </select>
-            </div>
-            <hr>
-            <div>
-              <label>Мониторинг:</label>
-              <div class="checkbox-input-wrapper">
-                <input type="checkbox" autocomplete="off" id="whole_info_monitored_checkbox" class="whole-info-monitored-checkbox"></input>
-                <label id="whole_info_monitored_text"></label>
+        <div class="tabs-container inside-tabs">
+          <ul class="nav nav-tabs">
+            <li class="custom-tab active" data-toggle="tooltip" data-placement="bottom" title="Информация">
+              <a id="rightside_bar_tab_link" data-toggle="tab" data-href="tab_1">
+                <i class="fa fa-info"></i>
+              </a>
+            </li>
+            <li id="rightside_bar_logs_button" class="custom-tab" data-toggle="tooltip" data-placement="bottom" title="Логи">
+              <a id="rightside_bar_tab_link" data-toggle="tab" data-href="tab_2">
+                <i class="fa fa-file-text"></i>
+              </a>
+            </li>
+            <li class="custom-tab" data-toggle="tooltip" data-placement="bottom" title="Задачи">
+              <a id="rightside_bar_tab_link" data-toggle="tab" data-href="tab_3">
+                <i class="fa fa-tasks"></i>
+              </a>
+            </li>
+            <li class="custom-tab" data-toggle="tooltip" data-placement="bottom" title="Фото">
+              <a id="rightside_bar_tab_link" data-toggle="tab" data-href="tab_4">
+                <i class="fa fa-camera"></i>
+              </a>
+            </li>
+          </ul>
+          <div class="popup-window-body">
+            <div id="rightside_bar_tab_1" class="tab-pane">
+              <div class="whole-info-content-wrapper">
+                <label>Адрес:</label>
+                <div id="whole_info_address"></div>
+                <hr>
+                <label>Описание:</label>
+                <div id="whole_info_description"></div>
+                <hr>
+                <label>Контакты:</label>
+                <div id="whole_info_contacts"></div>
+                <hr>
+                <div id="device_type_wrapper">
+                  <select id="device_type_input" class="form-control device-type-input">
+                    <option>Radio</option>
+                    <option>Switch</option>
+                    <option>Workstation</option>
+                    <option>Server</option>
+                    <option>Subnet</option>
+                    <option>Printer</option>
+                    <option>Camera</option>
+                    <option>L3</option>
+                    <option>Router</option>
+                    <option>Scanner</option>
+                    <option>Fax</option>
+                    <option>Ups</option>
+                    <option>Converter</option>
+                  </select>
+                </div>
+                <hr>
+                <div>
+                  <label>Мониторинг:</label>
+                  <div class="checkbox-input-wrapper">
+                    <input type="checkbox" autocomplete="off" id="whole_info_monitored_checkbox" class="whole-info-monitored-checkbox"></input>
+                    <label id="whole_info_monitored_text"></label>
+                  </div>
+                </div>
               </div>
+            </div>
+            <div id="rightside_bar_tab_2" class="tab-pane">
+              <div id="whole_info_logs_wrapper" class="logs-wrapper">
+
+              </div>
+            </div>
+            <div id="rightside_bar_tab_3" class="tab-pane">
+              <!-- Tasks content -->
+            </div>
+            <div id="rightside_bar_tab_4" class="tab-pane">
+              <!-- Photo content -->
             </div>
           </div>
         </div>
+
+
+
 
         <div class="whole-info-buttons-wrapper">
           <div id="close_whole_info_button_bottom" class="close-whole-info-button-bottom">

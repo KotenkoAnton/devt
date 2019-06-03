@@ -26,6 +26,22 @@ class DomElementsHandler {
   }
 
   _set_whole_info_box_events(item) {
+    $("#rightside_bar_logs_button")
+      .unbind("click")
+      .click(() => {
+        this.whats_up.api_communicator.fetch_item_logs(item.id, data => {
+          let logs = "";
+          data.logs.forEach(log => {
+            let log_row = `<div class="log-row">${log.created_at} ${
+              log.status
+            }</div>`;
+            logs += log_row;
+          });
+
+          $("#whole_info_logs_wrapper").html(logs);
+        });
+      });
+
     $("#whole_info_monitored_checkbox")
       .unbind("click")
       .click(e => {
@@ -212,7 +228,7 @@ class DomElementsHandler {
         to_copy += `Имя: ${item.name}`;
         to_copy += `\nIP: ${item.ip_address}`;
         to_copy += `\nТип: ${item.host_type_name}`;
-        to_copy += `\nСтатус: ${item.status ? 'Active' : 'Not active'}`;
+        to_copy += `\nСтатус: ${item.status ? "Active" : "Not active"}`;
         to_copy += `\nАдрес: ${item.address}`;
         to_copy += `\nКонтакты: ${item.contacts}`;
         to_copy += `\nОписание: ${item.description}`;

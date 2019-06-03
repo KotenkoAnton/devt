@@ -37,6 +37,7 @@ Rails.application.routes.draw do
         get :check_connection_existence
         get :find_items
         get :fetch_items_for_list_view
+        get :fetch_item_logs
         post :change_device_host_type_by_item_id
         post :set_monitoring
         post :add_new_inscription

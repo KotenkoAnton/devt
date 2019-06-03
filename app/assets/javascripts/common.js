@@ -80,9 +80,26 @@ $(document).ready(() => {
     }, 600);
   };
 
+  // rightside bar
+
+  $("#rightside_bar_tab_2").hide();
+  $("#rightside_bar_tab_3").hide();
+  $("#rightside_bar_tab_4").hide();
+
   window.onclick = event => {
     if (!$(event.target).closest(".search-box,.search-row").length) {
       $("#search_box").css("display", "none");
     }
   };
+
+  $("[id=rightside_bar_tab_link]").click(e => {
+    const target = e.currentTarget;
+    $("#rightside_bar_tab_1").hide();
+    $("#rightside_bar_tab_2").hide();
+    $("#rightside_bar_tab_3").hide();
+    $("#rightside_bar_tab_4").hide();
+    $(`#rightside_bar_${$(target).data("href")}`).show();
+  });
+
+  //
 });
