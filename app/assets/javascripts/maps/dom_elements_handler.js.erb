@@ -9,6 +9,7 @@ class DomElementsHandler {
 
   open_whole_info_box(item) {
     $("#whole_info_monitored_text").html(item.monitored ? "Да" : "Нет");
+    $("#whole_info_host_name").html(item.host_name);
     $("#device_type_input").val(item.host_type_name);
     $("#whole_info_device_type").html(item.host_type_name);
     $("#right-sidebar").addClass("sidebar-open");
@@ -104,15 +105,18 @@ class DomElementsHandler {
         $("#whole_info_device_type").hide();
         $("#device_type_input").show();
         $("#close_whole_info_button_top").hide();
-        ["whole_info_name", "whole_info_ip", "whole_info_address"].forEach(
-          field => {
-            $(`#${field}`).css("display", "none");
-            $(`#${field}`).after(
-              `<input type="text" id="${field}_input" class="form-control"></input>`
-            );
-            $(`#${field}_input`).val($(`#${field}`).text());
-          }
-        );
+        [
+          "whole_info_name",
+          "whole_info_ip",
+          "whole_info_address",
+          "whole_info_host_name"
+        ].forEach(field => {
+          $(`#${field}`).css("display", "none");
+          $(`#${field}`).after(
+            `<input type="text" id="${field}_input" class="form-control"></input>`
+          );
+          $(`#${field}_input`).val($(`#${field}`).text());
+        });
 
         ["whole_info_description", "whole_info_contacts"].forEach(field => {
           $(`#${field}`).attr("contenteditable", "true");
@@ -132,13 +136,16 @@ class DomElementsHandler {
       $("#whole_info_device_type").show();
       $("#device_type_input").hide();
       $("#close_whole_info_button_top").show();
-      ["whole_info_name", "whole_info_ip", "whole_info_address"].forEach(
-        field => {
-          $(`#${field}`).css("display", "block");
-          $(`#${field}`).text($(`#${field}_input`).val());
-          $(`#${field}_input`).remove();
-        }
-      );
+      [
+        "whole_info_name",
+        "whole_info_ip",
+        "whole_info_address",
+        "whole_info_host_name"
+      ].forEach(field => {
+        $(`#${field}`).css("display", "block");
+        $(`#${field}`).text($(`#${field}_input`).val());
+        $(`#${field}_input`).remove();
+      });
 
       ["whole_info_description", "whole_info_contacts"].forEach(field => {
         $(`#${field}`).attr("contenteditable", "false");
@@ -184,6 +191,7 @@ class DomElementsHandler {
             description: $("#whole_info_description").html(),
             address: $("#whole_info_address_input").val(),
             contacts: $("#whole_info_contacts").html(),
+            host_name: $("#whole_info_host_name_input").val(),
             ip_address: $("#whole_info_ip_input")
               .val()
               .trim(),
@@ -228,6 +236,9 @@ class DomElementsHandler {
 
             // change ip in the info box
             $("#info_box_ip_address").html($("#whole_info_ip").html());
+
+            // change host name in the info box
+            $("#info_box_host_name").html($("#whole_info_host_name").html());
 
             // change name in the info box
             $("#info_box_name").html($("#whole_info_name").html());
@@ -304,7 +315,9 @@ class DomElementsHandler {
         <hr class='info-box-delimiter'>
         <div class="info-row">
           <div class='info-label'>Hostname:</div>
-          <div class='info-text'>${item_data.host_name}</div>
+          <div class='info-text' id="info_box_host_name">${
+            item_data.host_name
+          }</div>
         </div>
         <div class="info-row">
           <div class='info-label'>Address:</div>

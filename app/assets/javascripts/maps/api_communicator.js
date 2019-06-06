@@ -189,6 +189,7 @@ class ApiCommunicator {
         description: info.description,
         address: info.address,
         contacts: info.contacts,
+        host_name: info.host_name,
         ip_address: info.ip_address,
         name: info.name
       },

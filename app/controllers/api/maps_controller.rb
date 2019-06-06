@@ -280,6 +280,7 @@ module Api
     def update_device_info
       item = Item.find(params[:item_id])
       device = item.placeable
+      device[:host_name] = params[:host_name]
       device[:description] = params[:description]
       device[:address] = params[:address]
       device[:contacts] = params[:contacts]
