@@ -240,6 +240,7 @@ module Api
         object.position_y = obj["position"]["y"]
         object.save
       end
+      MapCorrector.correct_on_map(Map.find_by(name: params[:map_name]))
     end
 
     def map_name_by_item_id

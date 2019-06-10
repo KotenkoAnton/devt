@@ -138,10 +138,10 @@ class ApiCommunicator {
     });
   }
 
-  mass_update_position(objects) {
+  mass_update_position(objects, map_name) {
     $.post({
       url: `${location.origin}/api/maps/mass_update_position`,
-      data: { json_objects: JSON.stringify(objects) }
+      data: { json_objects: JSON.stringify(objects), map_name }
     });
   }
 

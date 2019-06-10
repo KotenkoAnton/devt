@@ -409,7 +409,10 @@ class MouseEventHandler {
 
           objects_to_update.push({ id: child._id, type: type, position });
         });
-        this.whats_up.api_communicator.mass_update_position(objects_to_update);
+        this.whats_up.api_communicator.mass_update_position(
+          objects_to_update,
+          this.whats_up.map_name
+        );
         this.selection_rectangle.path.remove();
         this.selection_rectangle = {};
       }
