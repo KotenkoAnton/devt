@@ -1,0 +1,22 @@
+<div class="ibox-content">
+  <div class="map-list-wrapper">
+    <table class="table table-bordered table-striped">
+      <thead>
+        <tr>
+          <th>Имя карты</th>
+          <th>Количество down</th>
+          <th>Количество up</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @maps.each do |map| %>
+          <tr>
+            <td><span id="map_list_link_button" class="link-span"><%= map[:name] %></span></td>
+            <td><%= map[:availability_count][:available_count] %></td>
+            <td><%= map[:availability_count][:not_available_count] %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>

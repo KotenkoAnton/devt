@@ -6,6 +6,8 @@ Rails.application.routes.draw do
     end
   end
 
+  resources :map_list, only: :index
+
   resources :custom_settings do
     collection do
       post :change

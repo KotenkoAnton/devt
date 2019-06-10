@@ -1,0 +1,11 @@
+.map-list-wrapper {
+  .link-span {
+    text-decoration: underline;
+    margin-right: 10px;
+
+    &:hover {
+      cursor: pointer;
+      color: #484b48;
+    }
+  }
+}

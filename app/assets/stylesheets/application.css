@@ -13,6 +13,7 @@
  *= require ip_logs.scss
  *= require maps.scss
  *= require extended_search.scss
+ *= require map_list.scss
  *= require style
  *= require font-awesome
  *= require jasny/jasny-bootstrap.min.css
