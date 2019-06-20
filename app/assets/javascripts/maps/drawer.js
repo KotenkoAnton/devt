@@ -302,6 +302,23 @@ class Drawer {
     });
   }
 
+  remove_connection(connection_id) {
+    const connection_path_index = this.connection_paths.findIndex(
+      connection_path => connection_path._id == connection_id
+    );
+    this.connection_paths[connection_path_index].remove();
+    this.connection_paths.splice(connection_path_index, 1);
+    const connection_index = this.connections.findIndex(
+      connection => connection.id == connection_id
+    );
+    this.connections.splice(connection_index, 1);
+  }
+
+  add_new_connection(connection) {
+    this.connections.push(connection);
+    this._draw_connection(connection);
+  }
+
   _draw_connection(connection) {
     let first_object_type = connection.first_object_type;
     let second_object_type = connection.second_object_type;

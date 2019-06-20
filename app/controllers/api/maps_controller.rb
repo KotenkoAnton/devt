@@ -257,6 +257,10 @@ module Api
       connection.second_object = second_object
       connection.map = map
       connection.save
+      render json: { map_id: map.id,
+                     first_object_id: first_object.id, first_object_type: params[:first_object][:type],
+                     second_object_id: second_object.id, second_object_type: params[:second_object][:type],
+                     id: connection.id }
     end
 
     def check_connection_existence
@@ -268,6 +272,7 @@ module Api
     def delete_connection
       connection = Connection.find_by_objects(params[:map_name], params[:first_object], params[:second_object])
       connection.destroy
+      render json: { connection_id: connection.id }
     end
 
     def delete_inscription

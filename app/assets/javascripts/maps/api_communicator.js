@@ -217,9 +217,9 @@ class ApiCommunicator {
         second_object: {
           type: second_object._type == "shape" ? "Shape" : "Item",
           id: second_object._id
-        },
-        success: success
-      }
+        }
+      },
+      success: success
     });
   }
 
@@ -253,9 +253,9 @@ class ApiCommunicator {
         second_object: {
           type: second_object._type == "shape" ? "Shape" : "Item",
           id: second_object._id
-        },
-        success: success
-      }
+        }
+      },
+      success: success
     });
   }
 

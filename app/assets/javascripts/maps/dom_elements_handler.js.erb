@@ -513,8 +513,9 @@ class DomElementsHandler {
             this.whats_up.map_name,
             items.first_item,
             items.second_item,
-            () => {
-              document.location.reload();
+            connection => {
+              this.whats_up.drawer.add_new_connection(connection);
+              this.close_action_box();
             }
           );
         });
@@ -526,8 +527,9 @@ class DomElementsHandler {
             this.whats_up.map_name,
             items.first_item,
             items.second_item,
-            () => {
-              document.location.reload();
+            data => {
+              this.whats_up.drawer.remove_connection(data.connection_id);
+              this.close_action_box();
             }
           );
         });
@@ -768,11 +770,16 @@ class DomElementsHandler {
 
     $("#canvas").after(action_box_html);
     $("#action_box_close_button").click(() => {
-      this.whats_up.mouse_event_handler.switch_to("draggable");
-      this.whats_up.mouse_event_handler.set_adding_object(null);
-      $("#action_box").remove();
+      this.close_action_box();
     });
     this._set_action_box_events(content_type, items);
+  }
+
+  close_action_box() {
+    this.whats_up.mouse_event_handler.switch_to("draggable");
+    this.whats_up.mouse_event_handler.set_adding_object(null);
+    $("body").css({ cursor: "default" });
+    $("#action_box").remove();
   }
 
   //
