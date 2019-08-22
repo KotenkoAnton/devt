@@ -30,23 +30,42 @@ module MapCorrector
     end
 
     def move_by(shift, map)
-      Item.where(map: map).each do |item|
+      items = Item.where(map: map)
+      items.each do |item|
         item.position_x += shift[:x]
         item.position_y += shift[:y]
-        item.save
       end
+      one_query_position_update(Item, items)
 
-      Shape.where(map: map).each do |shape|
+      shapes = Shape.where(map: map)
+      shapes.each do |shape|
         shape.position_x += shift[:x]
         shape.position_y += shift[:y]
-        shape.save
       end
+      one_query_position_update(Shape, shapes)
 
-      Inscription.where(map: map).each do |inscription|
+      inscriptions = Inscription.where(map: map)
+      inscriptions.each do |inscription|
         inscription.position_x += shift[:x]
         inscription.position_y += shift[:y]
-        inscription.save
       end
+      one_query_position_update(Inscription, inscriptions)
+    end
+
+    def one_query_position_update(model, records)
+      return if records.empty?
+
+      query =
+        """
+        update #{model.table_name} as record set
+          position_x = new_data.position_x,
+          position_y = new_data.position_y
+        from (values
+          #{records.map { |r| "(#{r.id}, #{r.position_x}, #{r.position_y})" }.join(',')}
+        ) as new_data(id, position_x, position_y)
+        where record.id = new_data.id;
+        """
+      ActiveRecord::Base.connection.execute(query)
     end
   end
 end
