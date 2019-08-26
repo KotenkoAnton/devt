@@ -176,7 +176,7 @@ module Api
           Shape.find(object_info[:id]).destroy if object_info[:type] == "shape"
         end
       end
-
+      MapCorrector.correct_on_map(map)
       render json: { items: devices_json + maps_json,
                      shapes: shapes.as_json(except: %i[created_at updated_at]),
                      connections: connections.as_json(except: %i[created_at updated_at]) }

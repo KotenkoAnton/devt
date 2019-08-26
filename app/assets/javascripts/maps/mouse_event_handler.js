@@ -102,6 +102,13 @@ class MouseEventHandler {
             max_y + 100 + selection_rectangle.height
           );
 
+          let canvas = $("#canvas");
+          canvas[0].height = canvas.height() + selection_rectangle.height;
+          canvas.height(canvas.height() + selection_rectangle.height);
+          paper.view.setViewSize(
+            new paper.Size(canvas.width(), canvas.height())
+          );
+
           selection_rectangle.children.forEach(child => {
             child.position_x = Math.floor(start_point.x + child.offset.x);
             child.position_y = Math.floor(start_point.y + child.offset.y);
