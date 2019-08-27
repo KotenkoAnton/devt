@@ -51,6 +51,7 @@ Rails.application.routes.draw do
         post :add_map_item
         post :delete_connections_by_item_id
         post :delete_device_by_item_id
+        post :delete_devices_by_item_ids
         post :add_device_and_item
         post :update_device_info
         post :mass_update_position

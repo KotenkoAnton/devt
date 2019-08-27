@@ -375,16 +375,31 @@ class DomElementsHandler {
     $("#info_box").remove();
   }
 
-  open_confirm_deleting_box(item) {
+  open_confirm_deleting_box(data, one_item = true) {
     $("#confirm_deleting_box").css("display", "block");
-    $("#confirm_box_device_name").html(`${item.name} (${item.ip_address})`);
-    $("#confirm_box_delete_button")
-      .unbind("click")
-      .click(() => {
-        this.whats_up.api_communicator.delete_device_by_item_id(item.id, () => {
-          location.reload();
+    if (one_item) {
+      $("#confirm_box_message_text").html("Удаление объекта");
+      $("#confirm_box_before_name_message").html("Удалить объект ");
+      $("#confirm_box_device_name").html(`${data.name} (${data.ip_address})?`);
+      $("#confirm_box_delete_button")
+        .unbind("click")
+        .click(() => {
+          this.whats_up.api_communicator.delete_device_by_item_id(data.id, () => {
+            location.reload();
+          });
         });
-      });
+    } else {
+      $("#confirm_box_message_text").html("Удаление объектов");
+      $("#confirm_box_before_name_message").html("Удалить все ");
+      $("#confirm_box_device_name").html("выделенные объекты");
+      $("#confirm_box_delete_button")
+        .unbind("click")
+        .click(() => {
+          this.whats_up.api_communicator.delete_devices_by_item_ids(data.ids, () => {
+            location.reload();
+          });
+        });
+    }
   }
 
   _set_item_box_events(item_data) {

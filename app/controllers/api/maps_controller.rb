@@ -352,6 +352,11 @@ module Api
       item.placeable.destroy
     end
 
+    def delete_devices_by_item_ids
+      items = Item.includes(:placeable).where(id: params[:item_ids])
+      items.each { |item| item.placeable.destroy }
+    end
+
     def delete_connections_by_item_id
       item = Item.find(params[:item_id])
       item.delete_connections

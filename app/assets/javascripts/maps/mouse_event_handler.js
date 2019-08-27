@@ -51,6 +51,15 @@ class MouseEventHandler {
     this.ruler_first_item = undefined;
     this.ruler_second_item = undefined;
     this.clickable_mode = mode;
+
+    if (
+      mode == "deleting" &&
+      Object.entries(this.selection_rectangle).length != 0 // is selection rectangle is not empty
+    ) {
+      console.log("start deleting");
+      // debugger;
+    }
+
     if (mode == "adding_object") {
       this._set_cursor("pointer");
     } else {
@@ -716,6 +725,23 @@ class MouseEventHandler {
 
     let delete_object = event => {
       let item = target_item(event.point);
+
+      if (this.selection_rectangle.path) {
+        const rectangle_bounds = this.selection_rectangle.path.bounds;
+        if (
+          rectangle_bounds.x < event.point.x &&
+          rectangle_bounds.x + rectangle_bounds.width > event.point.x &&
+          rectangle_bounds.y < event.point.y &&
+          rectangle_bounds.y + rectangle_bounds.height > event.point.y
+        ) {
+          this.whats_up.dom_elements_handler.open_confirm_deleting_box(
+            { ids: this.selection_rectangle.children.map(item => item._id) },
+            false
+          );
+          return;
+        }
+      }
+
       if (!item) {
         return;
       }

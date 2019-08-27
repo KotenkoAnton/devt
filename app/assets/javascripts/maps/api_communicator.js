@@ -277,6 +277,16 @@ class ApiCommunicator {
     });
   }
 
+  delete_devices_by_item_ids(item_ids, success = null) {
+    $.post({
+      url: `${location.origin}/api/maps/delete_devices_by_item_ids`,
+      data: {
+        item_ids: item_ids
+      },
+      success: success
+    });
+  }
+
   delete_connections_by_item_id(item_id, success = null) {
     $.post({
       url: `${location.origin}/api/maps/delete_connections_by_item_id`,
