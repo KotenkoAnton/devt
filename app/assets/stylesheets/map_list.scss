@@ -1,4 +1,13 @@
 .map-list-wrapper {
+  .delete-map-icon {
+    font-size: 18px;
+    color: #ff1f47;
+
+    &:hover {
+      color: #da1337;
+      cursor: pointer;
+    }
+  }
   .link-span {
     text-decoration: underline;
     margin-right: 10px;

@@ -6,6 +6,7 @@
           <th>Имя карты</th>
           <th>Количество down</th>
           <th>Количество up</th>
+          <th></th>
         </tr>
       </thead>
       <tbody>
@@ -14,9 +15,23 @@
             <td><span id="map_list_link_button" class="link-span"><%= map[:name] %></span></td>
             <td><%= map[:availability_count][:available_count] %></td>
             <td><%= map[:availability_count][:not_available_count] %></td>
+            <td><div class="text-center"><i class="fa fa-trash delete-map-icon" data-map-id="<%= map[:id] %>" data-toggle="tooltip" data-placement="bottom" title="Удалить карту" /></div></td>
           </tr>
         <% end %>
       </tbody>
     </table>
+  </div>
+
+  <div class="modal fade" id="unsuccessDelete" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-body">
+          Для удаления карты необходимо, чтобы на ней не было приборов или зон. Удалите их.
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>
+        </div>
+      </div>
+    </div>
   </div>
 </div>

@@ -1,5 +1,13 @@
 module Api
   class MapsController < ApplicationController
+    def delete_map
+      map = Map.find(params[:map_id])
+      return render json: { deleted: false } unless map.items.count.zero?
+
+      map.destroy
+      render json: { deleted: true }
+    end
+
     def find_items
       items_by_name = Item.search_by_name(params[:search_str])
       items_by_ip = Item.search_by_ip(params[:search_str])
